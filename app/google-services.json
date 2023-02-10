@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "853377652230",
+    "project_id": "learn-x-coffee",
+    "storage_bucket": "learn-x-coffee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853377652230:android:865e04a74159c818001587",
+        "android_client_info": {
+          "package_name": "com.RageRacoon.learm_x_coffee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853377652230-agvn915ggdpvp4f4devs393ss16ap7n7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4QjFFiU1kjweE0DV9Lf_bT5yEnqdxnKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853377652230-agvn915ggdpvp4f4devs393ss16ap7n7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
