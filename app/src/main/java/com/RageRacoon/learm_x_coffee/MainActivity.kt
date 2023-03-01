@@ -19,23 +19,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             LearmxCoffeeTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
+                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background)
+                {
                     AppNavegation()
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    LearmxCoffeeTheme {
-        Greeting("Android")
     }
 }

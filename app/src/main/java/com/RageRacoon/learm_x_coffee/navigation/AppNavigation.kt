@@ -11,7 +11,7 @@ import com.RageRacoon.learm_x_coffee.SplashScreen
 fun AppNavegation(){
     val navController = rememberNavController()
     NavHost(navController = navController,
-        startDestination =AppScreen.SplashScreen.rutaPantalla)
+        startDestination = AppScreen.SplashScreen.rutaPantalla)
     {
         composable(AppScreen.SplashScreen.rutaPantalla){
             SplashScreen(navController)

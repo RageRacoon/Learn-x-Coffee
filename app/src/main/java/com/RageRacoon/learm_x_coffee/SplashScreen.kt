@@ -1,6 +1,5 @@
 package com.RageRacoon.learm_x_coffee
 
-import android.window.SplashScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,10 +24,12 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(navController:NavHostController) {
     LaunchedEffect(key1 = true){
-        delay(5000)
+        delay(3000)
         navController.popBackStack()
         navController.navigate(AppScreen.MainScreen.rutaPantalla)
     }
+
+
     Splash()
 }
 
