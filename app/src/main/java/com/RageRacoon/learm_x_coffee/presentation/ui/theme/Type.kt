@@ -1,4 +1,4 @@
-package com.RageRacoon.learm_x_coffee.ui.theme
+package com.RageRacoon.learm_x_coffee.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,4 +1,4 @@
-package com.RageRacoon.learm_x_coffee.presentation.screens
+package com.RageRacoon.learm_x_coffee.presentation.navegation
 
 sealed class AppScreen (val rutaPantalla:String) {
     object SplashScreen: AppScreen("splash_screen")

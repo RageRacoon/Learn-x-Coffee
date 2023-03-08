@@ -74,5 +74,5 @@ fun LogInForm(){
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LogInScreenPrePreview(){
-    LogInForm()
+    LogInScreen()
 }

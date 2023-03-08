@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.RageRacoon.learm_x_coffee.presentation.screens.AppScreen
 import com.RageRacoon.learm_x_coffee.LogInScreen
+import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.SplashScreen
 
 @Composable
@@ -17,7 +17,7 @@ fun AppNavegation(){
         composable(AppScreen.SplashScreen.rutaPantalla){
             SplashScreen(navController)
         }
-        composable(AppScreen.MainScreen.rutaPantalla){
+        composable(AppScreen.LogInScreen.rutaPantalla){
             LogInScreen()
         }
 
