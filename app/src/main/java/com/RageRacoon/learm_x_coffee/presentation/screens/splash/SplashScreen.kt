@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.RageRacoon.learm_x_coffee.navigation.AppScreen
+import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import kotlinx.coroutines.delay
 
 @Composable

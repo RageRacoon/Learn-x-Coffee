@@ -10,8 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.RageRacoon.learm_x_coffee.navigation.AppNavegation
-import com.RageRacoon.learm_x_coffee.ui.theme.LearmxCoffeeTheme
+import com.RageRacoon.learm_x_coffee.presentation.navigation.AppNavegation
+import com.RageRacoon.learm_x_coffee.presentation.ui.theme.LearmxCoffeeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-<<<<<<< HEAD
 }
 
 @Composable
@@ -40,6 +39,4 @@ fun DefaultPreview() {
     LearmxCoffeeTheme {
         Greeting("Android")
     }
-=======
->>>>>>> 2-0001-splash-sreen
 }
