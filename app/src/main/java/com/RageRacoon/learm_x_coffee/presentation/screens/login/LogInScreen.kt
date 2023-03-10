@@ -20,7 +20,7 @@ import org.checkerframework.common.subtyping.qual.Bottom
 fun LogInScreen(){
     LogInForm()
 }
-/*Comentario de prueba*/
+
 @Composable
 fun LogInForm(){
     Column(
