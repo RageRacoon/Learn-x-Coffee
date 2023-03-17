@@ -15,7 +15,7 @@ import com.RageRacoon.learm_x_coffee.R
 
 
 @Composable
-fun LogInContent(paddingValues: PaddingValues){
+fun LogInContent (paddingValues: PaddingValues){
     var texto by remember { mutableStateOf(TextFieldValue("")) }
     Column(
         modifier = Modifier

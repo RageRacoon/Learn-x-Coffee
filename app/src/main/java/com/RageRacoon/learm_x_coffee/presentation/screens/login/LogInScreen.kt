@@ -17,7 +17,7 @@ fun LogInScreen() {
    Scaffold(
        topBar = {},
        content = {
-           LogInContent(it)
+           LogInContent (it)
        },
        bottomBar = {}
    )
