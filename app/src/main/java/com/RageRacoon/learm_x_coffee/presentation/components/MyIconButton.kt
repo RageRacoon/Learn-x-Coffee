@@ -14,11 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MyButton(
+fun MyIconButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,
-    color: Color = Red500,
     icon: ImageVector = Icons.Default.ArrowForward,
     enabled: Boolean = true
 ) {
@@ -26,7 +25,6 @@ fun MyButton(
     Button(
         modifier = modifier,
         onClick = { onClick() },
-        colors = MyButtin.buttonColors(backgroundColor = color),
         enabled = enabled
     ) {
         Icon(
@@ -37,7 +35,9 @@ fun MyButton(
         Text(text = text)
     }
 
-    @Composable
-    @Preview
-
+}
+@Composable
+@Preview
+fun MyButtonIconPrevew(){
+        MyIconButton(modifier = Modifier, text = "hi", onClick = { /*TODO*/ })
 }

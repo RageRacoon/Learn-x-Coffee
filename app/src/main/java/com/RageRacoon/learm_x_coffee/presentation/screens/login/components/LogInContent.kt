@@ -12,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.RageRacoon.learm_x_coffee.R
+import com.RageRacoon.learm_x_coffee.presentation.components.MyText
 
 
 @Composable
@@ -19,20 +20,17 @@ fun LogInContent (paddingValues: PaddingValues){
     var texto by remember { mutableStateOf(TextFieldValue("")) }
     Column(
         modifier = Modifier
-            .padding(paddingValues=paddingValues)
+            .padding(paddingValues = paddingValues)
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
 
     ) {
         Image(
             modifier = Modifier
-                .height(130.dp),
+                .height(225.dp),
             painter = painterResource(id = R.drawable.logo_learn_x_coffee_1204),
             contentDescription = "Logotipo de la app")
-
-        Text(
-            text = "Welcome to Learn x Coffee"
-        )
+        MyText(nivel = 1, texto = R.string.app_name)
         Text(
             modifier = Modifier.padding(top = 30.dp, bottom = 0.dp, start = 0.dp),
             text = "Log in"
@@ -66,3 +64,4 @@ fun LogInContent (paddingValues: PaddingValues){
     }
 
 }
+
