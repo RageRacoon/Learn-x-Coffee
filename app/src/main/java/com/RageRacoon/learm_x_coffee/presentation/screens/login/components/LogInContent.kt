@@ -1,43 +1,29 @@
-package com.RageRacoon.learm_x_coffee
+package com.RageRacoon.learm_x_coffee.presentation.screens.login.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.BottomNavigation
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import org.checkerframework.common.subtyping.qual.Bottom
+import com.RageRacoon.learm_x_coffee.R
+import com.RageRacoon.learm_x_coffee.presentation.components.MyText
+
 
 @Composable
-fun LogInScreen(){
-    LogInForm()
-}
-
-@Composable
-fun LogInForm(){
+fun LogInContent (paddingValues: PaddingValues){
+    var texto by remember { mutableStateOf(TextFieldValue("")) }
     Column(
         modifier = Modifier
+            .padding(paddingValues = paddingValues)
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
-
     ) {
-        Image(
-            modifier = Modifier
-                .height(130.dp),
-            painter = painterResource(id = R.drawable.logo_learn_x_coffee_1204),
-            contentDescription = "Logotipo de la app")
-
-        Text(
-            text = "Welcome to Lear x Coffee"
-        )
         Text(
             modifier = Modifier.padding(top = 30.dp, bottom = 0.dp, start = 0.dp),
             text = "Log in"
@@ -58,8 +44,8 @@ fun LogInForm(){
         )
         Spacer(modifier = Modifier.height(15.dp))
         TextField(
-            value = "",
-            onValueChange = {},
+            value = texto,
+            onValueChange = { texto = it},
             placeholder = {
                 Text(text = "Contrasena")
             }
@@ -71,8 +57,4 @@ fun LogInForm(){
     }
 
 }
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun LogInScreenPrePreview(){
-    LogInForm()
-}
+

@@ -1,0 +1,1 @@
+sdk.dir =  C:\Users\yorye\AppData\Local\Android\Sdk
