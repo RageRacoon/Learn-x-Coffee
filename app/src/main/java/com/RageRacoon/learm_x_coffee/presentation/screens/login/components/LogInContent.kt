@@ -23,14 +23,7 @@ fun LogInContent (paddingValues: PaddingValues){
             .padding(paddingValues = paddingValues)
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
-
     ) {
-        Image(
-            modifier = Modifier
-                .height(225.dp),
-            painter = painterResource(id = R.drawable.logo_learn_x_coffee_1204),
-            contentDescription = "Logotipo de la app")
-        MyText(nivel = 1, texto = R.string.app_name)
         Text(
             modifier = Modifier.padding(top = 30.dp, bottom = 0.dp, start = 0.dp),
             text = "Log in"

@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.RageRacoon.learm_x_coffee.LogInScreen
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.SplashScreen
+import com.RageRacoon.learm_x_coffee.presentation.screens.signup.SignUpScreen
 
 @Composable
 fun AppNavegation(){
@@ -14,12 +15,14 @@ fun AppNavegation(){
     NavHost(navController = navController,
         startDestination = AppScreen.SplashScreen.rutaPantalla)
     {
-        composable(AppScreen.SplashScreen.rutaPantalla){
+        composable(route = AppScreen.SplashScreen.rutaPantalla){
             SplashScreen(navController)
         }
-        composable(AppScreen.LogInScreen.rutaPantalla){
-            LogInScreen()
+        composable(route = AppScreen.LogInScreen.rutaPantalla){
+            LogInScreen(navController)
         }
-
+        composable(route = AppScreen.SignUpScreen.rutaPantalla){
+            SignUpScreen()
+        }
     }
 }

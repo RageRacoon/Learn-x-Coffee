@@ -10,16 +10,24 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LogInContent
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LoginBottomBar
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LoginTopBar
 
 @Composable
-fun LogInScreen() {
+fun LogInScreen(navController : NavHostController) {
    Scaffold(
-       topBar = {},
+       topBar = {
+           LoginTopBar()
+       },
        content = {
            LogInContent (it)
        },
-       bottomBar = {}
+       bottomBar = {
+           LoginBottomBar(navController)
+       }
    )
 
 }
@@ -28,5 +36,5 @@ fun LogInScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LogInScreenPrePreview(){
-    LogInScreen()
+    LogInScreen(rememberNavController())
 }
