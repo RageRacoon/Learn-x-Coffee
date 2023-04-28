@@ -22,7 +22,7 @@ fun AppNavegation(){
             LogInScreen(navController)
         }
         composable(route = AppScreen.SignUpScreen.rutaPantalla){
-            SignUpScreen()
+            SignUpScreen(navController)
         }
     }
 }

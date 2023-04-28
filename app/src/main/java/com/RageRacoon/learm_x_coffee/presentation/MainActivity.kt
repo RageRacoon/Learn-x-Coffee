@@ -13,7 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.RageRacoon.learm_x_coffee.LogInScreen
 import com.RageRacoon.learm_x_coffee.presentation.navigation.AppNavegation
 import com.RageRacoon.learm_x_coffee.presentation.ui.theme.LearmxCoffeeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

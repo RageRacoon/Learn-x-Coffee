@@ -1,40 +1,45 @@
-package com.RageRacoon.learm_x_coffee.presentation.screens.login.components
+package com.RageRacoon.learm_x_coffee.presentation.screens.signup.components
 
-import android.widget.VideoView
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.RageRacoon.learm_x_coffee.R
+import com.RageRacoon.learm_x_coffee.presentation.components.MyText
 import com.RageRacoon.learm_x_coffee.presentation.components.MyTextField
-import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginState
-import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginViewModel
 
 
 @Composable
-fun LogInContent (paddingValues: PaddingValues,
-                  viewModel: LoginViewModel,
-                  state: LoginState){
- var texto by remember { mutableStateOf(TextFieldValue("")) }
-     Column(
+fun SinUpContent (paddingValues: PaddingValues){
+    var texto by remember { mutableStateOf(TextFieldValue("")) }
+   /* Column(
         modifier = Modifier
             .padding(paddingValues = paddingValues)
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            modifier = Modifier.padding(top = 30.dp, bottom = 0.dp, start = 0.dp),
-            text = "Log in"
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = "Inicie sesion en la app"
+        Image(
+            modifier = Modifier
+                .height(255.dp),
+            painter = painterResource(id = R.drawable.sprite_racoon),
+            contentDescription = "Img perfil")
+        MyTextField(
+            modifier = Modifier.padding(top = 25.dp),
+            texto = state.username,
+            onValueChange = { viewModel.onUsernameInput(it) },
+            label = "Nombre de usuario",
+            icon = Icons.Default.Person,
+            errorMsg = viewModel.usernameErrMsg,
+            validateField = { viewModel.validateUsername() }
         )
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
@@ -56,8 +61,19 @@ fun LogInContent (paddingValues: PaddingValues,
             errorMsg = viewModel.passwordErrMsg,
             validateField = { viewModel.validatePassword() }
         )
+        MyTextField(
+            modifier = Modifier.padding(top = 0.dp),
+            texto = state.confirmPassword,
+            onValueChange = { viewModel.onConfirmPasswordInput(it) },
+            label = "Confirmar Contraseña",
+            icon = Icons.Outlined.Lock,
+            hideText = true,
+            errorMsg = viewModel.confirmPasswordErrMsg,
+            validateField = { viewModel.validateConfirmPassword() }
+        )
         Button(onClick = { /*Evento que se dispara al accer click*/ }) {
             Text(text = "Registrarse")
         }
     }
+*/
 }
