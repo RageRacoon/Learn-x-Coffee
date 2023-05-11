@@ -5,5 +5,6 @@ sealed class AppScreen (val rutaPantalla:String) {
     object MainScreen: AppScreen("main_screen")
     object LogInScreen: AppScreen("Log_in_screen")
     object SignUpScreen: AppScreen("Sin_up_screen")
+    object ProfileScreen: AppScreen("Profile_screen")
 
 }
