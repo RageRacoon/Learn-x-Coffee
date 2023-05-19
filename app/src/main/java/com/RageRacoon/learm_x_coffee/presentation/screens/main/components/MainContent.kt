@@ -29,12 +29,24 @@ import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
 
 @Composable
 fun MainContent(navController: NavHostController,viewModel: MainViewModel = hiltViewModel()){
-    MyButton(modifier = Modifier,
-        text = "LoginOut",
-        onClick = {
-            viewModel.logOut()
-            navController.navigate(route = AppScreen.LogInScreen.rutaPantalla){
-                popUpTo(AppScreen.LogInScreen.rutaPantalla){inclusive = true}
-            }
-        })
+    Column() {
+        MyButton(
+            modifier = Modifier,
+            text = "LoginOut",
+            onClick = {
+                viewModel.logOut()
+                navController.navigate(route = AppScreen.LogInScreen.rutaPantalla){
+                    popUpTo(AppScreen.LogInScreen.rutaPantalla){inclusive = true}
+                }
+            })
+        MyButton(
+            modifier = Modifier,
+            text = "Perfil",
+            onClick = {
+                navController.navigate(route = AppScreen.ProfileScreen.rutaPantalla){
+                    popUpTo(AppScreen.LogInScreen.rutaPantalla){inclusive = true}
+                }
+            })
+
+    }
 }

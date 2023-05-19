@@ -100,9 +100,9 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
             }
             is Response.Successful -> {
                 LaunchedEffect(Unit){
-                    navHostController.navigate(route = AppScreen.ProfileScreen.rutaPantalla){
-                        popUpTo(AppScreen.SignUpScreen.rutaPantalla){ inclusive = true }
-                    }
+                    viewModel.createNewUser() // Asi solo se crea el nuevo usuario si la peticion a la base de datros ha sido exitosa
+                    navHostController.popBackStack(AppScreen.LogInScreen.rutaPantalla, inclusive = true)
+                    navHostController.navigate(route = AppScreen.ProfileScreen.rutaPantalla)
                 }
             }
             is Response.Failure -> {

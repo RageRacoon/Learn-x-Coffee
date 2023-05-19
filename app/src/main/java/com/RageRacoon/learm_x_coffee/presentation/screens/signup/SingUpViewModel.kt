@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.RageRacoon.learm_x_coffee.domain.model.Response
 import com.RageRacoon.learm_x_coffee.domain.model.User
 import com.RageRacoon.learm_x_coffee.domain.use_cases.login.LoginUseCase
+import com.RageRacoon.learm_x_coffee.domain.use_cases.users.ProfilesUseCase
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginState
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +20,9 @@ import javax.inject.Inject
 
 
  @HiltViewModel
- class SingUpViewModel  @Inject constructor(private val loginUseCase: LoginUseCase): ViewModel(){
-
+ class SingUpViewModel  @Inject constructor(private val loginUseCase: LoginUseCase, private val profilesUseCase: ProfilesUseCase): ViewModel(){
+     //Usuario resgistrado
+     var user = User()
      //  _____    _            _
      // |  ___|  | |          | |
      // | |__ ___| |_ __ _  __| | ___  ___
@@ -68,11 +70,10 @@ import javax.inject.Inject
      }
 
      fun onRegister(){
-         val user = User(
-             userName = username.value,
-             correo = email.value,
-             password = password.value
-         )
+         user.userName = username.value
+         user.password = password.value
+         user.correo   = email.value
+
          register(user)
      }
 
@@ -88,6 +89,10 @@ import javax.inject.Inject
          if (isConfirmPasswordValid.value &&  isPasswordValid.value && isEmailValid.value && isUsernameValid.value){
              isUsernameValid.value = true
          }
+     }
+     fun createNewUser() = viewModelScope.launch {
+         user.id = loginUseCase.getUser()!!.uid
+         profilesUseCase.create(user)
      }
 
 

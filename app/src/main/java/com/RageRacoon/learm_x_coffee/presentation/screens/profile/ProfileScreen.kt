@@ -5,22 +5,19 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LogInContent
-import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LoginBottomBar
-import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LoginTopBar
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.*
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ProfileScreen(navController : NavHostController) {
     Scaffold(
         topBar = {
-
         },
         content = {
-            Text(text = "Su pesto perfil")
+            ProfileContent(navController)
         },
         bottomBar = {
-            LoginBottomBar(navController)
+            ProfileBottomBar(navController)
         }
     )
 }
