@@ -9,9 +9,10 @@ import androidx.navigation.compose.rememberNavController
 import com.RageRacoon.learm_x_coffee.domain.use_cases.login.Login
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginState
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LogInContent
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.Login
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LoginBottomBar
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LoginTopBar
-
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.Login
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun LogInScreen(navController : NavHostController) {
@@ -26,11 +27,5 @@ fun LogInScreen(navController : NavHostController) {
            LoginBottomBar(navController)
        }
    )
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun LogInScreenPrePreview(){
-    LogInScreen(rememberNavController())
+    Login(navController = navController) //Manejando el estado del login, nuevo componente
 }

@@ -29,14 +29,14 @@ import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.signup.SingUpViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.RageRacoon.learm_x_coffee.presentation.components.MyLoadingProgressBar
 
 
 @Composable
 fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewModel = hiltViewModel()){
 
-    val registerFlow = viewModel.registerFlow.collectAsState()
+    val state = viewModel.state //States, de esta screen
 
-    var texto by remember { mutableStateOf(TextFieldValue("")) }
    Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -49,36 +49,36 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
             contentDescription = "Img perfil")
         MyTextField(
             modifier = Modifier.padding(top = 25.dp),
-            texto =  viewModel.username.value,
-            onValueChange = { viewModel.username.value = it },
+            texto =  state.username,
+            onValueChange = { viewModel.userNameImput(it) },
             label = "Nombre de usuario",
             icon = Icons.Default.Person,
         )
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
-            texto =  viewModel.email.value,
-            onValueChange = { viewModel.email.value = it },
+            texto =  state.email,
+            onValueChange = { viewModel.emailInput(it) },
             label = "Correo electronico",
             icon = Icons.Default.Email,
             keyboardType = KeyboardType.Email,
-            errorMsg = viewModel.emailError.value
+            errorMsg = viewModel.emailError
         )
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
-            texto =  viewModel.password.value,
-            onValueChange = { viewModel.password.value = it },
+            texto =  state.password,
+            onValueChange = { viewModel.passwordInput(it) },
             label = "Contraseña",
             icon = Icons.Default.Lock,
             hideText = true,
         )
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
-            texto = viewModel.confirmPassword.value,
-            onValueChange = { viewModel.confirmPassword.value = it },
+            texto = state.confirmPasword,
+            onValueChange = { viewModel.confirmPasswordInput(it) },
             label = "Confirmar Contraseña",
             icon = Icons.Outlined.Lock,
             hideText = true,
-            errorMsg = viewModel.confirmPasswordError.value,
+            errorMsg = viewModel.confirmPasswordError,
             validateField = { viewModel.validateConfirmPassword() }
         )
         Button(onClick = {
@@ -89,26 +89,5 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
     }
     //Evaluamos el esatado del registro
 
-    registerFlow.value.let {
-        when(it){
-            Response.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize()
-                ){
-                    CircularProgressIndicator()
-                }
-            }
-            is Response.Successful -> {
-                LaunchedEffect(Unit){
-                    viewModel.createNewUser() // Asi solo se crea el nuevo usuario si la peticion a la base de datros ha sido exitosa
-                    navHostController.popBackStack(AppScreen.LogInScreen.rutaPantalla, inclusive = true)
-                    navHostController.navigate(route = AppScreen.ProfileScreen.rutaPantalla)
-                }
-            }
-            is Response.Failure -> {
-                Toast.makeText(LocalContext.current, it.exception?.message ?: "Error critico", Toast.LENGTH_LONG).show()
-            }
-            else -> {}
-        }
-    }
+
 }

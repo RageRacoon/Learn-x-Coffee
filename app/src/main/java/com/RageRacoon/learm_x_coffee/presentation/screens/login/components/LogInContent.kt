@@ -1,6 +1,7 @@
 package com.RageRacoon.learm_x_coffee.presentation.screens.login.components
 
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
@@ -27,7 +28,6 @@ import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 @Composable
 fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()){
     val state = viewModel.state
-    val loginFlow = viewModel.loginFlow.collectAsState()
      Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -43,8 +43,8 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
         )
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
-            texto = state.email,
-            onValueChange = { viewModel.onEmailInput(it) },
+            texto = state.email, //Clase manejadora de estados.
+            onValueChange = { viewModel.emailInput(it) }, //Actualiza el valor de la constante de la calse State
             label = "Correo electronico",
             icon = Icons.Default.Email,
             keyboardType = KeyboardType.Email,
@@ -54,14 +54,16 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
             texto = state.password,
-            onValueChange = { viewModel.onPasswordInput(it) },
+            onValueChange = { viewModel.passwordInput(it) },
             label = "Contraseña",
             icon = Icons.Default.Lock,
             hideText = true,
             errorMsg = viewModel.passwordErrMsg,
             validateField = { }
         )
-        Button( onClick = {
+        Button(
+            modifier = Modifier.clickable(enabled = viewModel.isClickableLoginButton) {  },
+            onClick = {
             viewModel.login()
 
         },) {
@@ -69,33 +71,5 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
         }
 
     }
-   loginFlow.value.let {
-       when(it){
-           //Si el estado de la respuesta es loggin, muestra una progresbar
-           Response.Loading -> {
-               Box(
-                   contentAlignment = Alignment.Center,
-                   modifier = Modifier.fillMaxSize()
-               ){
-                   LinearProgressIndicator()
-               }
-           }
-           is Response.Successful -> {
-               //Si sa se ha registrado una vez, te envia directamente a la main screen
-               LaunchedEffect(Unit){
-                   navController.navigate(AppScreen.MainScreen.rutaPantalla){
-                       popUpTo(AppScreen.LogInScreen.rutaPantalla){inclusive = true} //Se elimina el historial de pantalla
-                   }
-               }
-               Toast.makeText(LocalContext.current, "Inicio de sesion correcto", Toast.LENGTH_LONG).show()
 
-           }
-           is Response.Failure -> {
-               Toast.makeText(LocalContext.current, it.exception?.message ?: "Error critico", Toast.LENGTH_LONG).show()
-           }
-           else -> {
-           }
-       }
-
-   }
 }

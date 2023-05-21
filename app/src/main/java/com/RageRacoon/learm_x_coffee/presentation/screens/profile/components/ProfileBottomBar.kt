@@ -20,7 +20,10 @@ fun ProfileBottomBar(navController: NavHostController,viewModel: ProfileViewMode
         MyButton(
             modifier = Modifier,
             text = "EditarPerfil",
-            onClick = { /*TODO*/ })
+            onClick = {
+                //A la hora de navegar a la siguiente pantalla, pasamos por la ruta, una String con todos los datos de usuario, en formato Json. en tiempo real
+                navController.navigate(AppScreen.EditProfileScreen.suminstrarUsuario(viewModel.userInfo.toJson()))
+            })
         Spacer(modifier = Modifier.width(25.dp))
         MyButton(
             modifier = Modifier,

@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+import androidx.compose.runtime.*
 
  @HiltViewModel
  class SingUpViewModel  @Inject constructor(private val loginUseCase: LoginUseCase, private val profilesUseCase: ProfilesUseCase): ViewModel(){
@@ -27,31 +27,33 @@ import javax.inject.Inject
      // |  ___|  | |          | |
      // | |__ ___| |_ __ _  __| | ___  ___
      // |  __/ __| __/ _` |/ _` |/ _ \/ __|
-     //| |__\__ \ || (_| | (_| | (_) \__ \
-     //\____/___/\__\__,_|\__,_|\___/|___/\
+     // | |__\__ \ || (_| | (_| | (_) \__ \
+     // \____/___/\__\__,_|\__,_|\___/|___/\
 
      var state by mutableStateOf(SignUpState())
          private set
+     var registerResponse by mutableStateOf<Response<FirebaseUser>?>(null) //Inicializamos el usuario como null ,para controlar los null Ponter exception
+         private set
 
      // Username
-     var username: MutableState<String> = mutableStateOf(value = "")
-     var isUsernameValid: MutableState<Boolean> = mutableStateOf(value = false)
-     var usernameError: MutableState<String> = mutableStateOf(value = "")
+     var isUsernameOk: Boolean by mutableStateOf(value = false)
+     var usernameError: String by mutableStateOf(value = "")
 
      //Mail
-     var email: MutableState<String> = mutableStateOf(value = "")
-     var isEmailValid: MutableState<Boolean> = mutableStateOf(value = false)
-     var emailError: MutableState<String> = mutableStateOf(value = "")
+     var isEmailOk: Boolean by mutableStateOf(false)
+         private set
+     var emailError: String by mutableStateOf("")
+         private set
 
      //Pasword
-     var password: MutableState<String> = mutableStateOf(value = "")
-     var isPasswordValid: MutableState<Boolean> = mutableStateOf(value = false)
-     var passwordError: MutableState<String> = mutableStateOf(value = "")
+     var isPasswordOk:Boolean by mutableStateOf(value = false)
+         private set
+     var passwordError: String by mutableStateOf(value = "")
 
      //Passworrd 2
-     var confirmPassword: MutableState<String> = mutableStateOf(value = "")
-     var isConfirmPasswordValid: MutableState<Boolean> = mutableStateOf(value = false)
-     var confirmPasswordError: MutableState<String> = mutableStateOf(value = "")
+     var isConfirmPasswordOk: Boolean by mutableStateOf(value = false)
+         private set
+     var confirmPasswordError: String by mutableStateOf(value = "")
 
      //Boton accesible
      var isAccesibleResgisterButton = false
@@ -64,30 +66,47 @@ import javax.inject.Inject
      //\_|  \__,_|_| |_|\___|_|\___/|_| |_|\___||___/
      //
 
+     //Funciones manejadoreas de estado
+
+     fun userNameImput(username: String) {
+         state = state.copy(username = username)
+     }
+     fun emailInput(email: String) {
+         state = state.copy(email = email)
+     }
+
+     fun passwordInput(password: String) {
+         state = state.copy(password = password)
+     }
+     fun confirmPasswordInput(confirmPasword: String) {
+         state = state.copy(confirmPasword = confirmPasword)
+     }
 
      fun validateConfirmPassword(){
+         if (state.password == state.confirmPasword){
 
+         }
      }
 
      fun onRegister(){
-         user.userName = username.value
-         user.password = password.value
-         user.correo   = email.value
+         user.userName = state.username
+         user.password = state.password
+         user.correo   = state.email
 
          register(user)
      }
 
-     private val _registerFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
-     val registerFlow: StateFlow<Response<FirebaseUser>?> = _registerFlow
+     //private val _registerFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
+     //val registerFlow: StateFlow<Response<FirebaseUser>?> = _registerFlow
 
      fun register(user: User) = viewModelScope.launch {
-         _registerFlow.value = Response.Loading
+         registerResponse = Response.Loading
          val resul = loginUseCase.register(user)
-         _registerFlow.value = resul
+         registerResponse = resul
      }
-     fun AccesibleResgisterButton(){
-         if (isConfirmPasswordValid.value &&  isPasswordValid.value && isEmailValid.value && isUsernameValid.value){
-             isUsernameValid.value = true
+     fun EnableRegisterButton(){
+         if (isConfirmPasswordOk &&  isPasswordOk && isEmailOk && isUsernameOk){
+             isUsernameOk= true
          }
      }
      fun createNewUser() = viewModelScope.launch {

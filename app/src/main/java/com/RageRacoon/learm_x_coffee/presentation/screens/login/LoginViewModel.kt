@@ -16,83 +16,103 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel  @Inject constructor(private val loginUseCase: LoginUseCase): ViewModel(){
-    private val _loginFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
-    val loginFlow:StateFlow<Response<FirebaseUser>?> = _loginFlow
-    // STATE FORM
-    var state by mutableStateOf(LoginState())
+
+    //  _____    _            _
+    // |  ___|  | |          | |
+    // | |__ ___| |_ __ _  __| | ___  ___
+    // |  __/ __| __/ _` |/ _` |/ _ \/ __|
+    // | |__\__ \ || (_| | (_| | (_) \__ \
+    // \____/___/\__\__,_|\__,_|\___/|___/\
+
+    //Manejar las respuestas de la base de datos con estados
+    var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null) //Inicializamos el usuario como null ,para controlar los null Ponter exception
         private set
 
+    // Ahora solo se trabaja con el stadod el viewModel //
+    //private val _loginFlow = MutableStateFlow<Response<FirebaseUser>?>(null) //Inicializamos el usuario como null ,para controlar los null Ponter exception
+    //val loginFlow:StateFlow<Response<FirebaseUser>?> = _loginFlow //Encapsulación del usuario activo
+    // variable, del estado del formulario, ya
+    var state by mutableStateOf(LoginState()) //<- Su valor inicial, es el mismo que los valores dentro de la calse State
+        private set //Stets privados
+
     // EMAIL VALIDATIONS
-    var isEmailValid by mutableStateOf(false)
+    var isEmailOk by mutableStateOf(false)
         private set
 
     var emailErrMsg by mutableStateOf("")
         private set
 
     // PASSWORD VALIDATIONS
-    var isPasswordValid by mutableStateOf(false)
+    var isPasswordOk by mutableStateOf(false)
         private set
     var passwordErrMsg by mutableStateOf("")
         private set
 
     // ENABLE BUTTON
-    var isEnabledLoginButton = false
+    var isClickableLoginButton = false
 
-    // LOGIN RESPONSE
-    var loginResponse by mutableStateOf<Response<FirebaseUser>?>(null)
-        private set
+    // Respuesta del login
+
 
     val activeUser = loginUseCase.getUser()
 
-    init {
+    init { //Al inicializarse la clase del vwm, el cual se inicializa al cargar la screen, se lanzara este fragmento de codigo, que compruebas si hay un usuario activo en la aplicación
         if (activeUser != null) { // loggin correcto, sesion iniciada
-            _loginFlow.value = Response.Successful(activeUser)
+            loginResponse = Response.Successful(activeUser)
         }
     }
 
-    fun onEmailInput(email: String) {
+    //______                _
+    //|  ___|              (_)
+    //| |_ _   _ _ __   ___ _  ___  _ __   ___  ___
+    //|  _| | | | '_ \ / __| |/ _ \| '_ \ / _ \/ __|
+    //| | | |_| | | | | (__| | (_) | | | |  __/\__ \
+    //\_|  \__,_|_| |_|\___|_|\___/|_| |_|\___||___/
+    //
+
+    //Son funciones manejadoras de estado, reciven una valor por parametros y lo copian en la calse State
+    fun emailInput(email: String) {
         state = state.copy(email = email)
     }
 
-    fun onPasswordInput(password: String) {
+    fun passwordInput(password: String) {
         state = state.copy(password = password)
     }
 
 
    fun login() = viewModelScope.launch {
-        _loginFlow.value = Response.Loading
+       loginResponse = Response.Loading
         val result = loginUseCase.login(state.email, state.password)
-        _loginFlow.value = result
+       loginResponse = result
     }
 
-    fun enabledLoginButton() {
-        isEnabledLoginButton = isEmailValid && isPasswordValid
+    fun EnabledLoginButton() {
+        isClickableLoginButton = isEmailOk && isPasswordOk
     }
 
     fun validateEmail() {
         // ES UN EMAIL VALIDO
         if (Patterns.EMAIL_ADDRESS.matcher(state.email).matches()) {
-            isEmailValid = true
+            isEmailOk = true
             emailErrMsg = ""
         }
         else {
-            isEmailValid = false
+            isEmailOk = false
             emailErrMsg = "El email no es valido"
         }
-
-        enabledLoginButton()
+        EnabledLoginButton()
     }
 
     fun validatePassword() {
         if (state.password.length >= 6) {
-            isPasswordValid = true
+            isPasswordOk = true
             passwordErrMsg = ""
         }
         else {
-            isPasswordValid = false
+            isPasswordOk = false
             passwordErrMsg = "Al menos 6 caracteres"
         }
 
-        enabledLoginButton()
+        EnabledLoginButton()
     }
 }

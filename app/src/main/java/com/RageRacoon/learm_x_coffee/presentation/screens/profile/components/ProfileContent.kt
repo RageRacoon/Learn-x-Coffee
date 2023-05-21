@@ -10,6 +10,7 @@ import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 
 import androidx.navigation.NavHostController
 import com.RageRacoon.learm_x_coffee.R
@@ -17,10 +18,12 @@ import com.RageRacoon.learm_x_coffee.presentation.components.MyButton
 import com.RageRacoon.learm_x_coffee.presentation.components.MyRoundImage
 import com.RageRacoon.learm_x_coffee.presentation.components.MyText
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginViewModel
+import com.RageRacoon.learm_x_coffee.presentation.screens.profile.ProfileViewModel
 
 
 @Composable
-fun ProfileContent(navController: NavHostController){
+fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()){
     Column(modifier = Modifier.fillMaxSize()) {
         Box(){
             Image(
@@ -37,10 +40,10 @@ fun ProfileContent(navController: NavHostController){
             modifier = Modifier.fillMaxWidth()
         ) {
             MyRoundImage(R.drawable.sprite_racoon)
-            MyText(nivel = 1, texto = "Nombre Usuario")
+            MyText(nivel = 1, texto = viewModel.userInfo.userName)
         }
         }
-        MyText(nivel = 1, texto = "correo asociado al usuario")
+        MyText(nivel = 1, texto = viewModel.userInfo.correo)
     }
 }
 

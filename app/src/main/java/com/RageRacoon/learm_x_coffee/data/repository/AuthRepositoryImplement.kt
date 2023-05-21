@@ -15,7 +15,7 @@ class AuthRepositoryImplement @Inject constructor(private val firebaseAuth: Fire
     override suspend fun login(email: String, password: String): Response<FirebaseUser> {
         return try {
             val result = firebaseAuth.signInWithEmailAndPassword(email,password).await()
-            Response.Successful(result.user!!) //da igual que de erro o null, ya que tratamos la excepcion
+            Response.Successful(result.user!!) //da igual que de erro o null, ya que tratamos la excepcion, ya que contemplamos que el usuario sea Null
         }catch (e:Exception){
             Response.Failure(e)
         }
@@ -33,4 +33,5 @@ class AuthRepositoryImplement @Inject constructor(private val firebaseAuth: Fire
             Response.Failure(e)
         }
     }
+
 }

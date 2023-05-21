@@ -7,6 +7,8 @@ import com.RageRacoon.learm_x_coffee.domain.repository.AuthRepository
 import com.RageRacoon.learm_x_coffee.domain.repository.UsersRepository
 import com.RageRacoon.learm_x_coffee.domain.use_cases.login.*
 import com.RageRacoon.learm_x_coffee.domain.use_cases.users.Create
+import com.RageRacoon.learm_x_coffee.domain.use_cases.users.Edit
+import com.RageRacoon.learm_x_coffee.domain.use_cases.users.GetUserById
 import com.RageRacoon.learm_x_coffee.domain.use_cases.users.ProfilesUseCase
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginViewModel
 import com.RageRacoon.learm_x_coffee.utiles.Constantes
@@ -53,6 +55,8 @@ object AppModule {
     fun provideUserRepository(implementation: UsersRepositoryImplements):UsersRepository = implementation
     @Provides
     fun provideProfileUseCase(repository: UsersRepository) = ProfilesUseCase(    //esto es igual a la cal
-        create = Create(repository)
+        create = Create(repository),
+        getUserById = GetUserById(repository),
+        edit = Edit(repository)
     )
 }
