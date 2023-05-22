@@ -1,5 +1,6 @@
 package com.RageRacoon.learm_x_coffee.data.repository
 
+import android.net.Uri
 import com.RageRacoon.learm_x_coffee.di.AppModule
 import com.RageRacoon.learm_x_coffee.domain.model.Response
 import com.RageRacoon.learm_x_coffee.domain.model.User
@@ -7,13 +8,17 @@ import com.RageRacoon.learm_x_coffee.domain.repository.UsersRepository
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.io.File
 import javax.inject.Inject
 
-class UsersRepositoryImplements @Inject constructor(private val usersCollection: CollectionReference): UsersRepository {
+class UsersRepositoryImplements @Inject constructor(
+    private val usersCollection: CollectionReference,
+    private val storageUser: StorageReference): UsersRepository {
 
     override suspend fun createNewUser(user: User): Response<Boolean> {
         user.password = "" //Se busca almacenar una string bgacía para que la pasword solo se alacene en FirebaseAuth
@@ -35,6 +40,20 @@ class UsersRepositoryImplements @Inject constructor(private val usersCollection:
             usersCollection.document(user.id).update(map).await()
             Response.Successful(true)
         } catch (e: Exception){
+            e.printStackTrace()
+            Response.Failure(e)
+        }
+    }
+
+    override suspend fun saveImg(file: File): Response<String> {
+        return try {
+           val fromFile = Uri.fromFile(file)
+            val reference = storageUser.child(file.name)
+            val uploadTask = reference.putFile(fromFile).await()
+            val url = reference.downloadUrl.await()
+            return Response.Successful(url.toString())
+
+        }catch (e: Exception){
             e.printStackTrace()
             Response.Failure(e)
         }

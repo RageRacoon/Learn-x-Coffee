@@ -2,15 +2,10 @@ package com.RageRacoon.learm_x_coffee.di
 
 import com.RageRacoon.learm_x_coffee.data.repository.AuthRepositoryImplement
 import com.RageRacoon.learm_x_coffee.data.repository.UsersRepositoryImplements
-import com.RageRacoon.learm_x_coffee.domain.model.User
 import com.RageRacoon.learm_x_coffee.domain.repository.AuthRepository
 import com.RageRacoon.learm_x_coffee.domain.repository.UsersRepository
 import com.RageRacoon.learm_x_coffee.domain.use_cases.login.*
-import com.RageRacoon.learm_x_coffee.domain.use_cases.users.Create
-import com.RageRacoon.learm_x_coffee.domain.use_cases.users.Edit
-import com.RageRacoon.learm_x_coffee.domain.use_cases.users.GetUserById
-import com.RageRacoon.learm_x_coffee.domain.use_cases.users.ProfilesUseCase
-import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginViewModel
+import com.RageRacoon.learm_x_coffee.domain.use_cases.users.*
 import com.RageRacoon.learm_x_coffee.utiles.Constantes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
@@ -21,6 +16,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -41,7 +38,7 @@ object AppModule {
         getUser = GetUser(repository),
         login = Login(repository),
         loginOut = LoginOut(repository),
-        register = Register(repository)
+        register = Register(repository),
     )
 
     /**
@@ -57,6 +54,15 @@ object AppModule {
     fun provideProfileUseCase(repository: UsersRepository) = ProfilesUseCase(    //esto es igual a la cal
         create = Create(repository),
         getUserById = GetUserById(repository),
-        edit = Edit(repository)
+        edit = Edit(repository),
+        guardarImg = GuardarImg(repository)
     )
+
+    /**
+     * FirebaseStorage Provedores de la inyeccion de dependencias
+     */
+    @Provides
+    fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
+    @Provides
+    fun provideStorageUsuerDir(storage: FirebaseStorage): StorageReference = storage.reference.child(Constantes.USERS_COLLECTION_NAME)
 }

@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.components.Edit
 import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.components.EditProfileContent
 import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.components.EditProfileTopBar
+import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.components.SaveImg
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -22,5 +23,6 @@ fun EditProfileScreen(navController: NavHostController, user:String){
         },
         bottomBar = {}
     )
+    SaveImg()
     Edit()
 }

@@ -11,6 +11,10 @@ import java.io.FileOutputStream
 import java.io.OutputStream
 import java.util.*
 
+import org.apache.commons.io.FileUtils
+
+
+
 class ComposeFileProvider: FileProvider(R.xml.rutas) {
     companion object{
         fun getImgFromUri(context: Context): Uri {
@@ -27,6 +31,21 @@ class ComposeFileProvider: FileProvider(R.xml.rutas) {
                 authority,
                 file
             )
+        }
+        fun createFile (context: Context, uri: Uri):File?{
+            return try {
+                val stream = context.contentResolver.openInputStream(uri)
+                val file = File.createTempFile(
+                    "${System.currentTimeMillis()}",//retorna hora actual
+                    ".png",
+                    context.cacheDir
+                )
+                FileUtils.copyInputStreamToFile(stream, file)
+                return file
+            } catch (e: Exception){
+                e.printStackTrace()
+                return null
+            }
         }
         fun getPathFromBitmap(context: Context, bitmap: Bitmap): String {
             val wrapper = ContextWrapper(context)

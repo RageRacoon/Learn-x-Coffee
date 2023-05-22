@@ -32,6 +32,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.RageRacoon.learm_x_coffee.utiles.ComposeFileProvider
 import com.RageRacoon.learm_x_coffee.utiles.ResultingActivityHandler
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.io.File
 
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
@@ -43,6 +44,11 @@ class EditProfileViewModel @Inject constructor(
     //Usuario recivido desde la ruta de navegación
     val userValueString = savedStateHandle.get<String>("user")
     val user = User.fromJson(userValueString!!) //Creamos el objeto User con la string recivida de la ruta del nav
+
+    //Img aportada por el usuario
+    var file : File? = null
+
+
     //  _____    _            _
     // |  ___|  | |          | |
     // | |__ ___| |_ __ _  __| | ___  ___
@@ -53,6 +59,8 @@ class EditProfileViewModel @Inject constructor(
     var state by mutableStateOf(EditProfileState())
         private set
     var editResponse by mutableStateOf<Response<Boolean>?>(null) //Inicializamos el usuario como null ,para controlar los null Ponter exception
+        private set
+    var uploadImg by mutableStateOf<Response<String>?>(null) //Inicializamos el usuario como null ,para controlar los null Ponter exception
         private set
 
     // Username
@@ -83,11 +91,11 @@ class EditProfileViewModel @Inject constructor(
         state = state.copy(username = user.userName)
     }
 
-    fun clickEdit(){
+    fun clickEdit(url: String){
         val editUser = User(
             id = user.id,
             userName = state.username,
-            img = ""
+            img = url
         )
         edit(editUser)
     }
@@ -103,14 +111,14 @@ class EditProfileViewModel @Inject constructor(
         }
 
     }
-
-
     //Tratemiento de imagenes
     val resultingActivityHandler = ResultingActivityHandler()
    fun getImg() = viewModelScope.launch {
        val result =resultingActivityHandler.getContent("image/*")
        if (result != null){
+           file = ComposeFileProvider.createFile(context,result)
            imgUri = result.toString()
+
        }
 
    }
@@ -120,6 +128,14 @@ class EditProfileViewModel @Inject constructor(
             imgUri = ComposeFileProvider.getPathFromBitmap(context,bitmap = result)
         }
 
+    }
+
+    fun saveImg() = viewModelScope.launch {
+        if (file != null){
+            uploadImg = Response.Loading
+            val result = profilesUseCase.guardarImg(file!!)
+            uploadImg=result
+        }
     }
 
     fun EnableRegisterButton(){

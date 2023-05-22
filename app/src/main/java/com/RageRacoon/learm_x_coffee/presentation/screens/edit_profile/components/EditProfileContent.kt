@@ -86,7 +86,7 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
             icon = Icons.Default.Person,
         )
         Button(onClick = {
-            viewModel.clickEdit()
+            viewModel.saveImg()
         }) {
             Text(text = "UpdatePerfil")
         }
