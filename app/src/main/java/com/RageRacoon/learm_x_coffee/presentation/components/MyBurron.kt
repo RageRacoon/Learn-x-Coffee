@@ -29,7 +29,6 @@ fun MyButton(
         modifier = modifier.background(TransparenteBlanco),
         onClick = { onClick() },
         enabled = enabled,
-
     ) {
         Icon(
             imageVector = icon,

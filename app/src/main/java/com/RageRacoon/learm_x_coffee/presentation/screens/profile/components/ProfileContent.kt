@@ -1,6 +1,7 @@
 package com.RageRacoon.learm_x_coffee.presentation.screens.login.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,7 +40,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            MyRoundImage(R.drawable.sprite_racoon)
+            MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier)
             MyText(nivel = 1, texto = viewModel.userInfo.userName)
         }
         }

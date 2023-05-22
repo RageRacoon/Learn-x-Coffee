@@ -16,7 +16,7 @@ import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.EditProfi
 @Composable
 fun Edit (viewModel: EditProfileViewModel = hiltViewModel()){
     //Evaluar estados en los que se encunetra la respuesta
-    when(val editRespuesta = viewModel.editResponse){
+    when(val responseEdit = viewModel.editResponse){
         Response.Loading -> { //Mientras que las respuesta sea Loading, que se muestre la progres bar
             MyLoadingProgressBar()
         }
@@ -25,7 +25,7 @@ fun Edit (viewModel: EditProfileViewModel = hiltViewModel()){
             Toast.makeText(LocalContext.current, "Datos editados", Toast.LENGTH_LONG).show()
         }
         is Response.Failure -> {
-            Toast.makeText(LocalContext.current, editRespuesta.exception?.message ?: "Error al editar el perfil", Toast.LENGTH_LONG).show()
+            Toast.makeText(LocalContext.current, responseEdit.exception?.message ?: "Error al editar el perfil", Toast.LENGTH_LONG).show()
         }
         else -> {
         }

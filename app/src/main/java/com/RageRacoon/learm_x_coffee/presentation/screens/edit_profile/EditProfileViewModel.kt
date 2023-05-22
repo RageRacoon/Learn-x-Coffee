@@ -1,5 +1,11 @@
 package com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile
 
+import android.app.Activity
+import android.content.Context
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import com.RageRacoon.learm_x_coffee.presentation.screens.signup.SignUpState
 
 import androidx.compose.runtime.MutableState
@@ -23,9 +29,17 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.RageRacoon.learm_x_coffee.utiles.ComposeFileProvider
+import com.RageRacoon.learm_x_coffee.utiles.ResultingActivityHandler
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @HiltViewModel
-class EditProfileViewModel @Inject constructor(private val profilesUseCase: ProfilesUseCase, private val savedStateHandle: SavedStateHandle): ViewModel(){
+class EditProfileViewModel @Inject constructor(
+    private val profilesUseCase: ProfilesUseCase,
+    private val savedStateHandle: SavedStateHandle,
+    @ApplicationContext private val context: Context
+    ): ViewModel(){
+
     //Usuario recivido desde la ruta de navegación
     val userValueString = savedStateHandle.get<String>("user")
     val user = User.fromJson(userValueString!!) //Creamos el objeto User con la string recivida de la ruta del nav
@@ -47,6 +61,14 @@ class EditProfileViewModel @Inject constructor(private val profilesUseCase: Prof
 
     //Boton accesible
     var isAccesibleResgisterButton = false
+
+    //tratamiento de imagenes
+    var imgUri by mutableStateOf<String>("")
+
+    var hasImg by mutableStateOf<Boolean>(false)
+      private set
+
+
 
     //______                _
     //|  ___|              (_)
@@ -78,6 +100,24 @@ class EditProfileViewModel @Inject constructor(private val profilesUseCase: Prof
             editResponse = Response.Loading
             val resultado = profilesUseCase.edit(user)
             editResponse = resultado
+        }
+
+    }
+
+
+    //Tratemiento de imagenes
+    val resultingActivityHandler = ResultingActivityHandler()
+   fun getImg() = viewModelScope.launch {
+       val result =resultingActivityHandler.getContent("image/*")
+       if (result != null){
+           imgUri = result.toString()
+       }
+
+   }
+    fun takeAPicture() = viewModelScope.launch {
+        val result =resultingActivityHandler.takePicturePreview()
+        if (result != null){
+            imgUri = ComposeFileProvider.getPathFromBitmap(context,bitmap = result)
         }
 
     }

@@ -81,6 +81,9 @@ dependencies {
 
     //GSON
     implementation 'com.google.code.gson:gson:2.9.0'
+
+    //Comuniocacin entre composables y la base de da tos con imagenes
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
 
 kapt {

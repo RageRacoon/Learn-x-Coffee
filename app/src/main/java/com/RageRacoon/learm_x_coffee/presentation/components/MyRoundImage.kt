@@ -17,14 +17,14 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun MyRoundImage(imageResource: Int) {
+fun MyRoundImage(imageResource: Int, modifier: Modifier) {
+
     Image(
         painter = painterResource(id = imageResource),
         contentDescription = "Imagen de perfil",
         contentScale = ContentScale.Crop,
-        modifier = Modifier
+        modifier = modifier
             .size(192.dp)
             .clip(CircleShape)
-            .border(2.dp, color = MaterialTheme.colors.primary)
     )
 }
