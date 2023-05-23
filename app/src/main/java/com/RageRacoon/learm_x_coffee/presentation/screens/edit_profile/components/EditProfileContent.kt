@@ -28,6 +28,7 @@ import com.RageRacoon.learm_x_coffee.presentation.components.MyTextField
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.presentation.components.MyDialog
 import com.RageRacoon.learm_x_coffee.presentation.components.MyRoundImage
+import com.RageRacoon.learm_x_coffee.presentation.components.MyText
 import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.EditProfileViewModel
 import com.RageRacoon.learm_x_coffee.utiles.ComposeFileProvider
 
@@ -58,35 +59,52 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if( viewModel.imgUri != ""){ //Si la uri es diferente de vacio es porque el usuario a seleccionadu una img
-            AsyncImage(
-                model = viewModel.imgUri,
-                contentDescription="Imagen seleccionada",
-                contentScale = ContentScale.Crop,
+        Box(){
+            Image(
                 modifier = Modifier
-                    .size(192.dp)
-                    .clip(CircleShape)
-                    .clickable { stadoDialog.value = true }
+                    .fillMaxWidth()
+                    .height(192.dp),
+                painter = painterResource(id = R.drawable.banner_perfil01),
+                contentDescription = "Banner imagen",
+                contentScale = ContentScale.Crop,
+                alpha = 0.75F
             )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                if (viewModel.imgUri != "") {
+                    AsyncImage(
+                        modifier = Modifier
+                            .size(192.dp)
+                            .clip(CircleShape),
+                        model = viewModel.imgUri,
+                        contentDescription = "User image",
+                        contentScale = ContentScale.Crop
+                    )
+                    MyTextField(
+                        modifier = Modifier.padding(top = 25.dp),
+                        texto =  state.username,
+                        onValueChange = { viewModel.userNameImput(it) },
+                        label = "Nombre de usuario",
+                        icon = Icons.Default.Person,
+                    )
+                }
+                else {
+                    MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier)
+                    MyTextField(
+                        modifier = Modifier.padding(top = 25.dp),
+                        texto =  state.username,
+                        onValueChange = { viewModel.userNameImput(it) },
+                        label = "Nombre de usuario",
+                        icon = Icons.Default.Person,
+                    )
+                }
+            }
         }
-        else{
-            MyRoundImage(
-                imageResource = R.drawable.sprite_racoon,
-                modifier = Modifier.clickable {
-                    stadoDialog.value = true//En emulador no funciona, da pete
-                })
-
-        }
-
-        MyTextField(
-            modifier = Modifier.padding(top = 25.dp),
-            texto =  state.username,
-            onValueChange = { viewModel.userNameImput(it) },
-            label = "Nombre de usuario",
-            icon = Icons.Default.Person,
-        )
         Button(onClick = {
             viewModel.saveImg()
+            viewModel.clickEdit(viewModel.imgUri)
         }) {
             Text(text = "UpdatePerfil")
         }

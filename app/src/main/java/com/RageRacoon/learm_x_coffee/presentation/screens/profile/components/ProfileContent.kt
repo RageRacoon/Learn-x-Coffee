@@ -3,9 +3,11 @@ package com.RageRacoon.learm_x_coffee.presentation.screens.login.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
@@ -14,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.RageRacoon.learm_x_coffee.R
 import com.RageRacoon.learm_x_coffee.presentation.components.MyButton
 import com.RageRacoon.learm_x_coffee.presentation.components.MyRoundImage
@@ -36,19 +39,27 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                 contentScale = ContentScale.Crop,
                 alpha = 0.75F
                 )
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier)
-            MyText(nivel = 1, texto = viewModel.userInfo.userName)
-        }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                if (viewModel.userInfo.img != "") {
+                    AsyncImage(
+                        modifier = Modifier
+                            .size(192.dp)
+                            .clip(CircleShape),
+                        model = viewModel.userInfo.img,
+                        contentDescription = "User image",
+                        contentScale = ContentScale.Crop
+                    )
+                    MyText(nivel = 1, texto = viewModel.userInfo.userName)
+                }
+                else {
+                    MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier)
+                    MyText(nivel = 1, texto = viewModel.userInfo.userName)
+                }
+            }
         }
         MyText(nivel = 1, texto = viewModel.userInfo.correo)
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PerfilContentPreview(){
 }

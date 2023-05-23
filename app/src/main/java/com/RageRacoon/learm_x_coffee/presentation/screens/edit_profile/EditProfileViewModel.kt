@@ -88,6 +88,7 @@ class EditProfileViewModel @Inject constructor(
 
     //Funciones manejadoreas de estado
     init {
+        imgUri = user.img
         state = state.copy(username = user.userName)
     }
 

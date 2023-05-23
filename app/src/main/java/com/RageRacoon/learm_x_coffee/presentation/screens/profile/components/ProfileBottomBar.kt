@@ -34,7 +34,7 @@ fun ProfileBottomBar(navController: NavHostController,viewModel: ProfileViewMode
             modifier = Modifier,
             text = "LoginOut",
             onClick = {
-
+                viewModel.logOut()
                 navController.navigate(route = AppScreen.LogInScreen.rutaPantalla){
                     popUpTo(AppScreen.LogInScreen.rutaPantalla){inclusive = true}
                 }
