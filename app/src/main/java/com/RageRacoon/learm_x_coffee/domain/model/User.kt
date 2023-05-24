@@ -7,18 +7,18 @@ import java.nio.charset.StandardCharsets
 data class User (
     var id: String = "",
     var userName: String = "",
+    var img: String = "",
     var correo: String = "",
     var password: String = "",
     var passwordConfirm: String = "",
-    var img: String = "",
 ){
     fun toJson():String = Gson().toJson(User(
         id,
         userName,
+        if (img != "") URLEncoder.encode(img, StandardCharsets.UTF_8.toString()) else "",
         correo,
         password,
-        passwordConfirm,
-        if (img != "") URLEncoder.encode(img, StandardCharsets.UTF_8.toString()) else ""
+        passwordConfirm
     )) //Transformamos esta clase en Json
 
 

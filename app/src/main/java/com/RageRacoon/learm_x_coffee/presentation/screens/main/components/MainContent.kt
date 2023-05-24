@@ -29,7 +29,7 @@ import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
 
 @Composable
 fun MainContent(navController: NavHostController,viewModel: MainViewModel = hiltViewModel()){
-    Column() {
+    Row() {
         MyButton(
             modifier = Modifier,
             text = "LoginOut",

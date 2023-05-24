@@ -77,7 +77,8 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
                     AsyncImage(
                         modifier = Modifier
                             .size(192.dp)
-                            .clip(CircleShape),
+                            .clip(CircleShape)
+                            .clickable { stadoDialog.value = true },
                         model = viewModel.imgUri,
                         contentDescription = "User image",
                         contentScale = ContentScale.Crop
