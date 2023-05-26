@@ -92,7 +92,7 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
                     )
                 }
                 else {
-                    MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier)
+                    MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier.clickable { stadoDialog.value = true },)
                     MyTextField(
                         modifier = Modifier.padding(top = 25.dp),
                         texto =  state.username,

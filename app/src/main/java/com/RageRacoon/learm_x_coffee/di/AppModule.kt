@@ -8,6 +8,8 @@ import com.RageRacoon.learm_x_coffee.domain.repository.TaskRepository
 import com.RageRacoon.learm_x_coffee.domain.repository.UsersRepository
 import com.RageRacoon.learm_x_coffee.domain.use_cases.events.CreateTask
 import com.RageRacoon.learm_x_coffee.domain.use_cases.events.EventsUsecase
+import com.RageRacoon.learm_x_coffee.domain.use_cases.events.GetTask
+import com.RageRacoon.learm_x_coffee.domain.use_cases.events.UpdateTask
 import com.RageRacoon.learm_x_coffee.domain.use_cases.login.*
 import com.RageRacoon.learm_x_coffee.domain.use_cases.users.*
 import com.RageRacoon.learm_x_coffee.utiles.Constantes
@@ -74,7 +76,9 @@ object AppModule {
 
     @Provides
     fun provideEventsUseCase(taskrepository: TaskRepository) = EventsUsecase(    //esto es igual a la cal
-    CreateTask(taskrepository)
+        createTask = CreateTask(taskrepository),
+        getTask =  GetTask(taskrepository),
+        updateTask = UpdateTask(taskrepository)
     )
     /**
      * FirebaseStorage Provedores de la inyeccion de dependencias

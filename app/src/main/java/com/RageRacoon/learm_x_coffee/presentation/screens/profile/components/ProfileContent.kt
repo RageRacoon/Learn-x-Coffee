@@ -60,6 +60,10 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                 }
             }
         }
-        MyText(nivel = 1, texto = viewModel.userInfo.correo)
+        Box(modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center){
+            MyText(nivel = 1, texto = viewModel.userInfo.correo)
+        }
+
     }
 }

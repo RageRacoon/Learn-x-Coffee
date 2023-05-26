@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.*
+import com.RageRacoon.learm_x_coffee.presentation.screens.main.components.GetEvents
+import com.RageRacoon.learm_x_coffee.presentation.screens.main.components.MyHabitBox
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -21,7 +23,7 @@ fun MainScreen(navController : NavHostController) {
             MainTopBar(navController)
         },
         content = {
-            MainContent (navController)
+            GetEvents()
         },
         bottomBar = {
             MainBottomBar(navController)

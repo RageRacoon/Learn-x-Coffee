@@ -1,6 +1,5 @@
-package com.RageRacoon.learm_x_coffee.presentation.screens.new_task
+package com.RageRacoon.learm_x_coffee.presentation.screens.my_events
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,10 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.RageRacoon.learm_x_coffee.domain.model.Response
 import com.RageRacoon.learm_x_coffee.domain.model.Task
+import com.RageRacoon.learm_x_coffee.domain.model.User
 import com.RageRacoon.learm_x_coffee.domain.use_cases.events.EventsUsecase
 import com.RageRacoon.learm_x_coffee.domain.use_cases.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,16 +26,13 @@ class NewTaskViewModel @Inject constructor(
     private set
 
     fun taskNameImput(taskName: String){
-        state = state.copy(nameEvent = taskName)
+        state = state.copy(taskName = taskName)
     }
     fun createTask() = viewModelScope.launch {
         createTaskResponse= Response.Loading
         val task = Task(
-            nameEvent = state.nameEvent,
+            nameEvent = state.taskName,
             eventCreator = userInfo!!.uid,
-            dateOfTheHabits = state.dateOfTheHabits.toList(),
-            itIsAHabit = state.itIsAHabit,
-
         )
         val result = eventsUsecase.createTask(task)
         createTaskResponse = result
@@ -45,7 +43,7 @@ class NewTaskViewModel @Inject constructor(
             yearTask = "",
             monthTask = "",
             dayTask = "",
-            nameEvent = ""
+            taskName = ""
         )
         createTaskResponse=null
     }
@@ -54,13 +52,7 @@ class NewTaskViewModel @Inject constructor(
         state = state.copy(dayTask = dayTask)
     }
 
-    fun isAHabit(response: Boolean){
-        state = state.copy(itIsAHabit = response)
-    }
 
-    fun addDay(diasSeleccionados: Set<String>){
-        state = state.copy(dateOfTheHabits = diasSeleccionados)
-        Log.d("TAG", "Contenido del arreglo: ${state.dateOfTheHabits.joinToString()}")
-    }
+
 
 }
