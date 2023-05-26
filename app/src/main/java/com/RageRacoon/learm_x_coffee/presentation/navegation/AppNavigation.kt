@@ -11,6 +11,7 @@ import com.RageRacoon.learm_x_coffee.MainScreen
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.SplashScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.EditProfileScreen
+import com.RageRacoon.learm_x_coffee.presentation.screens.new_task.NewTaskScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.profile.ProfileScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.signup.SignUpScreen
 
@@ -46,6 +47,10 @@ fun AppNavegation(){
                 EditProfileScreen(navController, user = it)
             }
 
+        }
+
+        composable(route = AppScreen.NewTaskScreen.rutaPantalla){
+            NewTaskScreen(navController)
         }
 
     }

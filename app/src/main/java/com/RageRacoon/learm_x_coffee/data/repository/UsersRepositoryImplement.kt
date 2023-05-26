@@ -1,13 +1,12 @@
 package com.RageRacoon.learm_x_coffee.data.repository
 
 import android.net.Uri
-import com.RageRacoon.learm_x_coffee.di.AppModule
 import com.RageRacoon.learm_x_coffee.domain.model.Response
 import com.RageRacoon.learm_x_coffee.domain.model.User
 import com.RageRacoon.learm_x_coffee.domain.repository.UsersRepository
+import com.RageRacoon.learm_x_coffee.utiles.Constantes
+import com.RageRacoon.learm_x_coffee.utiles.Constantes.USERS_COLLECTION_NAME
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -15,9 +14,10 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import java.io.File
 import javax.inject.Inject
+import javax.inject.Named
 
-class UsersRepositoryImplements @Inject constructor(
-    private val usersCollection: CollectionReference,
+class UsersRepositoryImplement @Inject constructor(
+    @Named(USERS_COLLECTION_NAME) private val usersCollection: CollectionReference,
     private val storageUser: StorageReference): UsersRepository {
 
     override suspend fun createNewUser(user: User): Response<Boolean> {
