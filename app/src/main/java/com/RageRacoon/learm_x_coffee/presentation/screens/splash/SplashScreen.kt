@@ -1,11 +1,13 @@
 package com.RageRacoon.learm_x_coffee
 
+import android.media.midi.MidiOutputPort
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,25 +40,19 @@ fun Splash(){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Gray),
+            .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
         Image(
-            painter = painterResource(id = R.drawable.logo_test),
+            painter = painterResource(id = R.drawable.logo_learn_x_coffee),
             contentDescription = "Logo de la empresa",
-            Modifier.size(313.dp,123.dp)
+            Modifier.size(313.dp)
         )
-        Text("que es esto?",
-        fontSize = 45.sp,
-        fontWeight = FontWeight.Black
+        Text("Learn x coffee",
+            fontSize = 45.sp,
+            color = MaterialTheme.colors.primary
         )
 
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ShowSplashScreenPreview(){
-    Splash()
 }

@@ -13,14 +13,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.RageRacoon.learm_x_coffee.LogInScreen
 import com.RageRacoon.learm_x_coffee.presentation.navigation.AppNavegation
 import com.RageRacoon.learm_x_coffee.presentation.ui.theme.LearmxCoffeeTheme
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            LearmxCoffeeTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background)
+            LearmxCoffeeTheme (darkTheme = false){
+                // A surface container using the 'background' color from the theme \
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background)
                 {
                     AppNavegation()
                 }

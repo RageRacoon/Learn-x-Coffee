@@ -1,32 +1,31 @@
 package com.RageRacoon.learm_x_coffee
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import android.annotation.SuppressLint
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.RageRacoon.learm_x_coffee.domain.use_cases.login.Login
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginState
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LogInContent
-
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.Login
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LoginBottomBar
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.LoginTopBar
+import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.Login
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun LogInScreen() {
+fun LogInScreen(navController : NavHostController) {
    Scaffold(
-       topBar = {},
-       content = {
-           LogInContent(it)
+       topBar = {
+           LoginTopBar()
        },
-       bottomBar = {}
+       content = {
+           LogInContent (navController)
+       },
+       bottomBar = {
+           LoginBottomBar(navController)
+       }
    )
-
-}
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun LogInScreenPrePreview(){
-    LogInScreen()
+    Login(navController = navController) //Manejando el estado del login, nuevo componente
 }
