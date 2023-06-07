@@ -41,7 +41,9 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                 )
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 90.dp)
             ) {
                 if (viewModel.userInfo.img != "") {
                     AsyncImage(
@@ -67,6 +69,27 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){
             MyText(nivel = 2, texto = viewModel.userInfo.description)
+        }
+        Spacer(modifier = Modifier.height(50.dp))
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
+            MyButton(
+                modifier = Modifier,
+                text = "EditarPerfil",
+                onClick = {
+                    //A la hora de navegar a la siguiente pantalla, pasamos por la ruta, una String con todos los datos de usuario, en formato Json. en tiempo real
+                    navController.navigate(
+                        AppScreen.EditProfileScreen.suminstrarUsuario(viewModel.userInfo.toJson()))
+                })
+            Spacer(modifier = Modifier.width(25.dp))
+            MyButton(
+                modifier = Modifier,
+                text = "LoginOut",
+                onClick = {
+                    viewModel.logOut()
+                    navController.navigate(route = AppScreen.LogInScreen.rutaPantalla){
+                        popUpTo(AppScreen.LogInScreen.rutaPantalla){inclusive = true}
+                    }
+                })
         }
     }
 }
