@@ -72,6 +72,7 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
+                    .padding(top = 90.dp)
             ) {
                 if (viewModel.imgUri != "") {
                     AsyncImage(
@@ -84,7 +85,7 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
                         contentScale = ContentScale.Crop
                     )
                     MyTextField(
-                        modifier = Modifier.padding(top = 25.dp),
+                        modifier = Modifier.padding(top = 25.dp).size(width = 325.dp, height = 60.dp),
                         texto =  state.username,
                         onValueChange = { viewModel.userNameImput(it) },
                         label = "Nombre de usuario",
@@ -94,7 +95,7 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
                 else {
                     MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier.clickable { stadoDialog.value = true },)
                     MyTextField(
-                        modifier = Modifier.padding(top = 25.dp),
+                        modifier = Modifier.padding(top = 25.dp).size(width = 325.dp, height = 25.dp),
                         texto =  state.username,
                         onValueChange = { viewModel.userNameImput(it) },
                         label = "Nombre de usuario",
@@ -102,7 +103,7 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
                     )
                 }
                 MyTextField(
-                    modifier = Modifier.padding(top = 25.dp),
+                    modifier = Modifier.padding(top = 25.dp).size(width = 325.dp, height = 200.dp),
                     texto =  state.description,
                     onValueChange = { viewModel.descriptionImput(it) },
                     label = "Sobre mí",
