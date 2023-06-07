@@ -90,18 +90,23 @@ class EditProfileViewModel @Inject constructor(
     init {
         imgUri = user.img
         state = state.copy(username = user.userName)
+        state = state.copy(description = user.description)
     }
 
     fun clickEdit(url: String){
         val editUser = User(
             id = user.id,
             userName = state.username,
-            img = url
+            img = url,
+            description = state.description
         )
         edit(editUser)
     }
     fun userNameImput(username: String) {
         state = state.copy(username = username)
+    }
+    fun descriptionImput(description: String) {
+        state = state.copy(description = description)
     }
 
     fun edit(user: User){

@@ -37,6 +37,7 @@ class UsersRepositoryImplement @Inject constructor(
             val map: MutableMap<String, Any> = HashMap()
             map["userName"] = user.userName
             map["img"]= user.img
+            map["description"] = user.description
             usersCollection.document(user.id).update(map).await()
             Response.Successful(true)
         } catch (e: Exception){

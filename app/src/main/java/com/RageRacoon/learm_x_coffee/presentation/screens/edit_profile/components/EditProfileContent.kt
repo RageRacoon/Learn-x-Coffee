@@ -49,9 +49,9 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
     MyDialog(
         estado = stadoDialog,
         fun01 = { viewModel.getImg() },
-        accionFuncion01 = "galeria",
+        accionFuncion01 = "Galería",
         fun02 = { viewModel.takeAPicture() },
-        accionFuncion02 = "camara"
+        accionFuncion02 = "Cámara"
     )
 
     Column(
@@ -101,6 +101,13 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
                         icon = Icons.Default.Person,
                     )
                 }
+                MyTextField(
+                    modifier = Modifier.padding(top = 25.dp),
+                    texto =  state.description,
+                    onValueChange = { viewModel.descriptionImput(it) },
+                    label = "Sobre mí",
+                    icon = Icons.Default.Person,
+                )
             }
         }
         Button(onClick = {

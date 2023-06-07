@@ -24,7 +24,7 @@ fun MyText(
     if (nivel==1){
         Text(texto, fontSize = 28.sp, color = MaterialTheme.colors.primary)
     }else if (nivel==2){
-        Text(texto, fontSize = 18.sp, color = MaterialTheme.colors.onPrimary)
+        Text(texto, fontSize = 18.sp, color = MaterialTheme.colors.primary)
     }else
-        Text(texto, fontSize = 14.sp, color = MaterialTheme.colors.onPrimary)
+        Text(texto, fontSize = 14.sp, color = MaterialTheme.colors.primary)
 }
