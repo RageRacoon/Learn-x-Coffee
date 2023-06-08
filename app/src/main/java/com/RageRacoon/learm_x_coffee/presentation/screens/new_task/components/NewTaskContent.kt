@@ -43,9 +43,9 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
     MyDialog(
         estado = stadoDialog,
         fun01 = {viewModel.isAHabit(true)},
-        accionFuncion01 = "Es un habito?",
+        accionFuncion01 = "Hábito",
         fun02 = {viewModel.isAHabit(false)},
-        accionFuncion02 = "Es una tarea?"
+        accionFuncion02 = "Tarea"
     )
 
     Box(modifier = Modifier.fillMaxSize()) {

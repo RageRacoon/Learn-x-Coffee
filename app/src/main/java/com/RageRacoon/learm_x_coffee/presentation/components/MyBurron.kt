@@ -9,6 +9,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -21,7 +22,7 @@ fun MyButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,
-    icon: ImageVector = Icons.Default.ArrowForward,
+    icon: ImageVector = Icons.Default.Create,
     enabled: Boolean = true
 ) {
 

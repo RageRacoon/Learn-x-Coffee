@@ -22,6 +22,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Person
@@ -150,7 +151,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
             }
         ) {
             Icon(
-                Icons.Default.ArrowBack,
+                Icons.Default.Close,
                 contentDescription = "Icono izquierdo",
                 tint = MaterialTheme.colors.primary
             )
