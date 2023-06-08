@@ -67,6 +67,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
         mutableStateOf(false)
     }
 
+    //Selección de cámara o galería para la selección de foto de perfil.
     MyDialog(
         estado = stadoDialog,
         fun01 = { viewModel.getImg() },
@@ -81,6 +82,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(){
+            //Imagen de fondo con efecto borroso.
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -100,6 +102,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                     .fillMaxWidth()
                     .padding(top = 90.dp)
             ) {
+                //Foto de perfil si el usuario ha añadido una, y nombre de usuario.
                 if (viewModel.imgUri != "") {
                     AsyncImage(
                         modifier = Modifier
@@ -126,6 +129,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                     )
                 }
                 else {
+                    //Imagen de mapache por defecto y nombre de usuario.
                     Spacer(modifier = Modifier.height(18.dp))
                     MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier.clickable { stadoDialog.value = true },)
                     Spacer(modifier = Modifier.height(20.dp))
@@ -139,6 +143,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                         icon = Icons.Default.Person,
                     )
                 }
+                //Descripción que el usuario desee añadir.
                 Spacer(modifier = Modifier.height(5.dp))
                 MyTextField(
                     modifier = Modifier
@@ -152,6 +157,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
             }
         }
     }
+    //Botones de arriba.
     TopAppBar(
         modifier = Modifier
             .height(56.dp)
@@ -160,6 +166,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
         backgroundColor = Color.Transparent,
         contentPadding = PaddingValues(bottom = 8.dp)
     ){
+        //Botón de cancelar (X)
         IconButton(
             onClick = {
                 navController.navigate(route = AppScreen.ProfileScreen.rutaPantalla){
@@ -175,6 +182,8 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
         }
 
         Spacer(Modifier.weight(1f))
+
+        //Botón de guardar cambios (✓)
         IconButton(onClick = {
             viewModel.saveImg()
             viewModel.clickEdit(viewModel.imgUri)
@@ -189,5 +198,4 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
             )
         }
     }
-
 }

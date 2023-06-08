@@ -29,12 +29,12 @@ fun MyText(
     texto: String
 ){
     if (nivel==1){
-        Text(texto, fontSize = 28.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
-            .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Medium)
+        Text(texto, fontSize = 28.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize()
+            .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Medium) // Ajusta el tamaño del texto según su contenido
     }else if (nivel==2){
-        Text(texto, fontSize = 18.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
-            .padding(horizontal = 35.dp), textAlign = TextAlign.Center)
+        Text(texto, fontSize = 18.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize()
+            .padding(horizontal = 35.dp), textAlign = TextAlign.Center) // Ajusta el tamaño del texto según su contenido
     }else
-        Text(texto, fontSize = 14.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
-            .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontStyle = FontStyle.Italic)
+        Text(texto, fontSize = 14.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize()
+            .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontStyle = FontStyle.Italic) // Ajusta el tamaño del texto según su contenido
 }

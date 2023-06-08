@@ -51,6 +51,7 @@ import com.RageRacoon.learm_x_coffee.presentation.screens.profile.ProfileViewMod
 fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel = hiltViewModel()){
     Column(modifier = Modifier.fillMaxSize()) {
         Box(){
+            //Imagen de fondo con efecto borroso.
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -70,6 +71,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                     .fillMaxWidth()
                     .padding(top = 90.dp)
             ) {
+                //Si el usuario tiene foto de perfil, la muestra.
                 if (viewModel.userInfo.img != "") {
                     AsyncImage(
                         modifier = Modifier
@@ -85,6 +87,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                     MyText(nivel = 1, texto = viewModel.userInfo.userName)
                 }
                 else {
+                    //Si no se tiene foto de perfil muestra un mapache como imagen por defecto.
                     Spacer(modifier = Modifier.height(18.dp))
                     MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier)
                     Spacer(modifier = Modifier.height(25.dp))
@@ -92,6 +95,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                 }
             }
         }
+        //Correo electrónico y descripción del usuario.
         Spacer(modifier = Modifier.height(2.dp))
         Box(modifier = Modifier.fillMaxWidth(),contentAlignment = Alignment.Center){
             MyText(nivel = 3,texto = viewModel.userInfo.correo)
@@ -104,6 +108,8 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
 
         }
         Spacer(modifier = Modifier.height(50.dp))
+
+        //Botón que redirige a la pantalla de editar perfil.
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
             MyButton(
                 modifier = Modifier,
@@ -115,6 +121,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                 })
         }
     }
+    //Botones de desplazamiento.
     TopAppBar(
         modifier = Modifier
             .height(56.dp)
@@ -123,6 +130,8 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         backgroundColor = Color.Transparent,
         contentPadding = PaddingValues(bottom = 8.dp)
     ){
+
+        //Botón que lleva a la pantalla principal.
         IconButton(
             onClick = {
                 navController.navigate(route = AppScreen.MainScreen.rutaPantalla){
@@ -138,6 +147,8 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         }
 
         Spacer(Modifier.weight(1f))
+
+        //Botón que lleva a la pantalla de inicio de sesión.
         IconButton(onClick = {
             viewModel.logOut()
             navController.navigate(route = AppScreen.LogInScreen.rutaPantalla){

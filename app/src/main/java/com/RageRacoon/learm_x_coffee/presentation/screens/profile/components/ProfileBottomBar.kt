@@ -36,6 +36,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun ProfileBottomBar(navController: NavHostController,viewModel: ProfileViewModel = hiltViewModel()){
     val activity = LocalContext.current as? Activity
 
+    //Barra de navegación idéntica a la de la main screen.
+
     BottomAppBar(
         contentPadding = PaddingValues(start = 5.dp, end = 5.dp),
         backgroundColor = MaterialTheme.colors.primary,
