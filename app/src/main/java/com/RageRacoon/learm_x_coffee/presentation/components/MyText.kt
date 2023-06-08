@@ -8,6 +8,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,11 +30,11 @@ fun MyText(
 ){
     if (nivel==1){
         Text(texto, fontSize = 28.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
-            .padding(horizontal = 35.dp), textAlign = TextAlign.Center)
+            .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Medium)
     }else if (nivel==2){
         Text(texto, fontSize = 18.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
             .padding(horizontal = 35.dp), textAlign = TextAlign.Center)
     }else
         Text(texto, fontSize = 14.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
-            .padding(horizontal = 35.dp), textAlign = TextAlign.Center)
+            .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontStyle = FontStyle.Italic)
 }

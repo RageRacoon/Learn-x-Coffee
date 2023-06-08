@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -29,12 +30,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.RageRacoon.learm_x_coffee.R
@@ -74,7 +75,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                         modifier = Modifier
                             .size(192.dp)
                             .clip(CircleShape)
-                            .border(BorderStroke(2.dp, MaterialTheme.colors.onBackground),
+                            .border(BorderStroke(2.dp, MaterialTheme.colors.primary),
                                 CircleShape),
                         model = viewModel.userInfo.img,
                         contentDescription = "User image",
@@ -84,20 +85,22 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                     MyText(nivel = 1, texto = viewModel.userInfo.userName)
                 }
                 else {
+                    Spacer(modifier = Modifier.height(18.dp))
                     MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier)
                     Spacer(modifier = Modifier.height(25.dp))
                     MyText(nivel = 1, texto = viewModel.userInfo.userName)
                 }
             }
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(2.dp))
         Box(modifier = Modifier.fillMaxWidth(),contentAlignment = Alignment.Center){
             MyText(nivel = 3,texto = viewModel.userInfo.correo)
         }
         Spacer(modifier = Modifier.height(35.dp))
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){
-            MyText(nivel = 2, texto = viewModel.userInfo.description)
+            Text(viewModel.userInfo.description, maxLines = 7, fontSize = 18.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
+                .padding(horizontal = 35.dp), textAlign = TextAlign.Justify)
 
         }
         Spacer(modifier = Modifier.height(50.dp))

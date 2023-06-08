@@ -18,13 +18,17 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -92,7 +96,8 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
             )
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(top = 90.dp)
             ) {
                 if (viewModel.imgUri != "") {
@@ -100,15 +105,20 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                         modifier = Modifier
                             .size(192.dp)
                             .clip(CircleShape)
-                            .border(BorderStroke(2.dp, MaterialTheme.colors.onBackground),
-                                CircleShape)
+                            .border(
+                                BorderStroke(2.dp, MaterialTheme.colors.primary),
+                                CircleShape
+                            )
                             .clickable { stadoDialog.value = true },
                         model = viewModel.imgUri,
                         contentDescription = "User image",
                         contentScale = ContentScale.Crop
                     )
+                    Spacer(modifier = Modifier.height(20.dp))
                     MyTextField(
-                        modifier = Modifier.padding(top = 25.dp).size(width = 325.dp, height = 60.dp),
+                        modifier = Modifier
+                            .padding(top = 25.dp)
+                            .size(width = 325.dp, height = 65.dp),
                         texto =  state.username,
                         onValueChange = { viewModel.userNameImput(it) },
                         label = "Nombre de usuario",
@@ -116,21 +126,28 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                     )
                 }
                 else {
+                    Spacer(modifier = Modifier.height(18.dp))
                     MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier.clickable { stadoDialog.value = true },)
+                    Spacer(modifier = Modifier.height(20.dp))
                     MyTextField(
-                        modifier = Modifier.padding(top = 25.dp).size(width = 325.dp, height = 60.dp),
+                        modifier = Modifier
+                            .padding(top = 25.dp)
+                            .size(width = 325.dp, height = 65.dp),
                         texto =  state.username,
                         onValueChange = { viewModel.userNameImput(it) },
                         label = "Nombre de usuario",
                         icon = Icons.Default.Person,
                     )
                 }
+                Spacer(modifier = Modifier.height(5.dp))
                 MyTextField(
-                    modifier = Modifier.padding(top = 25.dp).size(width = 325.dp, height = 200.dp),
+                    modifier = Modifier
+                        .padding(top = 25.dp)
+                        .size(width = 325.dp, height = 200.dp),
                     texto =  state.description,
                     onValueChange = { viewModel.descriptionImput(it) },
                     label = "Sobre mí",
-                    icon = Icons.Default.AccountCircle,
+                    icon = Icons.Filled.Info
                 )
             }
         }
@@ -151,7 +168,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
             }
         ) {
             Icon(
-                Icons.Default.Close,
+                Icons.Default.Clear,
                 contentDescription = "Icono izquierdo",
                 tint = MaterialTheme.colors.primary
             )
