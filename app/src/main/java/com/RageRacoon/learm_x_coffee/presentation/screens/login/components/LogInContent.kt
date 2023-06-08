@@ -35,17 +35,17 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
     ) {
         Text(
             modifier = Modifier.padding(top = 30.dp, bottom = 0.dp, start = 0.dp),
-            text = "Log in"
+            text = "Log In"
         )
         Spacer(modifier = Modifier.height(15.dp))
         Text(
-            text = "Inicie sesion en la app"
+            text = "Inicie sesión en la app"
         )
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
             texto = state.email, //Clase manejadora de estados.
             onValueChange = { viewModel.emailInput(it) }, //Actualiza el valor de la constante de la calse State
-            label = "Correo electronico",
+            label = "Correo electrónico",
             icon = Icons.Default.Email,
             keyboardType = KeyboardType.Email,
             errorMsg = viewModel.emailErrMsg,
@@ -67,7 +67,7 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
             viewModel.login()
 
         },) {
-            Text(text = "Registrarse")
+            Text(text = "Iniciar sesión")
         }
 
     }

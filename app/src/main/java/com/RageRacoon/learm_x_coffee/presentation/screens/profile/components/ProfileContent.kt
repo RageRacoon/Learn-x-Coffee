@@ -2,12 +2,20 @@ package com.RageRacoon.learm_x_coffee.presentation.screens.login.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -96,22 +104,48 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
             MyButton(
                 modifier = Modifier,
-                text = "EditarPerfil",
+                text = "Editar Perfil",
                 onClick = {
                     //A la hora de navegar a la siguiente pantalla, pasamos por la ruta, una String con todos los datos de usuario, en formato Json. en tiempo real
                     navController.navigate(
                         AppScreen.EditProfileScreen.suminstrarUsuario(viewModel.userInfo.toJson()))
                 })
-            Spacer(modifier = Modifier.width(25.dp))
-            MyButton(
-                modifier = Modifier,
-                text = "LoginOut",
-                onClick = {
-                    viewModel.logOut()
-                    navController.navigate(route = AppScreen.LogInScreen.rutaPantalla){
-                        popUpTo(AppScreen.LogInScreen.rutaPantalla){inclusive = true}
-                    }
-                })
+        }
+    }
+    TopAppBar(
+        modifier = Modifier
+            .height(56.dp)
+            .background(Color.Transparent),
+        elevation = 0.dp,
+        backgroundColor = Color.Transparent,
+        contentPadding = PaddingValues(bottom = 8.dp)
+    ){
+        IconButton(
+            onClick = {
+                navController.navigate(route = AppScreen.MainScreen.rutaPantalla){
+                    popUpTo(AppScreen.MainScreen.rutaPantalla){inclusive = true}
+                }
+            }
+        ) {
+            Icon(
+                Icons.Default.ArrowBack,
+                contentDescription = "Icono izquierdo",
+                tint = MaterialTheme.colors.primary
+            )
+        }
+
+        Spacer(Modifier.weight(1f))
+        IconButton(onClick = {
+            viewModel.logOut()
+            navController.navigate(route = AppScreen.LogInScreen.rutaPantalla){
+                popUpTo(AppScreen.LogInScreen.rutaPantalla){inclusive = true}
+            }
+        }) {
+            Icon(
+                Icons.Default.ExitToApp,
+                contentDescription = "Icono derecho",
+                tint = MaterialTheme.colors.primary
+            )
         }
     }
 }

@@ -21,13 +21,13 @@ fun LoginBottomBar(navController: NavHostController){
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
     ) {
-        MyText(nivel = 2, texto = "Unete a Learn x Coffee")
+        MyText(nivel = 2, texto = "¿No tiene cuenta?")
         Spacer(modifier = Modifier.width(5.dp))
         Text(
             modifier = Modifier.clickable{
                 navController.navigate(route = AppScreen.SignUpScreen.rutaPantalla)
             },
-            text = "RESGISTRATE YA!!",
+            text = "Regístrese",
             fontSize = 18.sp,
             color = MaterialTheme.colors.primary
         )

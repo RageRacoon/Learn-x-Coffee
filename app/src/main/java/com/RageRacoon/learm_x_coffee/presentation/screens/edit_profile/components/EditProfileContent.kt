@@ -44,11 +44,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.presentation.components.MyDialog
 import com.RageRacoon.learm_x_coffee.presentation.components.MyRoundImage
 import com.RageRacoon.learm_x_coffee.presentation.components.MyText
+import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.EditProfileViewModel
 import com.RageRacoon.learm_x_coffee.utiles.ComposeFileProvider
 
 @Composable
-fun EditProfileContent(navHostController: NavHostController, viewModel: EditProfileViewModel = hiltViewModel()){
+fun EditProfileContent(navController: NavHostController, viewModel: EditProfileViewModel = hiltViewModel()){
 
     val state = viewModel.state //States, de esta screen
     viewModel.resultingActivityHandler.handle()
@@ -142,7 +143,11 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
         contentPadding = PaddingValues(bottom = 8.dp)
     ){
         IconButton(
-            onClick = { /* Acción al pulsar el icono izquierdo */ }
+            onClick = {
+                navController.navigate(route = AppScreen.ProfileScreen.rutaPantalla){
+                    popUpTo(AppScreen.ProfileScreen.rutaPantalla){inclusive = true}
+                }
+            }
         ) {
             Icon(
                 Icons.Default.ArrowBack,
@@ -155,6 +160,9 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
         IconButton(onClick = {
             viewModel.saveImg()
             viewModel.clickEdit(viewModel.imgUri)
+            navController.navigate(route = AppScreen.ProfileScreen.rutaPantalla){
+                popUpTo(AppScreen.ProfileScreen.rutaPantalla){inclusive = true}
+            }
         }) {
             Icon(
                 Icons.Default.Check,

@@ -23,7 +23,7 @@ fun LoginTopBar(){
                 .height(225.dp),
             painter = painterResource(id = R.drawable.logo_learn_x_coffee_1204),
             contentDescription = "Logotipo de la app")
-        MyText(nivel = 1, texto = "Learn x coffe")
+        MyText(nivel = 1, texto = "Learn x coffee")
 
     }
 
