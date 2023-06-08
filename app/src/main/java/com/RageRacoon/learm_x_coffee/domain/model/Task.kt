@@ -18,4 +18,5 @@ open class Task(
     val dateOfTheHabits: List<String> = mutableListOf(""),
     var done: Boolean = false,
     val itIsAHabit: Boolean = true,
+    val intOfArrayOfIcons: Int = 0,
 )
