@@ -100,7 +100,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                         modifier = Modifier
                             .size(192.dp)
                             .clip(CircleShape)
-                            .border(BorderStroke(4.dp, MaterialTheme.colors.onPrimary),
+                            .border(BorderStroke(2.dp, MaterialTheme.colors.onBackground),
                                 CircleShape)
                             .clickable { stadoDialog.value = true },
                         model = viewModel.imgUri,
@@ -118,7 +118,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                 else {
                     MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier.clickable { stadoDialog.value = true },)
                     MyTextField(
-                        modifier = Modifier.padding(top = 25.dp).size(width = 325.dp, height = 25.dp),
+                        modifier = Modifier.padding(top = 25.dp).size(width = 325.dp, height = 60.dp),
                         texto =  state.username,
                         onValueChange = { viewModel.userNameImput(it) },
                         label = "Nombre de usuario",

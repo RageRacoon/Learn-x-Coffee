@@ -74,7 +74,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                         modifier = Modifier
                             .size(192.dp)
                             .clip(CircleShape)
-                            .border(BorderStroke(4.dp, MaterialTheme.colors.onPrimary),
+                            .border(BorderStroke(2.dp, MaterialTheme.colors.onBackground),
                                 CircleShape),
                         model = viewModel.userInfo.img,
                         contentDescription = "User image",
