@@ -27,11 +27,11 @@ fun MyText(
 ){
     if (nivel==1){
         Text(texto, fontSize = 28.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
-            .padding(20.dp))
+            .padding(horizontal = 35.dp))
     }else if (nivel==2){
         Text(texto, fontSize = 18.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
-            .padding(20.dp))
+            .padding(horizontal = 35.dp))
     }else
         Text(texto, fontSize = 14.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
-            .padding(20.dp))
+            .padding(horizontal = 35.dp))
 }

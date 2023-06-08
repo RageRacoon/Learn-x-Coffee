@@ -60,17 +60,21 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                         contentDescription = "User image",
                         contentScale = ContentScale.Crop
                     )
+                    Spacer(modifier = Modifier.height(25.dp))
                     MyText(nivel = 1, texto = viewModel.userInfo.userName)
                 }
                 else {
                     MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier)
+                    Spacer(modifier = Modifier.height(25.dp))
                     MyText(nivel = 1, texto = viewModel.userInfo.userName)
                 }
             }
         }
+        Spacer(modifier = Modifier.height(10.dp))
         Box(modifier = Modifier.fillMaxWidth(),contentAlignment = Alignment.Center){
             MyText(nivel = 3,texto = viewModel.userInfo.correo)
         }
+        Spacer(modifier = Modifier.height(35.dp))
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){
             MyText(nivel = 2, texto = viewModel.userInfo.description)
