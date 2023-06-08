@@ -3,20 +3,35 @@ package com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.componen
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -63,7 +78,11 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(192.dp),
+                    .height(192.dp)
+                    .blur(
+                        radiusX = 10.dp,
+                        radiusY = 10.dp
+                    ),
                 painter = painterResource(id = R.drawable.banner_perfil01),
                 contentDescription = "Banner imagen",
                 contentScale = ContentScale.Crop,
@@ -79,6 +98,8 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
                         modifier = Modifier
                             .size(192.dp)
                             .clip(CircleShape)
+                            .border(BorderStroke(4.dp, MaterialTheme.colors.onPrimary),
+                                CircleShape)
                             .clickable { stadoDialog.value = true },
                         model = viewModel.imgUri,
                         contentDescription = "User image",
@@ -107,15 +128,39 @@ fun EditProfileContent(navHostController: NavHostController, viewModel: EditProf
                     texto =  state.description,
                     onValueChange = { viewModel.descriptionImput(it) },
                     label = "Sobre mí",
-                    icon = Icons.Default.Person,
+                    icon = Icons.Default.AccountCircle,
                 )
             }
         }
-        Button(onClick = {
+    }
+    TopAppBar(
+        modifier = Modifier
+            .height(56.dp)
+            .background(Color.Transparent),
+        elevation = 0.dp,
+        backgroundColor = Color.Transparent,
+        contentPadding = PaddingValues(bottom = 8.dp)
+    ){
+        IconButton(
+            onClick = { /* Acción al pulsar el icono izquierdo */ }
+        ) {
+            Icon(
+                Icons.Default.ArrowBack,
+                contentDescription = "Icono izquierdo",
+                tint = MaterialTheme.colors.primary
+            )
+        }
+
+        Spacer(Modifier.weight(1f))
+        IconButton(onClick = {
             viewModel.saveImg()
             viewModel.clickEdit(viewModel.imgUri)
         }) {
-            Text(text = "UpdatePerfil")
+            Icon(
+                Icons.Default.Check,
+                contentDescription = "Icono derecho",
+                tint = MaterialTheme.colors.primary
+            )
         }
     }
 

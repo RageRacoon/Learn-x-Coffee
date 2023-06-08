@@ -1,14 +1,20 @@
 package com.RageRacoon.learm_x_coffee.presentation.screens.login.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -39,7 +45,11 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(192.dp),
+                    .height(192.dp)
+                    .blur(
+                        radiusX = 10.dp,
+                        radiusY = 10.dp
+                    ),
                 painter = painterResource(id = R.drawable.banner_perfil01),
                 contentDescription = "Banner imagen",
                 contentScale = ContentScale.Crop,
@@ -55,7 +65,9 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                     AsyncImage(
                         modifier = Modifier
                             .size(192.dp)
-                            .clip(CircleShape),
+                            .clip(CircleShape)
+                            .border(BorderStroke(4.dp, MaterialTheme.colors.onPrimary),
+                                CircleShape),
                         model = viewModel.userInfo.img,
                         contentDescription = "User image",
                         contentScale = ContentScale.Crop
