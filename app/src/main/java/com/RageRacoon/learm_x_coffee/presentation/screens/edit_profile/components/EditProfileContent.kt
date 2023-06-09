@@ -128,8 +128,28 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                 else {
                     //Imagen de mapache por defecto y nombre de usuario.
                     Spacer(modifier = Modifier.height(18.dp))
-                    MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier.clickable { stadoDialog.value = true },)
+
+                    Box(modifier = Modifier.fillMaxWidth()){
+
+                        MyRoundImage(
+                            R.drawable.sprite_racoon,
+                            modifier = Modifier.align(Alignment.Center)
+                                               .clickable { stadoDialog.value = true }
+                        )
+
+                        IconButton(onClick = {
+                            viewModel.imgUri
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.edit),
+                                modifier = Modifier.offset(x = 230.dp, y = 0.dp).clickable { stadoDialog.value = true },
+                                contentDescription = "Icono edición de imagen",
+                                tint = MaterialTheme.colors.secondary
+                            )
+                        }
+                    }
                     Spacer(modifier = Modifier.height(20.dp))
+
                     MyTextField(
                         modifier = Modifier
                             .padding(top = 25.dp)
