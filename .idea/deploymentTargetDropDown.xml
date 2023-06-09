@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="SERIAL_NUMBER" />
-            <value value="R58N60D1AST" />
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\natal\.android\avd\Pixel_4_API_UpsideDownCake.avd" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2023-06-08T18:42:49.502772600Z" />
+    <timeTargetWasSelectedWithDropDown value="2023-06-09T18:13:01.839463700Z" />
   </component>
 </project>

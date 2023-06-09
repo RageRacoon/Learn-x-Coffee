@@ -1,8 +1,6 @@
 package com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.components
 
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,30 +8,18 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -48,10 +34,8 @@ import com.RageRacoon.learm_x_coffee.presentation.components.MyTextField
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.presentation.components.MyDialog
 import com.RageRacoon.learm_x_coffee.presentation.components.MyRoundImage
-import com.RageRacoon.learm_x_coffee.presentation.components.MyText
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.EditProfileViewModel
-import com.RageRacoon.learm_x_coffee.utiles.ComposeFileProvider
 
 @Composable
 fun EditProfileContent(navController: NavHostController, viewModel: EditProfileViewModel = hiltViewModel()){
@@ -104,8 +88,10 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
             ) {
                 //Foto de perfil si el usuario ha añadido una, y nombre de usuario.
                 if (viewModel.imgUri != "") {
+                Box(modifier = Modifier.fillMaxWidth()){
                     AsyncImage(
                         modifier = Modifier
+                            .align(Alignment.Center)
                             .size(192.dp)
                             .clip(CircleShape)
                             .border(
@@ -117,6 +103,17 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                         contentDescription = "User image",
                         contentScale = ContentScale.Crop
                     )
+                    IconButton(onClick = {
+                        viewModel.imgUri
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.edit),
+                            modifier = Modifier.offset(x = 245.dp, y = 0.dp).clickable { stadoDialog.value = true },
+                            contentDescription = "Icono edición de imagen",
+                            tint = MaterialTheme.colors.secondary
+                        )
+                    }
+                }
                     Spacer(modifier = Modifier.height(20.dp))
                     MyTextField(
                         modifier = Modifier
@@ -144,7 +141,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                     )
                 }
                 //Descripción que el usuario desee añadir.
-                Spacer(modifier = Modifier.height(5.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 MyTextField(
                     modifier = Modifier
                         .padding(top = 25.dp)
