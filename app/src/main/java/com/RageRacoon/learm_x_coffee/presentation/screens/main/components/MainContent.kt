@@ -57,8 +57,7 @@ fun MainContent(
             item {
                 //task.dateOfTheHabits.forEach{
                   //  if(task.dateOfTheHabits.contains(viewModel.tooday) ){
-                        MyHabitBox(task)
-                MyHabitBoxPredi()
+                MyHabitBoxPredi(task)
                     //}
 
                 //}
