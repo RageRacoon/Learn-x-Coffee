@@ -17,11 +17,15 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 
 import androidx.navigation.NavHostController
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.domain.model.Response
+import com.RageRacoon.learm_x_coffee.presentation.components.MyText
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 
 
@@ -33,14 +37,13 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            modifier = Modifier.padding(top = 30.dp, bottom = 0.dp, start = 0.dp),
-            text = "Log In"
+
+        Spacer(modifier = Modifier.height(2.dp))
+        MyText(
+            nivel = 3,
+            texto = "Inicie sesión en la app"
         )
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = "Inicie sesión en la app"
-        )
+        Spacer(modifier = Modifier.height(30.dp))
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
             texto = state.email, //Clase manejadora de estados.

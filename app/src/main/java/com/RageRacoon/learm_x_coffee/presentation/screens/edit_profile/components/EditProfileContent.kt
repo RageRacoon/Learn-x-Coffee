@@ -122,7 +122,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                         Icon(
                             painter = painterResource(id = R.drawable.edit),
                             modifier = Modifier
-                                .offset(x = 250.dp, y = 0.dp)
+                                .offset(x = 255.dp, y = 0.dp)
                                 .clickable { stadoDialog.value = true },
                             contentDescription = "Icono edición de imagen",
                             tint = MaterialTheme.colors.secondary
@@ -248,7 +248,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                     popUpTo(AppScreen.ProfileScreen.rutaPantalla) { inclusive = true }
                 }
             }else{
-
+                //Mensaje de que no permite username vacío.
             }
         }) {
             Icon(
