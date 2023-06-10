@@ -3,6 +3,7 @@ package com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,6 +30,7 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.RageRacoon.learm_x_coffee.presentation.MainActivity
 import com.RageRacoon.learm_x_coffee.utiles.ComposeFileProvider
 import com.RageRacoon.learm_x_coffee.utiles.ResultingActivityHandler
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -76,6 +78,8 @@ class EditProfileViewModel @Inject constructor(
     var hasImg by mutableStateOf<Boolean>(false)
       private set
 
+    private val _maxCharacters = 240
+    val maxCharacters: Int = _maxCharacters
 
 
     //______                _
@@ -103,11 +107,16 @@ class EditProfileViewModel @Inject constructor(
         edit(editUser)
     }
     fun userNameImput(username: String) {
-        state = state.copy(username = username)
+            state = state.copy(username = username)
+
     }
+
     fun descriptionImput(description: String) {
-        state = state.copy(description = description)
+        if(description.length <= maxCharacters )
+            state = state.copy(description = description)
     }
+
+
 
     fun edit(user: User){
         viewModelScope.launch {

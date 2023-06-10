@@ -1,6 +1,8 @@
 package com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.components
 
 
+import android.graphics.Paint
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,8 +13,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
@@ -26,15 +32,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import androidx.navigation.NavHostController
 import com.RageRacoon.learm_x_coffee.R
 import com.RageRacoon.learm_x_coffee.presentation.components.MyTextField
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.RageRacoon.learm_x_coffee.domain.model.Response
 import com.RageRacoon.learm_x_coffee.presentation.components.MyDialog
 import com.RageRacoon.learm_x_coffee.presentation.components.MyRoundImage
+import com.RageRacoon.learm_x_coffee.presentation.components.MyText
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
+import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.EditProfileState
 import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.EditProfileViewModel
 
 @Composable
@@ -50,6 +61,8 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
     var stadoDialog = remember {
         mutableStateOf(false)
     }
+    val text = state.description;
+    val maxCharacters = viewModel.maxCharacters;
 
     //Selección de cámara o galería para la selección de foto de perfil.
     MyDialog(
@@ -108,21 +121,27 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                     }) {
                         Icon(
                             painter = painterResource(id = R.drawable.edit),
-                            modifier = Modifier.offset(x = 245.dp, y = 0.dp).clickable { stadoDialog.value = true },
+                            modifier = Modifier
+                                .offset(x = 250.dp, y = 0.dp)
+                                .clickable { stadoDialog.value = true },
                             contentDescription = "Icono edición de imagen",
                             tint = MaterialTheme.colors.secondary
                         )
                     }
                 }
                     Spacer(modifier = Modifier.height(20.dp))
-                    MyTextField(
+                    TextField(
                         modifier = Modifier
                             .padding(top = 25.dp)
                             .size(width = 325.dp, height = 65.dp),
-                        texto =  state.username,
+                        value =  state.username,
                         onValueChange = { viewModel.userNameImput(it) },
-                        label = "Nombre de usuario",
-                        icon = Icons.Default.Person,
+                        label = { Text("Nombre de usuario") },
+                        leadingIcon = {
+                            Icon(Icons.Filled.Person,
+                                contentDescription = "Icono izquierdo",
+                                tint = MaterialTheme.colors.primary)
+                        }
                     )
                 }
                 else {
@@ -133,8 +152,9 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
 
                         MyRoundImage(
                             R.drawable.sprite_racoon,
-                            modifier = Modifier.align(Alignment.Center)
-                                               .clickable { stadoDialog.value = true }
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .clickable { stadoDialog.value = true }
                         )
 
                         IconButton(onClick = {
@@ -142,35 +162,54 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                         }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.edit),
-                                modifier = Modifier.offset(x = 230.dp, y = 0.dp).clickable { stadoDialog.value = true },
+                                modifier = Modifier
+                                    .offset(x = 230.dp, y = 0.dp)
+                                    .clickable { stadoDialog.value = true },
                                 contentDescription = "Icono edición de imagen",
                                 tint = MaterialTheme.colors.secondary
                             )
                         }
                     }
                     Spacer(modifier = Modifier.height(20.dp))
-
-                    MyTextField(
+                    TextField(
                         modifier = Modifier
                             .padding(top = 25.dp)
                             .size(width = 325.dp, height = 65.dp),
-                        texto =  state.username,
+                        value =  state.username,
                         onValueChange = { viewModel.userNameImput(it) },
-                        label = "Nombre de usuario",
-                        icon = Icons.Default.Person,
+                        label = { Text("Nombre de usuario") },
+                        leadingIcon = {
+                            Icon(Icons.Filled.Person,
+                                contentDescription = "Icono izquierdo",
+                                tint = MaterialTheme.colors.primary)
+                        }
                     )
+
                 }
                 //Descripción que el usuario desee añadir.
                 Spacer(modifier = Modifier.height(20.dp))
-                MyTextField(
-                    modifier = Modifier
-                        .padding(top = 25.dp)
-                        .size(width = 325.dp, height = 200.dp),
-                    texto =  state.description,
-                    onValueChange = { viewModel.descriptionImput(it) },
-                    label = "Sobre mí",
-                    icon = Icons.Filled.Info
-                )
+                Column {
+                    TextField(
+                        modifier = Modifier
+                            .padding(top = 25.dp)
+                            .size(width = 325.dp, height = 240.dp),
+                        value = state.description,
+                        onValueChange = { viewModel.descriptionImput(it) },
+                        label = { Text("Sobre mí") },
+                        leadingIcon = {
+                            Icon(Icons.Filled.Info,
+                                contentDescription = "Icono izquierdo",
+                                tint = MaterialTheme.colors.primary)
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        modifier = Modifier.align(alignment = Alignment.End),
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colors.primary,
+                        text = "${maxCharacters - text.length}"
+                    )
+                }
             }
         }
     }
@@ -202,10 +241,14 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
 
         //Botón de guardar cambios (✓)
         IconButton(onClick = {
-            viewModel.saveImg()
-            viewModel.clickEdit(viewModel.imgUri)
-            navController.navigate(route = AppScreen.ProfileScreen.rutaPantalla){
-                popUpTo(AppScreen.ProfileScreen.rutaPantalla){inclusive = true}
+            if (state.username.length > 0){
+                viewModel.saveImg()
+                viewModel.clickEdit(viewModel.imgUri)
+                navController.navigate(route = AppScreen.ProfileScreen.rutaPantalla) {
+                    popUpTo(AppScreen.ProfileScreen.rutaPantalla) { inclusive = true }
+                }
+            }else{
+
             }
         }) {
             Icon(

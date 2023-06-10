@@ -103,7 +103,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         Spacer(modifier = Modifier.height(35.dp))
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){
-            Text(viewModel.userInfo.description, maxLines = 7, fontSize = 18.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
+            Text(viewModel.userInfo.description,/* maxLines = 7,*/ fontSize = 18.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
                 .padding(horizontal = 35.dp), textAlign = TextAlign.Justify)
 
         }
