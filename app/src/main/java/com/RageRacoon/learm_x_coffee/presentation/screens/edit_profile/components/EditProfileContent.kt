@@ -246,7 +246,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
         //Botón de guardar cambios (✓)
         IconButton(onClick = {
             if(state.username.length == 0){
-                viewModel.showToast("El nombre de usuario no puede estar vacío.")
+                Toast.makeText(contexto, "El nombre de usuario no puede estar vacío.", Toast.LENGTH_SHORT).show()
             }else {
                 viewModel.saveImg()
                 viewModel.clickEdit(viewModel.imgUri)
@@ -262,17 +262,8 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
             )
         }
     }
-    
-    val toastMessage = viewModel.toastMessage.observeAsState()
-    val context = LocalContext.current
 
-    LaunchedEffect(toastMessage.value) {
-        if (!toastMessage.value.isNullOrEmpty()) {
-            Toast.makeText(
-                context,
-                toastMessage.value,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
+
+
+
 }

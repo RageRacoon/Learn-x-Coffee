@@ -88,13 +88,6 @@ import androidx.lifecycle.MutableLiveData
          state = state.copy(confirmPasword = confirmPasword)
      }
 
-    private val _toastMessage = MutableLiveData<String>()
-    val toastMessage: LiveData<String> = _toastMessage
-
-    fun showToast(message: String) {
-        _toastMessage.value = message
-    }
-
     fun usernameNotVoid() : Boolean {
         if(state.username.length != 0){
             return true
@@ -119,12 +112,6 @@ import androidx.lifecycle.MutableLiveData
 
             register(user)
 
-         }
-         else if(validateConfirmPassword() == false){
-            showToast("Las contraseñas no coinciden.")
-         }
-         else if(usernameNotVoid() == false){
-            showToast("El nombre de usuario no puede estar vacío.")
          }
      }
 

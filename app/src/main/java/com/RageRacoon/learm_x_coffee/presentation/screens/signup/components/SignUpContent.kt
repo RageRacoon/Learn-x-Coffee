@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewModel = hiltViewModel()){
 
     val state = viewModel.state //States, de esta screen
+    val contexto = LocalContext.current
 
    Column(
         modifier = Modifier
@@ -69,22 +70,15 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
         )
         Button(onClick = {
             viewModel.onRegister()
+            if(viewModel.validateConfirmPassword() == false){
+                Toast.makeText(contexto, "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show()
+            }
+            else if(viewModel.usernameNotVoid() == false){
+                Toast.makeText(contexto, "El nombre de usuario no puede estar vacío.", Toast.LENGTH_SHORT).show()
+            }
         }) {
             Text(text = "Registrarse")
         }
     }
-    //Evaluamos el esatado del registro
 
-    val toastMessage = viewModel.toastMessage.observeAsState()
-    val context = LocalContext.current
-
-    LaunchedEffect(toastMessage.value) {
-        if (!toastMessage.value.isNullOrEmpty()) {
-            Toast.makeText(
-                context,
-                toastMessage.value,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
 }
