@@ -1,5 +1,8 @@
 package com.RageRacoon.learm_x_coffee.presentation.screens.signup
 
+import android.widget.Toast
+import androidx.compose.material.Snackbar
+import androidx.compose.material.Text
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,8 +21,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
- @HiltViewModel
+@HiltViewModel
  class SingUpViewModel  @Inject constructor(private val loginUseCase: LoginUseCase, private val profilesUseCase: ProfilesUseCase): ViewModel(){
      //Usuario resgistrado
      var user = User()
@@ -82,18 +88,44 @@ import androidx.compose.runtime.*
          state = state.copy(confirmPasword = confirmPasword)
      }
 
-     fun validateConfirmPassword(){
-         if (state.password == state.confirmPasword){
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage: LiveData<String> = _toastMessage
 
+    fun showToast(message: String) {
+        _toastMessage.value = message
+    }
+
+    fun usernameNotVoid() : Boolean {
+        if(state.username.length != 0){
+            return true
+        }
+        return false
+    }
+
+     fun validateConfirmPassword() : Boolean{
+         if (state.password != state.confirmPasword){
+            return false
          }
+         return true
      }
 
      fun onRegister(){
-         user.userName = state.username
-         user.password = state.password
-         user.correo   = state.email
 
-         register(user)
+         if(validateConfirmPassword() == true && usernameNotVoid() == true){
+
+            user.userName = state.username
+            user.password = state.password
+            user.correo   = state.email
+
+            register(user)
+
+         }
+         else if(validateConfirmPassword() == false){
+            showToast("Las contraseñas no coinciden.")
+         }
+         else if(usernameNotVoid() == false){
+            showToast("El nombre de usuario no puede estar vacío.")
+         }
      }
 
      //private val _registerFlow = MutableStateFlow<Response<FirebaseUser>?>(null)

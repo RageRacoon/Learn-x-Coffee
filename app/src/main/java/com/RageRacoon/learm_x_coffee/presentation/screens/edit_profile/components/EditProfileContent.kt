@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -40,6 +41,9 @@ import androidx.navigation.NavHostController
 import com.RageRacoon.learm_x_coffee.R
 import com.RageRacoon.learm_x_coffee.presentation.components.MyTextField
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.RageRacoon.learm_x_coffee.domain.model.Response
 import com.RageRacoon.learm_x_coffee.presentation.components.MyDialog
 import com.RageRacoon.learm_x_coffee.presentation.components.MyRoundImage
@@ -241,14 +245,14 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
 
         //Botón de guardar cambios (✓)
         IconButton(onClick = {
-            if (state.username.length > 0){
+            if(state.username.length == 0){
+                viewModel.showToast("El nombre de usuario no puede estar vacío.")
+            }else {
                 viewModel.saveImg()
                 viewModel.clickEdit(viewModel.imgUri)
                 navController.navigate(route = AppScreen.ProfileScreen.rutaPantalla) {
                     popUpTo(AppScreen.ProfileScreen.rutaPantalla) { inclusive = true }
                 }
-            }else{
-                //Mensaje de que no permite username vacío.
             }
         }) {
             Icon(
@@ -256,6 +260,19 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                 contentDescription = "Icono derecho",
                 tint = MaterialTheme.colors.primary
             )
+        }
+    }
+    
+    val toastMessage = viewModel.toastMessage.observeAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(toastMessage.value) {
+        if (!toastMessage.value.isNullOrEmpty()) {
+            Toast.makeText(
+                context,
+                toastMessage.value,
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

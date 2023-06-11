@@ -27,7 +27,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.RageRacoon.learm_x_coffee.presentation.MainActivity
@@ -116,15 +120,20 @@ class EditProfileViewModel @Inject constructor(
             state = state.copy(description = description)
     }
 
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage: LiveData<String> = _toastMessage
+
+    fun showToast(message: String) {
+        _toastMessage.value = message
+    }
 
 
     fun edit(user: User){
-        viewModelScope.launch {
-            editResponse = Response.Loading
-            val resultado = profilesUseCase.edit(user)
-            editResponse = resultado
-        }
-
+            viewModelScope.launch {
+                editResponse = Response.Loading
+                val resultado = profilesUseCase.edit(user)
+                editResponse = resultado
+            }
     }
     //Tratemiento de imagenes
     val resultingActivityHandler = ResultingActivityHandler()
@@ -152,17 +161,5 @@ class EditProfileViewModel @Inject constructor(
             uploadImg=result
         }
     }
-
-    fun EnableRegisterButton(){
-        if (isUsernameOk){
-            isUsernameOk= true
-        }
-    }
-
-
-
-
-
-
 
 }
