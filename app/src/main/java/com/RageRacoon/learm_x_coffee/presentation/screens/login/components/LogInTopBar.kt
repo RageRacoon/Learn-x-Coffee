@@ -31,7 +31,7 @@ fun LoginTopBar(){
         Spacer(modifier = Modifier.height(1.dp))
         Text(
             fontSize = 20.sp,
-            color = MaterialTheme.colors.primary,
+            color = MaterialTheme.colors.onPrimary,
             modifier = Modifier.padding(horizontal = 0.dp),
             text = "Sign In"
         )
