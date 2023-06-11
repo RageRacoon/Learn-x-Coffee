@@ -29,7 +29,8 @@ fun SignUpTopBar(){
         Spacer(modifier = Modifier.height(30.dp))
         Image(
             modifier = Modifier
-                .height(225.dp),
+                .height(200.dp)
+                .padding(bottom = 0.dp),
             painter = painterResource(id = R.drawable.logo_learn_x_coffee_1204),
             contentDescription = "Logotipo de la app")
         Text(
@@ -38,7 +39,7 @@ fun SignUpTopBar(){
             modifier = Modifier.padding(top = 0.dp),
             text = "Sign Up"
         )
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(0.dp))
         MyText(
             nivel = 3,
             texto = "Regístrese en la app"

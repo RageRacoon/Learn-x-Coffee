@@ -65,7 +65,7 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
             errorMsg = viewModel.passwordErrMsg,
             validateField = { }
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(25.dp))
         Button(
             modifier = Modifier.clickable(enabled = viewModel.isClickableLoginButton) {  },
             onClick = {

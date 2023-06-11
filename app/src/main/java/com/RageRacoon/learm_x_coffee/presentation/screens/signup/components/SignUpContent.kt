@@ -35,7 +35,7 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         MyTextField(
-            modifier = Modifier.padding(top = 25.dp),
+            modifier = Modifier.padding(top = 15.dp),
             texto =  state.username,
             onValueChange = { viewModel.userNameImput(it) },
             label = "Nombre de usuario",

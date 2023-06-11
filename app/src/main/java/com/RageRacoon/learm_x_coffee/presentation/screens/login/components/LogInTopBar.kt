@@ -25,7 +25,8 @@ fun LoginTopBar(){
         Spacer(modifier = Modifier.height(80.dp))
         Image(
             modifier = Modifier
-                .height(225.dp),
+                .height(200.dp)
+                .padding(bottom = 0.dp),
             painter = painterResource(id = R.drawable.logo_learn_x_coffee_1204),
             contentDescription = "Logotipo de la app")
         Spacer(modifier = Modifier.height(1.dp))

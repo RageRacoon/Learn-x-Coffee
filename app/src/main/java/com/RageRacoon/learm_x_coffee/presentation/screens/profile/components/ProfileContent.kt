@@ -107,7 +107,7 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                 .padding(horizontal = 35.dp), textAlign = TextAlign.Justify)
 
         }
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         //Botón que redirige a la pantalla de editar perfil.
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
