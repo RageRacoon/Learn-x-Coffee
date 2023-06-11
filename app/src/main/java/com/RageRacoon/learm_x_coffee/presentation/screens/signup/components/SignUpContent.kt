@@ -42,11 +42,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            modifier = Modifier
-                .height(255.dp),
-            painter = painterResource(id = R.drawable.sprite_racoon),
-            contentDescription = "Img perfil")
         MyTextField(
             modifier = Modifier.padding(top = 25.dp),
             texto =  state.username,

@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.RageRacoon.learm_x_coffee.presentation.components.MyText
 import com.RageRacoon.learm_x_coffee.presentation.screens.signup.components.Register
+import com.RageRacoon.learm_x_coffee.presentation.screens.signup.components.SignUpBottomBar
 import com.RageRacoon.learm_x_coffee.presentation.screens.signup.components.SignUpTopBar
 import com.RageRacoon.learm_x_coffee.presentation.screens.signup.components.SinUpContent
 
@@ -15,12 +16,14 @@ import com.RageRacoon.learm_x_coffee.presentation.screens.signup.components.SinU
 fun SignUpScreen(navController : NavHostController) {
     Scaffold(
         topBar = {
-                 SignUpTopBar(navController)
+                 SignUpTopBar()
         },
         content = {
                  SinUpContent(navController)
         },
-        bottomBar = {}
+        bottomBar = {
+            SignUpBottomBar(navController)
+        }
     )
     Register(navController)
 }
