@@ -30,6 +30,7 @@ import com.RageRacoon.learm_x_coffee.presentation.components.MyTextField
 import com.RageRacoon.learm_x_coffee.presentation.screens.signup.SingUpViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.R
+import com.google.android.gms.common.internal.service.Common
 
 
 @Composable
@@ -122,7 +123,7 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                viewModel.isPasswordOk = false
            },
            isError = viewModel.isPasswordOk,
-           label = { Text("Correo Electrónico") },
+           label = { Text("Contraseña") },
            interactionSource = remember { MutableInteractionSource() },
            visualTransformation = PasswordVisualTransformation(),
            leadingIcon = {
@@ -133,26 +134,7 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                        tint = MaterialTheme.colors.onError
                    )
                }else{
-                   if(viewModel.minCaracteres() == true){
-                       Icon(
-                           painter = painterResource(id = R.drawable.bx_lock_alt),
-                           contentDescription = "Icono izquierdo",
-                           tint = MaterialTheme.colors.primary
-                       )
-                   }else{
-                       Icon(
-                           painter = painterResource(id = R.drawable.bx_lock_open_alt),
-                           contentDescription = "Icono izquierdo",
-                           tint = MaterialTheme.colors.primary
-                       )
-                   }
-                   if(!state.password.isEmpty() && viewModel.validateConfirmPassword() == true){
-                       Icon(
-                           painter = painterResource(id = R.drawable.bxs_lock_alt_relleno),
-                           contentDescription = "Icono izquierdo",
-                           tint = MaterialTheme.colors.primary
-                       )
-                   }
+                  Icons(state.password)
                }
            }
        )
@@ -173,7 +155,7 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                viewModel.isConfirmPasswordOk = false
            },
            isError = viewModel.isConfirmPasswordOk,
-           label = { Text("Correo Electrónico") },
+           label = { Text("Confirmación de contraseña") },
            interactionSource = remember { MutableInteractionSource() },
            visualTransformation = PasswordVisualTransformation(),
            leadingIcon = {
@@ -184,26 +166,7 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                        tint = MaterialTheme.colors.onError
                    )
                }else{
-                   if(state.confirmPasword.length > 6){
-                       Icon(
-                           painter = painterResource(id = R.drawable.bx_lock_alt),
-                           contentDescription = "Icono izquierdo",
-                           tint = MaterialTheme.colors.primary
-                       )
-                   }else{
-                       Icon(
-                           painter = painterResource(id = R.drawable.bx_lock_open_alt),
-                           contentDescription = "Icono izquierdo",
-                           tint = MaterialTheme.colors.primary
-                       )
-                   }
-                   if(!state.confirmPasword.isEmpty() && viewModel.validateConfirmPassword() == true){
-                       Icon(
-                           painter = painterResource(id = R.drawable.bxs_lock_alt_relleno),
-                           contentDescription = "Icono izquierdo",
-                           tint = MaterialTheme.colors.primary
-                       )
-                   }
+                   Icons(state.confirmPasword)
                }
            }
        )
