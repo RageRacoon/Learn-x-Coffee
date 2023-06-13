@@ -47,18 +47,15 @@ import androidx.lifecycle.MutableLiveData
 
      //Mail
      var isEmailOk: Boolean by mutableStateOf(false)
-         private set
      var emailError: String by mutableStateOf("")
          private set
 
      //Pasword
      var isPasswordOk:Boolean by mutableStateOf(value = false)
-         private set
      var passwordError: String by mutableStateOf(value = "")
 
      //Passworrd 2
      var isConfirmPasswordOk: Boolean by mutableStateOf(value = false)
-         private set
      var confirmPasswordError: String by mutableStateOf(value = "")
 
      //Boton accesible
@@ -102,17 +99,24 @@ import androidx.lifecycle.MutableLiveData
          return true
      }
 
+    fun minCaracteres() : Boolean {
+        if(state.password.length < 6)
+            return false
+        return true
+    }
+
+    fun formatEmail() : Boolean {
+        if(state.email.contains('@') && state.email.contains(".com") || state.email.contains('@') && state.email.contains(".es"))
+            return true
+        return false
+    }
+
      fun onRegister(){
+        user.userName = state.username
+        user.password = state.password
+        user.correo   = state.email
 
-         if(validateConfirmPassword() == true && usernameNotVoid() == true){
-
-            user.userName = state.username
-            user.password = state.password
-            user.correo   = state.email
-
-            register(user)
-
-         }
+        register(user)
      }
 
      //private val _registerFlow = MutableStateFlow<Response<FirebaseUser>?>(null)
