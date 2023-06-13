@@ -77,6 +77,8 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                textAlign = TextAlign.Center
            )
        }
+
+       Spacer(modifier = Modifier.height(12.dp))
         OutlinedTextField(
             value = state.email,
             onValueChange = {
@@ -111,6 +113,7 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                textAlign = TextAlign.Center
            )
        }
+       Spacer(modifier = Modifier.height(12.dp))
        OutlinedTextField(
            value = state.password,
            onValueChange = {
@@ -146,6 +149,7 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                textAlign = TextAlign.Center
            )
        }
+       Spacer(modifier = Modifier.height(12.dp))
        OutlinedTextField(
            value = state.confirmPasword,
            onValueChange = {
@@ -182,6 +186,7 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
            )
        }
 
+       Spacer(modifier = Modifier.height(12.dp))
         Button(onClick = {
             if(viewModel.usernameNotVoid() == false){
                 viewModel.isUsernameOk = true

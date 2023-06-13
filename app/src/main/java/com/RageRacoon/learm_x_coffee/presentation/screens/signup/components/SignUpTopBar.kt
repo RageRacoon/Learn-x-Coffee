@@ -26,10 +26,10 @@ fun SignUpTopBar(){
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(40.dp))
         Image(
             modifier = Modifier
-                .height(200.dp)
+                .height(180.dp)
                 .padding(bottom = 0.dp),
             painter = painterResource(id = R.drawable.logo_learn_x_coffee_1204),
             contentDescription = "Logotipo de la app")
