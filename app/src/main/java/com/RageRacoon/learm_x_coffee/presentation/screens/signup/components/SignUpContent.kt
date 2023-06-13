@@ -70,12 +70,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
         )
         Button(onClick = {
             viewModel.onRegister()
-            if(viewModel.validateConfirmPassword() == false){
-                Toast.makeText(contexto, "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show()
-            }
-            else if(viewModel.usernameNotVoid() == false){
-                Toast.makeText(contexto, "El nombre de usuario no puede estar vacío.", Toast.LENGTH_SHORT).show()
-            }
         }) {
             Text(text = "Registrarse")
         }

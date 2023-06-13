@@ -10,6 +10,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Colors
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -33,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -67,6 +69,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
     }
     val text = state.description;
     val maxCharacters = viewModel.maxCharacters;
+
 
     //Selección de cámara o galería para la selección de foto de perfil.
     MyDialog(
@@ -142,11 +145,30 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
                         onValueChange = { viewModel.userNameImput(it) },
                         label = { Text("Nombre de usuario") },
                         leadingIcon = {
-                            Icon(Icons.Filled.Person,
-                                contentDescription = "Icono izquierdo",
-                                tint = MaterialTheme.colors.primary)
+                            if(viewModel.state.username.length == 0){
+                                Icon(
+                                    Icons.Filled.Person,
+                                    contentDescription = "Icono izquierdo",
+                                    tint = MaterialTheme.colors.onError
+                                )
+                            }else {
+                                Icon(
+                                    Icons.Filled.Person,
+                                    contentDescription = "Icono izquierdo",
+                                    tint = MaterialTheme.colors.primary
+                                )
+                            }
                         }
                     )
+                    if (viewModel.state.username.length == 0) {
+                        Text(
+                            text = "* El nombre de usuario no puede estar vacío.",
+                            color = MaterialTheme.colors.onError,
+                            style = TextStyle(fontSize = 12.sp),
+                            modifier = Modifier,
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 }
                 else {
                     //Imagen de mapache por defecto y nombre de usuario.
@@ -245,9 +267,7 @@ fun EditProfileContent(navController: NavHostController, viewModel: EditProfileV
 
         //Botón de guardar cambios (✓)
         IconButton(onClick = {
-            if(state.username.length == 0){
-                Toast.makeText(contexto, "El nombre de usuario no puede estar vacío.", Toast.LENGTH_SHORT).show()
-            }else {
+            if(state.username.length > 0){
                 viewModel.saveImg()
                 viewModel.clickEdit(viewModel.imgUri)
                 navController.navigate(route = AppScreen.ProfileScreen.rutaPantalla) {

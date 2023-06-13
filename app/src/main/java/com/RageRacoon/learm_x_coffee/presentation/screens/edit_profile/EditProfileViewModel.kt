@@ -122,11 +122,11 @@ class EditProfileViewModel @Inject constructor(
 
 
     fun edit(user: User){
-            viewModelScope.launch {
-                editResponse = Response.Loading
-                val resultado = profilesUseCase.edit(user)
-                editResponse = resultado
-            }
+        viewModelScope.launch {
+            editResponse = Response.Loading
+            val resultado = profilesUseCase.edit(user)
+            editResponse = resultado
+        }
     }
     //Tratemiento de imagenes
     val resultingActivityHandler = ResultingActivityHandler()

@@ -16,3 +16,5 @@ val SoftBrown700 = Color(0xFFD2B48C)
 val SoftBrown200 = Color(0xFFFFF8DC)
 
 val TransparenteBlanco = Color(0x00FFFFFF)
+
+val mainRed = Color(0xFF8B0000)
