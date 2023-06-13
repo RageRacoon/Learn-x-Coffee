@@ -18,6 +18,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -28,7 +29,7 @@ import androidx.navigation.NavHostController
 import com.RageRacoon.learm_x_coffee.presentation.components.MyTextField
 import com.RageRacoon.learm_x_coffee.presentation.screens.signup.SingUpViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
-
+import com.RageRacoon.learm_x_coffee.R
 
 
 @Composable
@@ -127,16 +128,31 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
            leadingIcon = {
                if(viewModel.isPasswordOk == true){
                    Icon(
-                       Icons.Filled.Lock,
+                       painter = painterResource(id = R.drawable.bx_lock_open_alt),
                        contentDescription = "Icono izquierdo",
                        tint = MaterialTheme.colors.onError
                    )
                }else{
-                   Icon(
-                           Icons.Filled.Lock,
-                       contentDescription = "Icono izquierdo",
-                       tint = MaterialTheme.colors.primary
-                   )
+                   if(viewModel.minCaracteres() == true){
+                       Icon(
+                           painter = painterResource(id = R.drawable.bx_lock_alt),
+                           contentDescription = "Icono izquierdo",
+                           tint = MaterialTheme.colors.primary
+                       )
+                   }else{
+                       Icon(
+                           painter = painterResource(id = R.drawable.bx_lock_open_alt),
+                           contentDescription = "Icono izquierdo",
+                           tint = MaterialTheme.colors.primary
+                       )
+                   }
+                   if(!state.password.isEmpty() && viewModel.validateConfirmPassword() == true){
+                       Icon(
+                           painter = painterResource(id = R.drawable.bxs_lock_alt_relleno),
+                           contentDescription = "Icono izquierdo",
+                           tint = MaterialTheme.colors.primary
+                       )
+                   }
                }
            }
        )
@@ -163,16 +179,31 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
            leadingIcon = {
                if(viewModel.isConfirmPasswordOk == true){
                    Icon(
-                       Icons.Outlined.Lock,
+                       painter = painterResource(id = R.drawable.bx_lock_open_alt),
                        contentDescription = "Icono izquierdo",
                        tint = MaterialTheme.colors.onError
                    )
                }else{
-                   Icon(
-                       Icons.Outlined.Lock,
-                       contentDescription = "Icono izquierdo",
-                       tint = MaterialTheme.colors.primary
-                   )
+                   if(state.confirmPasword.length > 6){
+                       Icon(
+                           painter = painterResource(id = R.drawable.bx_lock_alt),
+                           contentDescription = "Icono izquierdo",
+                           tint = MaterialTheme.colors.primary
+                       )
+                   }else{
+                       Icon(
+                           painter = painterResource(id = R.drawable.bx_lock_open_alt),
+                           contentDescription = "Icono izquierdo",
+                           tint = MaterialTheme.colors.primary
+                       )
+                   }
+                   if(!state.confirmPasword.isEmpty() && viewModel.validateConfirmPassword() == true){
+                       Icon(
+                           painter = painterResource(id = R.drawable.bxs_lock_alt_relleno),
+                           contentDescription = "Icono izquierdo",
+                           tint = MaterialTheme.colors.primary
+                       )
+                   }
                }
            }
        )
