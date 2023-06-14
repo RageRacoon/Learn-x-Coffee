@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -39,8 +40,8 @@ fun MyHabitBoxPredi(task: Task) {
     //Posicion en pantalla
     var offsetX by remember { mutableStateOf(0f) }
     val initialOffsetX = 0f
-    val maxOffsetX = 200f
-    val minOffsetX = -200f
+    var maxOffsetX = 100f
+    var minOffsetX = -100f
 
     // Iconos de los habitos
     val iconsHabitsList: List<Painter> = listOf(
@@ -53,16 +54,23 @@ fun MyHabitBoxPredi(task: Task) {
     val doneIconDrawable: Painter = painterResource(R.drawable.trophy)
     val dontDoneIconDrawable: Painter = painterResource(R.drawable.coffee_bean)
 
+
+    val habitNotDoneText:String = "Mañana más"
     val habitNotFinishedText:String = "A por ello!"
     val habitFinishedText:String = "Bien hecho!"
     var textOfTheHabit  by remember { mutableStateOf(habitNotFinishedText) }
 
-    val colorFinised: Color = Color.Green
 
-    var stateOfHabit by remember { mutableStateOf(task.done) }
+    var habitDone by remember { mutableStateOf(task.done) }
+    val defaulrErrorColor : Color = MaterialTheme.colors.onError
+    val doneColor : Color = MaterialTheme.colors.error
+    val dafultColorBg:Color = MaterialTheme.colors.background
+    val taskFinisehdColor:Color =  MaterialTheme.colors.onBackground
+
 
     val defaulrBgColor : Color = MaterialTheme.colors.primary
     var bgColor by remember { mutableStateOf<Color>(defaulrBgColor)}
+    var taskColor by remember { mutableStateOf<Color>(dafultColorBg)}
 
 
     val selectedIcon : Painter? = iconsHabitsList.getOrNull(0)
@@ -72,34 +80,54 @@ fun MyHabitBoxPredi(task: Task) {
         .draggable(
             orientation = Orientation.Horizontal,
             state = rememberDraggableState { delta ->
-               // if (!task.finished) {
-                    val newOffsetX = offsetX + delta
 
+                val newOffsetX = offsetX + delta
+                if (!task.finished && !habitDone){
                     offsetX = newOffsetX.coerceIn(minOffsetX, maxOffsetX)
-
                     if (offsetX == maxOffsetX) {
                         task.finished = true
-                        stateOfHabit = true
-                        bgColor = Color.Green
+                        habitDone = true
+                        bgColor = taskFinisehdColor
+                        taskColor = doneColor
                         task.streak++
                         offsetX = initialOffsetX
                         textOfTheHabit= habitFinishedText
 
                     } else if (offsetX == minOffsetX) {
                         task.finished = true
-                        stateOfHabit = false
-                        bgColor = Color.Red
+                        habitDone = false
+                        bgColor = taskFinisehdColor
+                        taskColor = defaulrErrorColor
+                        task.streak = 0
+                        offsetX = initialOffsetX
+                        textOfTheHabit = habitNotDoneText
+                    }
+                }else if(task.finished && habitDone){
+                    maxOffsetX = 0f
+                    offsetX = newOffsetX.coerceIn(minOffsetX, maxOffsetX)
+                    if (offsetX == minOffsetX) {
+                        task.finished = false
+                        habitDone = false
+                        bgColor = defaulrBgColor
+                        taskColor = dafultColorBg
                         task.streak = 0
                         offsetX = initialOffsetX
                         textOfTheHabit= habitNotFinishedText
                     }
-                    else if (offsetX == initialOffsetX && stateOfHabit == false){
-                        offsetX = minOffsetX
-                    } else if (offsetX == initialOffsetX && stateOfHabit == true) {
-                        offsetX = maxOffsetX
-                    }
 
-               // }
+                }else if(task.finished && !habitDone){
+                    minOffsetX = 0f
+                    offsetX = newOffsetX.coerceIn(minOffsetX, maxOffsetX)
+                    if (offsetX == maxOffsetX) {
+                        task.finished = false
+                        habitDone = false
+                        bgColor = defaulrBgColor
+                        taskColor = dafultColorBg
+                        task.streak = 0
+                        offsetX = initialOffsetX
+                        textOfTheHabit= habitNotFinishedText
+                    }
+                }
             }
         )
         .offset { IntOffset(offsetX.roundToInt(), 0) }
@@ -125,7 +153,7 @@ fun MyHabitBoxPredi(task: Task) {
                         modifier = Modifier
                             .fillMaxHeight()
                             .fillMaxWidth(),
-                        tint = MaterialTheme.colors.background)
+                        tint = if (task.finished)taskColor else MaterialTheme.colors.background)
                     }
 
                 }
@@ -136,18 +164,21 @@ fun MyHabitBoxPredi(task: Task) {
                         fontSize = 18.sp,
                         color = MaterialTheme.colors.background,
                         modifier = Modifier.align(Alignment.CenterHorizontally),
-                        fontWeight = FontWeight.Bold)
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = if (task.finished)TextDecoration.LineThrough else TextDecoration.None)
                     Row() {
-
                         Icon(
-                            painter = if (stateOfHabit) doneIconDrawable else dontDoneIconDrawable,
+                            painter = if (habitDone) doneIconDrawable else dontDoneIconDrawable,
                             contentDescription = "",
-                            tint = MaterialTheme.colors.background
+                            tint = if (task.finished)taskColor else  MaterialTheme.colors.background
                         )
-                        Text(text = textOfTheHabit)
+                        Text(text = textOfTheHabit,
+                            color = if (task.finished)taskColor else  MaterialTheme.colors.background,
+                        )
                     }
 
                     Text(text = "Racha de dias",
+                        color = if (task.finished)taskColor else  MaterialTheme.colors.background,
                         modifier = Modifier
                             .align(Alignment.End)
                             .padding(end = 5.dp),
