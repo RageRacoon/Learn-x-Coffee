@@ -14,14 +14,21 @@ private val DarkColorPalette = darkColors(
     primaryVariant = Brown200,
     secondary = Brown200,
     onPrimary = Beige200,
+    onError = ErrorColor,
+    error = DoneColor,
+    onBackground = TaskFinished,
 )
 
+@SuppressLint("ConflictingOnColor")
 private val LightColorPalette = lightColors(
     background = SoftBrown200,
     primary = mainBrown,
     primaryVariant = SoftBrown500,
     secondary = SoftBrown200,
-    onPrimary = Brown700
+    onPrimary = Brown700,
+    onError = ErrorColor,
+    error = DoneColor,
+    onBackground = TaskFinished,
 
         /* Other default colors to override
     background = Color.White,
