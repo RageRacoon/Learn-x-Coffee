@@ -17,6 +17,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
@@ -39,9 +40,10 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
     ) {
 
         Spacer(modifier = Modifier.height(2.dp))
-        MyText(
-            nivel = 3,
-            texto = "Inicie sesión en la app"
+        Text(
+            text = "Inicie sesión en la app",
+            fontSize = 14.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize()
+                .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontStyle = FontStyle.Italic
         )
         Spacer(modifier = Modifier.height(55.dp))
         MyTextField(

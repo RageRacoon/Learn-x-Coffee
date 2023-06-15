@@ -23,7 +23,7 @@ fun MyButton(
     modifier: Modifier,
     text: String,
     onClick: () -> Unit,
-    icon: ImageVector = Icons.Default.Create,
+    icon: ImageVector = Icons.Default.ArrowForward,
     enabled: Boolean = true
 ) {
 

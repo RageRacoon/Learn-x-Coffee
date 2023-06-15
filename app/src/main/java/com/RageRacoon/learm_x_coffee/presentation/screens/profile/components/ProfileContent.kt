@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -16,6 +17,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +32,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
@@ -77,14 +81,17 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                         modifier = Modifier
                             .size(192.dp)
                             .clip(CircleShape)
-                            .border(BorderStroke(2.dp, MaterialTheme.colors.primary),
-                                CircleShape),
+                            .border(
+                                BorderStroke(2.dp, MaterialTheme.colors.primary),
+                                CircleShape
+                            ),
                         model = viewModel.userInfo.img,
                         contentDescription = "User image",
                         contentScale = ContentScale.Crop
                     )
                     Spacer(modifier = Modifier.height(25.dp))
-                    MyText(nivel = 1, texto = viewModel.userInfo.userName)
+                    Text(text = viewModel.userInfo.userName, fontSize = 28.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize()
+                        .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Medium)
                 }
                 else {
                     //Si no se tiene foto de perfil muestra un mapache como imagen por defecto.
@@ -98,12 +105,14 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         //Correo electrónico y descripción del usuario.
         Spacer(modifier = Modifier.height(2.dp))
         Box(modifier = Modifier.fillMaxWidth(),contentAlignment = Alignment.Center){
-            MyText(nivel = 3,texto = viewModel.userInfo.correo)
+            Text(text = viewModel.userInfo.correo, fontSize = 14.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize()
+                .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontStyle = FontStyle.Italic)
         }
         Spacer(modifier = Modifier.height(35.dp))
         Box(modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center){
-            Text(viewModel.userInfo.description,/* maxLines = 7,*/ fontSize = 18.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize() // Ajusta el tamaño del texto según su contenido
+            Text(viewModel.userInfo.description, fontSize = 18.sp, color = MaterialTheme.colors.primary, modifier = Modifier
+                .wrapContentSize()
                 .padding(horizontal = 35.dp), textAlign = TextAlign.Justify)
 
         }
@@ -111,14 +120,21 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
 
         //Botón que redirige a la pantalla de editar perfil.
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
-            MyButton(
+            Button(
                 modifier = Modifier,
-                text = "Editar Perfil",
                 onClick = {
                     //A la hora de navegar a la siguiente pantalla, pasamos por la ruta, una String con todos los datos de usuario, en formato Json. en tiempo real
                     navController.navigate(
                         AppScreen.EditProfileScreen.suminstrarUsuario(viewModel.userInfo.toJson()))
-                })
+                }){
+                Image(
+                    painterResource(id = R.drawable.bxs_edit),
+                    contentDescription ="Edit button icon",
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(text = "Editar perfil", color = Color.Black)
+            }
         }
     }
     //Botones de desplazamiento.
