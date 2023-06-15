@@ -98,7 +98,8 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
                     Spacer(modifier = Modifier.height(18.dp))
                     MyRoundImage(R.drawable.sprite_racoon, modifier = Modifier)
                     Spacer(modifier = Modifier.height(25.dp))
-                    MyText(nivel = 1, texto = viewModel.userInfo.userName)
+                    Text(text = viewModel.userInfo.userName, fontSize = 28.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize()
+                        .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontWeight = FontWeight.Medium)
                 }
             }
         }
