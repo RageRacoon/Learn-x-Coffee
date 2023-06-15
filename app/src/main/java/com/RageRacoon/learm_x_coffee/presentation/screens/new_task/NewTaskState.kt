@@ -9,5 +9,6 @@ data class NewTaskState(
     val yearTask:String =" ",
     val periodsOfTheDay: String = "",
     val itIsAHabit: Boolean = true,
-    val dateOfTheHabits: Set<String> = setOf()
+    val dateOfTheHabits: Set<String> = setOf(),
+    val intOfArrayOfIcons: Int = 0,
 )

@@ -73,7 +73,7 @@ fun MyHabitBoxPredi(task: Task) {
     var taskColor by remember { mutableStateOf<Color>(dafultColorBg)}
 
 
-    val selectedIcon : Painter? = iconsHabitsList.getOrNull(0)
+    val selectedIcon : Painter? = iconsHabitsList[task.intOfArrayOfIcons]
 
     Box(modifier = Modifier.fillMaxWidth()
         .height(75.dp)
