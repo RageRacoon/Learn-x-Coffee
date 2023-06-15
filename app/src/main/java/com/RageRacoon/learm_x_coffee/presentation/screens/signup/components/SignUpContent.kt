@@ -1,6 +1,7 @@
 package com.RageRacoon.learm_x_coffee.presentation.screens.signup.components
 
 import android.widget.Toast
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -8,6 +9,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
@@ -17,6 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -51,7 +54,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                viewModel.userNameImput(it)
                viewModel.isUsernameOk = false
            },
-           isError = viewModel.isUsernameOk,
            label = { Text("Nombre de usuario") },
            interactionSource = remember { MutableInteractionSource() },
            leadingIcon = {
@@ -87,7 +89,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                 viewModel.emailInput(it)
                 viewModel.isEmailOk = false
             },
-            isError = viewModel.isEmailOk,
             label = { Text("Correo Electrónico") },
             interactionSource = remember { MutableInteractionSource() },
             leadingIcon = {
@@ -122,7 +123,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                viewModel.passwordInput(it)
                viewModel.isPasswordOk = false
            },
-           isError = viewModel.isPasswordOk,
            label = { Text("Contraseña") },
            interactionSource = remember { MutableInteractionSource() },
            visualTransformation = PasswordVisualTransformation(),
@@ -154,7 +154,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                viewModel.confirmPasswordInput(it)
                viewModel.isConfirmPasswordOk = false
            },
-           isError = viewModel.isConfirmPasswordOk,
            label = { Text("Confirmación de contraseña") },
            interactionSource = remember { MutableInteractionSource() },
            visualTransformation = PasswordVisualTransformation(),
