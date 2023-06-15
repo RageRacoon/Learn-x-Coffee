@@ -28,6 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.domain.model.Response
 import com.RageRacoon.learm_x_coffee.domain.model.Task
 import com.RageRacoon.learm_x_coffee.presentation.components.MyButton
+import com.RageRacoon.learm_x_coffee.presentation.components.MyHabitBoxPredi
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.main.components.EventStatusIcon
@@ -51,11 +52,12 @@ fun MainContent(
         contentPadding = PaddingValues(bottom = 70.dp, top = 18.dp),
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp)){
+
         tasks.forEach { task ->
             item {
                 //task.dateOfTheHabits.forEach{
                   //  if(task.dateOfTheHabits.contains(viewModel.tooday) ){
-                        MyHabitBox(task)
+                MyHabitBoxPredi(task)
                     //}
 
                 //}
