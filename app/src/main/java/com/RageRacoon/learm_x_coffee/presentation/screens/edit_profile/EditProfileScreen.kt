@@ -16,7 +16,6 @@ fun EditProfileScreen(navController: NavHostController, user:String){
     Log.d("EditProfileScreen", "Usuario:  $user")
     Scaffold(
         topBar = {
-            EditProfileTopBar()
         },
         content = {
             EditProfileContent(navController)

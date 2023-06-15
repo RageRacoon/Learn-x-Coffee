@@ -11,6 +11,7 @@ data class User (
     var correo: String = "",
     var password: String = "",
     var passwordConfirm: String = "",
+    var description: String = ""
 ){
     fun toJson():String = Gson().toJson(User(
         id,
@@ -18,7 +19,8 @@ data class User (
         if (img != "") URLEncoder.encode(img, StandardCharsets.UTF_8.toString()) else "",
         correo,
         password,
-        passwordConfirm
+        passwordConfirm,
+        description
     )) //Transformamos esta clase en Json
 
 

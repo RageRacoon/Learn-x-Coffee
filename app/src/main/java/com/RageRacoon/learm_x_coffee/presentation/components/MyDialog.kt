@@ -25,11 +25,12 @@ fun MyDialog (
                 .fillMaxWidth()
                 .height(192.dp),
             onDismissRequest = {estado.value = false},
-            title = { MyText(nivel = 1, texto = "Selecciona una opcion")},
+            title = { MyText(nivel = 2, texto = "Seleccione una opción")},
             buttons = {
+                Spacer(modifier = Modifier.height(50.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
                     Button(
                         modifier = Modifier.width(135.dp),

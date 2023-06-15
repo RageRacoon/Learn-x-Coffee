@@ -17,11 +17,16 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 
 import androidx.navigation.NavHostController
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.LoginViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.domain.model.Response
+import com.RageRacoon.learm_x_coffee.presentation.components.MyText
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 
 
@@ -33,24 +38,25 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Spacer(modifier = Modifier.height(2.dp))
         Text(
-            modifier = Modifier.padding(top = 30.dp, bottom = 0.dp, start = 0.dp),
-            text = "Log in"
+            text = "Inicie sesión en la app",
+            fontSize = 14.sp, color = MaterialTheme.colors.primary, modifier = Modifier.wrapContentSize()
+                .padding(horizontal = 35.dp), textAlign = TextAlign.Center, fontStyle = FontStyle.Italic
         )
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = "Inicie sesion en la app"
-        )
+        Spacer(modifier = Modifier.height(55.dp))
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
             texto = state.email, //Clase manejadora de estados.
-            onValueChange = { viewModel.emailInput(it) }, //Actualiza el valor de la constante de la calse State
-            label = "Correo electronico",
+            onValueChange = { viewModel.emailInput(it) }, //Actualiza el valor de la constante de la clase State
+            label = "Correo electrónico",
             icon = Icons.Default.Email,
             keyboardType = KeyboardType.Email,
             errorMsg = viewModel.emailErrMsg,
             validateField = {}
         )
+        Spacer(modifier = Modifier.height(20.dp))
         MyTextField(
             modifier = Modifier.padding(top = 0.dp),
             texto = state.password,
@@ -61,13 +67,14 @@ fun LogInContent (navController: NavHostController, viewModel: LoginViewModel = 
             errorMsg = viewModel.passwordErrMsg,
             validateField = { }
         )
+        Spacer(modifier = Modifier.height(25.dp))
         Button(
             modifier = Modifier.clickable(enabled = viewModel.isClickableLoginButton) {  },
             onClick = {
             viewModel.login()
 
         },) {
-            Text(text = "Registrarse")
+            Text(text = "Iniciar sesión")
         }
 
     }

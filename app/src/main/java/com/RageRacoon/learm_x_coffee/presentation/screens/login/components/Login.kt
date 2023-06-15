@@ -30,7 +30,7 @@ fun Login (navController: NavHostController, viewModel: LoginViewModel = hiltVie
                         popUpTo(AppScreen.LogInScreen.rutaPantalla){inclusive = true} //Se elimina el historial de pantalla
                     }
                 }
-                Toast.makeText(LocalContext.current, "Inicio de sesion correcto", Toast.LENGTH_LONG).show()
+                Toast.makeText(LocalContext.current, "Inicio de sesion correcto", Toast.LENGTH_SHORT).show()
 
             }
             is Response.Failure -> {

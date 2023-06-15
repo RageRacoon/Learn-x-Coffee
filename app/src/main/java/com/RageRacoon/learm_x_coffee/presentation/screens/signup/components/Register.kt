@@ -18,6 +18,7 @@ import com.RageRacoon.learm_x_coffee.presentation.screens.signup.SingUpViewModel
 
 @Composable
 fun Register (navController: NavHostController, viewModel: SingUpViewModel = hiltViewModel()){
+
         when(val registerResponse = viewModel.registerResponse){
             Response.Loading -> {
                 MyLoadingProgressBar()
@@ -32,6 +33,9 @@ fun Register (navController: NavHostController, viewModel: SingUpViewModel = hil
             is Response.Failure -> {
                 Toast.makeText(LocalContext.current, registerResponse.exception?.message ?: "Error critico", Toast.LENGTH_LONG).show()
             }
-            else -> {}
+            else -> {
+
+            }
+
         }
 }
