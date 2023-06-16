@@ -28,6 +28,8 @@ import com.RageRacoon.learm_x_coffee.presentation.components.*
 import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.new_task.NewTaskViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.profile.ProfileViewModel
+import com.RageRacoon.learm_x_coffee.utiles.DateUtiles
+import com.RageRacoon.learm_x_coffee.utiles.DateUtiles.*
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -55,17 +57,18 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
     var intIconoSeleted =  remember {
         mutableStateOf(0)
     }
+    var dateUtiles = DateUtiles()
 
     MyDialogIconsList(iconSeleted,intIconoSeleted)
 
     println(intIconoSeleted)
-    MyDialog(
+    /*MyDialog(
         estado = stadoDialog,
         fun01 = {viewModel.isAHabit(true)},
         accionFuncion01 = "Es un habito?",
         fun02 = {viewModel.isAHabit(false)},
         accionFuncion02 = "Es una tarea?"
-    )
+    )*/
 
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(contentPadding = PaddingValues(bottom = 6.dp)){
@@ -123,28 +126,27 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
                                 // Botón 1
                                 Button(
                                     modifier = Modifier.padding(8.dp),
-                                    onClick = { },
-                                   // colors = ButtonDefaults.buttonColors(backgroundColor = buttonColors[0])
+                                    onClick = {
+                                        viewModel.setTaskSchedule("Mañana")
+                                    },
                                 ) {
-                                    Text("Botón 1")
+                                    Text("Mañana")
                                 }
 
                                 // Botón 2
                                 Button(
                                     modifier = Modifier.padding(8.dp),
-                                    onClick = { },
-                                    //colors = ButtonDefaults.buttonColors(backgroundColor = buttonColors[1])
+                                    onClick = {viewModel.setTaskSchedule("Tarde")},
                                 ) {
-                                    Text("Botón 2")
+                                    Text("Tarde")
                                 }
 
                                 // Botón 3
                                 Button(
                                     modifier = Modifier.padding(8.dp),
-                                    onClick = { },
-                                    //colors = ButtonDefaults.buttonColors(backgroundColor = buttonColors[2])
+                                    onClick = {viewModel.setTaskSchedule("Noche")},
                                 ) {
-                                    Text("Botón 3")
+                                    Text("Noche")
                                 }
                             }
                         }

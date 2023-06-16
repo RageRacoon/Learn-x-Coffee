@@ -34,7 +34,9 @@ class NewTaskViewModel @Inject constructor(
             eventCreator = userInfo!!.uid,
             dateOfTheHabits = state.dateOfTheHabits.toList(),
             itIsAHabit = state.itIsAHabit,
-            intOfArrayOfIcons = state.intOfArrayOfIcons
+            intOfArrayOfIcons = state.intOfArrayOfIcons,
+            taskSchedule= state.taskSchedule
+
         )
         val result = eventsUsecase.createTask(task)
         createTaskResponse = result
@@ -69,6 +71,10 @@ class NewTaskViewModel @Inject constructor(
 
     fun setIconOfTheList(position:Int){
         state = state.copy(intOfArrayOfIcons = position)
+    }
+
+    fun setTaskSchedule(schedule:String){
+        state = state.copy(taskSchedule = schedule)
     }
 
 }

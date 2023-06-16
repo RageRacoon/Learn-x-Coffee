@@ -11,4 +11,5 @@ data class NewTaskState(
     val itIsAHabit: Boolean = true,
     val dateOfTheHabits: Set<String> = setOf(),
     val intOfArrayOfIcons: Int = 0,
+    val taskSchedule: String = ""
 )
