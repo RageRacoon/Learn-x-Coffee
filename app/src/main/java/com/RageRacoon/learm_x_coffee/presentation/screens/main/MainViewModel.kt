@@ -32,6 +32,8 @@ class MainViewModel @Inject constructor(
     val activeUser = loginUseCase.getUser()
     var editTaskResponse by mutableStateOf<Response<Boolean>?>(null)
         private set
+    var currentDate by mutableStateOf<String>(" ")
+    var date by mutableStateOf<String>(" ")
     init{ //Init es el primer métoado que se lanza al estnaciar el viewModel
         getUserById()
     }
@@ -46,13 +48,11 @@ class MainViewModel @Inject constructor(
     }
 
     ////Eventos
-    var tooday by mutableStateOf("")
     var eventsResponse by mutableStateOf<Response<List<Task>>?>(null)
 
     init {
         getTask()
         var utils = DateUtiles()
-        tooday = utils.getDate()
     }
     fun getTask() = viewModelScope.launch {
         eventsResponse = Response.Loading

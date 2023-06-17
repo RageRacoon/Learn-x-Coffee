@@ -10,10 +10,11 @@ import com.RageRacoon.learm_x_coffee.presentation.components.MyLoadingProgressBa
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.login.components.MainContent
 import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
+import com.RageRacoon.learm_x_coffee.utiles.DateUtiles
 
 @Composable
 fun GetEvents (viewModel:MainViewModel = hiltViewModel()){
-
+    var utiles = DateUtiles()
     when(val registerResponse = viewModel.eventsResponse){
         Response.Loading -> {
             MyLoadingProgressBar()
@@ -21,6 +22,8 @@ fun GetEvents (viewModel:MainViewModel = hiltViewModel()){
         is Response.Successful -> {
             MainContent(tasks = registerResponse.data)
             LaunchedEffect(Unit){
+                viewModel.currentDate= utiles.getWeekday()
+                viewModel.date= utiles.getDate()
             }
         }
         is Response.Failure -> {

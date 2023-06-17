@@ -48,24 +48,39 @@ fun MainContent(
     //navController: NavHostController,
                 viewModel: MainViewModel = hiltViewModel(),
                 tasks: List<Task>){
-    LazyColumn(
-        contentPadding = PaddingValues(bottom = 70.dp, top = 18.dp),
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)){
+    Column ( modifier = Modifier.fillMaxWidth(),
+    ) {
+        Text(text = "HOY")
+        Text(text = viewModel.currentDate)
+        Text(text = viewModel.date)
+        LazyColumn(
+            contentPadding = PaddingValues(bottom = 70.dp, top = 18.dp),
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(8.dp)){
+            for (i:Int in tasks.indices){
+                if(tasks[i].dateOfTheHabits.contains(viewModel.currentDate)){
+                    item {
+                        MyHabitBoxPredi(tasks[i])}
+                }else{
 
-        tasks.forEach { task ->
-            item {
-                //task.dateOfTheHabits.forEach{
-                  //  if(task.dateOfTheHabits.contains(viewModel.tooday) ){
-                MyHabitBoxPredi(task)
+                }
+            }
+
+            /*tasks.forEach { task ->
+                item {
+                    //task.dateOfTheHabits.forEach{
+                      //  if(task.dateOfTheHabits.contains(viewModel.tooday) ){
+                    MyHabitBoxPredi(task)
+                        //}
+
                     //}
 
-                //}
-
-            }
+                }
+            }*/
         }
     }
-}
+    }
+
 
 
 
