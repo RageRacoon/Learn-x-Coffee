@@ -62,12 +62,13 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
     MyDialogIconsList(iconSeleted,intIconoSeleted)
 
     println(intIconoSeleted)
-    /*MyDialog(
+    
+  /*MyDialog(
         estado = stadoDialog,
         fun01 = {viewModel.isAHabit(true)},
-        accionFuncion01 = "Es un habito?",
+        accionFuncion01 = "Hábito",
         fun02 = {viewModel.isAHabit(false)},
-        accionFuncion02 = "Es una tarea?"
+       accionFuncion02 = "Es una tarea?"
     )*/
 
     Box(modifier = Modifier.fillMaxSize()) {

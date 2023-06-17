@@ -1,5 +1,8 @@
 package com.RageRacoon.learm_x_coffee.presentation.screens.signup
 
+import android.widget.Toast
+import androidx.compose.material.Snackbar
+import androidx.compose.material.Text
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,8 +21,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
- @HiltViewModel
+@HiltViewModel
  class SingUpViewModel  @Inject constructor(private val loginUseCase: LoginUseCase, private val profilesUseCase: ProfilesUseCase): ViewModel(){
      //Usuario resgistrado
      var user = User()
@@ -41,18 +47,15 @@ import androidx.compose.runtime.*
 
      //Mail
      var isEmailOk: Boolean by mutableStateOf(false)
-         private set
      var emailError: String by mutableStateOf("")
          private set
 
      //Pasword
      var isPasswordOk:Boolean by mutableStateOf(value = false)
-         private set
      var passwordError: String by mutableStateOf(value = "")
 
      //Passworrd 2
      var isConfirmPasswordOk: Boolean by mutableStateOf(value = false)
-         private set
      var confirmPasswordError: String by mutableStateOf(value = "")
 
      //Boton accesible
@@ -82,18 +85,38 @@ import androidx.compose.runtime.*
          state = state.copy(confirmPasword = confirmPasword)
      }
 
-     fun validateConfirmPassword(){
-         if (state.password == state.confirmPasword){
+    fun usernameNotVoid() : Boolean {
+        if(state.username.length != 0){
+            return true
+        }
+        return false
+    }
 
+     fun validateConfirmPassword() : Boolean{
+         if (state.password != state.confirmPasword){
+            return false
          }
+         return true
      }
 
-     fun onRegister(){
-         user.userName = state.username
-         user.password = state.password
-         user.correo   = state.email
+    fun minCaracteres() : Boolean {
+        if(state.password.length < 6)
+            return false
+        return true
+    }
 
-         register(user)
+    fun formatEmail() : Boolean {
+        if(state.email.contains('@') && state.email.contains(".com") || state.email.contains('@') && state.email.contains(".es"))
+            return true
+        return false
+    }
+
+     fun onRegister(){
+        user.userName = state.username
+        user.password = state.password
+        user.correo   = state.email
+
+        register(user)
      }
 
      //private val _registerFlow = MutableStateFlow<Response<FirebaseUser>?>(null)

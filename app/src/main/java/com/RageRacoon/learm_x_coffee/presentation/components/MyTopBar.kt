@@ -13,6 +13,7 @@ import androidx.navigation.NavHostController
  * @param title String que se va a mostrar, en la top bar.
  * @param whitIcon Booleano que indica si la top bar va a tener ocono o no
  */
+
 @Composable
 fun MyTopBar(
     title: String,

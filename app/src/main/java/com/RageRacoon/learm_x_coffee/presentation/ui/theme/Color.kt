@@ -16,6 +16,8 @@ val SoftBrown700 = Color(0xFFD2B48C)
 val SoftBrown200 = Color(0xFFFFF8DC)
 
 val TransparenteBlanco = Color(0x00FFFFFF)
+
 val DoneColor = Color(0xFF006400)
 val ErrorColor = Color(0xFF8B0000)
 val TaskFinished= Color(0xFF6B4545)
+
