@@ -34,6 +34,8 @@ class NewTaskViewModel @Inject constructor(
             eventCreator = userInfo!!.uid,
             dateOfTheHabits = state.dateOfTheHabits.toList(),
             itIsAHabit = state.itIsAHabit,
+            intOfArrayOfIcons = state.intOfArrayOfIcons,
+            taskSchedule= state.taskSchedule
 
         )
         val result = eventsUsecase.createTask(task)
@@ -61,6 +63,18 @@ class NewTaskViewModel @Inject constructor(
     fun addDay(diasSeleccionados: Set<String>){
         state = state.copy(dateOfTheHabits = diasSeleccionados)
         Log.d("TAG", "Contenido del arreglo: ${state.dateOfTheHabits.joinToString()}")
+    }
+    fun isTheNameEmpty():Boolean{
+        var resul = false
+        return false
+    }
+
+    fun setIconOfTheList(position:Int){
+        state = state.copy(intOfArrayOfIcons = position)
+    }
+
+    fun setTaskSchedule(schedule:String){
+        state = state.copy(taskSchedule = schedule)
     }
 
 }

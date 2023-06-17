@@ -36,7 +36,7 @@ import kotlin.math.roundToInt
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun MyHabitBoxPredi(task: Task) {
+fun MyHabitBoxPredi(task: Task, viewModel: MainViewModel = hiltViewModel()) {
     //Posicion en pantalla
     var offsetX by remember { mutableStateOf(0f) }
     val initialOffsetX = 0f
@@ -73,7 +73,7 @@ fun MyHabitBoxPredi(task: Task) {
     var taskColor by remember { mutableStateOf<Color>(dafultColorBg)}
 
 
-    val selectedIcon : Painter? = iconsHabitsList.getOrNull(0)
+    val selectedIcon : Painter? = iconsHabitsList[task.intOfArrayOfIcons]
 
     Box(modifier = Modifier.fillMaxWidth()
         .height(75.dp)
@@ -82,50 +82,53 @@ fun MyHabitBoxPredi(task: Task) {
             state = rememberDraggableState { delta ->
 
                 val newOffsetX = offsetX + delta
-                if (!task.finished && !habitDone){
+                if (!task.finished && !task.done){
                     offsetX = newOffsetX.coerceIn(minOffsetX, maxOffsetX)
                     if (offsetX == maxOffsetX) {
                         task.finished = true
-                        habitDone = true
+                        task.done = true
                         bgColor = taskFinisehdColor
                         taskColor = doneColor
-                        task.streak++
+                        task.streak = task.streak+1
                         offsetX = initialOffsetX
                         textOfTheHabit= habitFinishedText
-
+                        viewModel.updateTask(task)
                     } else if (offsetX == minOffsetX) {
                         task.finished = true
-                        habitDone = false
+                        task.done = false
                         bgColor = taskFinisehdColor
                         taskColor = defaulrErrorColor
                         task.streak = 0
                         offsetX = initialOffsetX
                         textOfTheHabit = habitNotDoneText
+                        viewModel.updateTask(task)
                     }
-                }else if(task.finished && habitDone){
+                }else if(task.finished && task.done){
                     maxOffsetX = 0f
                     offsetX = newOffsetX.coerceIn(minOffsetX, maxOffsetX)
                     if (offsetX == minOffsetX) {
                         task.finished = false
-                        habitDone = false
+                        task.done = false
                         bgColor = defaulrBgColor
                         taskColor = dafultColorBg
-                        task.streak = 0
+                        task.streak = task.streak-1
                         offsetX = initialOffsetX
                         textOfTheHabit= habitNotFinishedText
+                        viewModel.updateTask(task)
                     }
 
-                }else if(task.finished && !habitDone){
+                }else if(task.finished && !task.done){
                     minOffsetX = 0f
                     offsetX = newOffsetX.coerceIn(minOffsetX, maxOffsetX)
                     if (offsetX == maxOffsetX) {
                         task.finished = false
-                        habitDone = false
+                        task.done = false
                         bgColor = defaulrBgColor
                         taskColor = dafultColorBg
-                        task.streak = 0
+                        task.streak = task.streak
                         offsetX = initialOffsetX
                         textOfTheHabit= habitNotFinishedText
+                        viewModel.updateTask(task)
                     }
                 }
             }
@@ -153,7 +156,16 @@ fun MyHabitBoxPredi(task: Task) {
                         modifier = Modifier
                             .fillMaxHeight()
                             .fillMaxWidth(),
-                        tint = if (task.finished)taskColor else MaterialTheme.colors.background)
+                        tint = if (task.finished) {
+                            if (task.done) {
+                                doneColor
+                            } else {
+                                defaulrErrorColor
+                            }
+                        } else {
+                            MaterialTheme.colors.background
+                        }
+                    )
                     }
 
                 }
@@ -168,16 +180,16 @@ fun MyHabitBoxPredi(task: Task) {
                         textDecoration = if (task.finished)TextDecoration.LineThrough else TextDecoration.None)
                     Row() {
                         Icon(
-                            painter = if (habitDone) doneIconDrawable else dontDoneIconDrawable,
+                            painter = if (task.done) doneIconDrawable else dontDoneIconDrawable,
                             contentDescription = "",
-                            tint = if (task.finished)taskColor else  MaterialTheme.colors.background
+                            tint = if (task.done)doneColor else  MaterialTheme.colors.background
                         )
                         Text(text = textOfTheHabit,
                             color = if (task.finished)taskColor else  MaterialTheme.colors.background,
                         )
                     }
 
-                    Text(text = "Racha de dias",
+                    Text(text = "Racha de " + task.streak +" dias",
                         color = if (task.finished)taskColor else  MaterialTheme.colors.background,
                         modifier = Modifier
                             .align(Alignment.End)

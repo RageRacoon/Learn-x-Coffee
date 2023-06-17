@@ -50,6 +50,7 @@ class TaskRepositoryImplement @Inject constructor(
         val map: MutableMap<String, Any> = HashMap()
         map["streak"] = task.streak
         map["done"] = task.streak
+        map["finished"] = task.finished
         return try {
             taskCollection.document(task.idTask).update(map)
             Response.Successful(true)

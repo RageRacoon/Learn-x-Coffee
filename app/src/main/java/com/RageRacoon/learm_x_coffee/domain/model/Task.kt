@@ -13,7 +13,7 @@ open class Task(
     val dayTask :String =" ",
     val monthTask :String =" ",
     val yearTask :String =" ",
-    val periodsOfTheDay: String = "",
+    val taskSchedule: String = "",
     var streak: Int= 0,
     val dateOfTheHabits: List<String> = mutableListOf(""),
     var done: Boolean = false,
