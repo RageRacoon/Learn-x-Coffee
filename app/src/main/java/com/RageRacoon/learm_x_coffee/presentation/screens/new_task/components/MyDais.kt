@@ -12,7 +12,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.new_task.NewTaskViewModel
 
@@ -40,6 +42,7 @@ fun DiasSemanaSeleccionable(diasSemana: List<String>,viewModel: NewTaskViewModel
                         .selectable(
                             selected = dia in diasSeleccionados,
                             onClick = {
+                                viewModel.isDateOk = false
                                 diasSeleccionados = if (dia in diasSeleccionados) {
                                     diasSeleccionados - dia
 
@@ -64,6 +67,16 @@ fun DiasSemanaSeleccionable(diasSemana: List<String>,viewModel: NewTaskViewModel
                 }
             }
         }
+    }
+    Spacer(modifier = Modifier.height(10.dp))
+    if (viewModel.isDateOk == true) {
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = "* Debe seleccionar uno o varios días.",
+            color = MaterialTheme.colors.onError,
+            style = TextStyle(fontSize = 12.sp),
+            modifier = Modifier.padding(horizontal = 83.dp)
+        )
     }
 
 }

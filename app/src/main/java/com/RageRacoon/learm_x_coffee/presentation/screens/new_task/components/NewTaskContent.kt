@@ -20,7 +20,10 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.HorizontalAlignmentLine
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 import androidx.navigation.NavHostController
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -72,27 +75,23 @@ fun NewTaskContent(navController: NavHostController, viewModel: NewTaskViewModel
         fun02 = {viewModel.isAHabit(false)},
        accionFuncion02 = "Es una tarea?"
     )*/
+    Box(modifier = Modifier
+        .background(MaterialTheme.colors.primary)
+        .fillMaxWidth()
+        .height(60.dp),
+        contentAlignment = Alignment.Center) {
+        if (state.itIsAHabit){
+            Text(text = "Nuevo hábito",color= MaterialTheme.colors.background)
+        }else{
+            Text(text = "Nueva tarea",color= MaterialTheme.colors.background)
+        }
 
+    }
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(contentPadding = PaddingValues(bottom = 6.dp)){
             item {
-                Box(modifier = Modifier
-                    .background(MaterialTheme.colors.primary)
-                    .fillMaxWidth()
-                    .height(80.dp),
-                    contentAlignment = Alignment.Center) {
-                    if (state.itIsAHabit){
-                        Text(text = "Nuevo hábito",color= MaterialTheme.colors.background)
-                    }else{
-                        Text(text = "Nueva tarea",color= MaterialTheme.colors.background)
-                    }
-
-               }
-            }
-            item {
-                Spacer(modifier = Modifier.height(50.dp))
                 Column(modifier = Modifier
-                    .height(600.dp)
+                    .height(800.dp)
                     .fillMaxWidth()
                     ,verticalArrangement = Arrangement.Center){
                     Row(
@@ -116,14 +115,24 @@ fun NewTaskContent(navController: NavHostController, viewModel: NewTaskViewModel
                             value = state.nameEvent,
                             placeholder = { Text(text = "Nombre del hábito") },
                             onValueChange = {
-                                viewModel.taskNameImput(it)},
-                            )
-
+                                viewModel.taskNameImput(it)
+                                viewModel.isNameOk = false
+                            }
+                        )
+                    }
+                    if (viewModel.isNameOk == true) {
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = "* El nombre no puede estar vacío.",
+                            color = MaterialTheme.colors.onError,
+                            style = TextStyle(fontSize = 12.sp),
+                            modifier = Modifier.padding(horizontal = 83.dp)
+                        )
                     }
                     Spacer(modifier = Modifier.height(40.dp))
                     if (state.itIsAHabit){
                         DiasSemanaSeleccionable(diasSemana)
-                        Spacer(modifier = Modifier.height(40.dp))
+                        Spacer(modifier = Modifier.height(15.dp))
                         Box{
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -134,6 +143,7 @@ fun NewTaskContent(navController: NavHostController, viewModel: NewTaskViewModel
                                     modifier = Modifier.padding(horizontal = 8.dp),
                                     onClick = {
                                         viewModel.setTaskSchedule("Mañana")
+                                        viewModel.isTimeOk = false
                                     },
                                 ) {
                                     Text("Mañana", color = MaterialTheme.colors.secondary)
@@ -142,7 +152,10 @@ fun NewTaskContent(navController: NavHostController, viewModel: NewTaskViewModel
                                 // Botón 2
                                 Button(
                                     modifier = Modifier.padding(horizontal = 8.dp),
-                                    onClick = {viewModel.setTaskSchedule("Tarde")},
+                                    onClick = {
+                                        viewModel.setTaskSchedule("Tarde")
+                                        viewModel.isTimeOk = false
+                                    },
                                 ) {
                                     Text("Tarde", color = MaterialTheme.colors.secondary)
                                 }
@@ -150,11 +163,24 @@ fun NewTaskContent(navController: NavHostController, viewModel: NewTaskViewModel
                                 // Botón 3
                                 Button(
                                     modifier = Modifier.padding(horizontal = 8.dp),
-                                    onClick = {viewModel.setTaskSchedule("Noche")},
+                                    onClick = {
+                                        viewModel.setTaskSchedule("Noche")
+                                        viewModel.isTimeOk = false
+                                    },
                                 ) {
                                     Text("Noche", color = MaterialTheme.colors.secondary)
                                 }
                             }
+                        }
+                        if (viewModel.isTimeOk == true) {
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Text(
+                                text = "* Debe seleccionar una franja horaria.",
+                                color = MaterialTheme.colors.onError,
+                                style = TextStyle(fontSize = 12.sp),
+                                modifier = Modifier.padding(horizontal = 83.dp),
+                                textAlign = TextAlign.Center
+                            )
                         }
                     }/*else{
                         Text(text = "Nueva tarea",color= MaterialTheme.colors.background)
@@ -190,9 +216,25 @@ fun NewTaskContent(navController: NavHostController, viewModel: NewTaskViewModel
         Spacer(Modifier.weight(1f))
 
         IconButton(
+
             onClick = {
-                viewModel.setIconOfTheList(intIconoSeleted.value)
-                viewModel.createTask()}
+                if(viewModel.isTheNameEmpty() == false){
+                    viewModel.isNameOk = true
+                }
+                if(viewModel.isTheDateEmpty() == false) {
+                    viewModel.isDateOk = true
+                }
+                if(viewModel.isTheTimeEmpty() == false){
+                    viewModel.isTimeOk = true
+                }
+                if(viewModel.isTheNameEmpty() == true && viewModel.isTheTimeEmpty() == true && viewModel.isTheDateEmpty() == true){
+                    viewModel.setIconOfTheList(intIconoSeleted.value)
+                    viewModel.createTask()
+                    navController.navigate(route = AppScreen.MainScreen.rutaPantalla){
+                        popUpTo(AppScreen.MainScreen.rutaPantalla){inclusive = true}
+                    }
+                }
+            }
         ) {
             Icon(
                 Icons.Default.Check,
