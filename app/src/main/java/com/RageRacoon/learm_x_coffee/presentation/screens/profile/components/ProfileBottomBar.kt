@@ -65,7 +65,7 @@ fun ProfileBottomBar(navController: NavHostController,viewModel: ProfileViewMode
             Box(){
                 IconButton(
                     modifier = Modifier.size(48.dp).scale(2.5f),
-                    onClick = { /* Acción para el primer elemento */ }
+                    onClick = { navController.navigate(AppScreen.CalendarScreen.rutaPantalla) }
                 ) {
                     Icon(imageVector = Icons.Default.DateRange,
                         contentDescription = "",
