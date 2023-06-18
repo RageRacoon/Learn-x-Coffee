@@ -1,5 +1,7 @@
 package com.RageRacoon.learm_x_coffee.presentation.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -10,11 +12,13 @@ import com.RageRacoon.learm_x_coffee.LogInScreen
 import com.RageRacoon.learm_x_coffee.MainScreen
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.SplashScreen
+import com.RageRacoon.learm_x_coffee.presentation.screens.calendar.CalendarScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile.EditProfileScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.new_task.NewTaskScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.profile.ProfileScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.signup.SignUpScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavegation(){
     val navController = rememberNavController()
@@ -52,6 +56,12 @@ fun AppNavegation(){
         composable(route = AppScreen.NewTaskScreen.rutaPantalla){
             NewTaskScreen(navController)
         }
+
+        composable(route = AppScreen.CalendarScreen.rutaPantalla){
+            CalendarScreen(navController)
+        }
+
+
 
     }
 }

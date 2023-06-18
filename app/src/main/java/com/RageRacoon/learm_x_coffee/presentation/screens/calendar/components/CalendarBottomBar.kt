@@ -1,29 +1,28 @@
-package com.RageRacoon.learm_x_coffee.presentation.screens.login.components
+package com.RageRacoon.learm_x_coffee.presentation.screens.calendar.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.HorizontalAlignmentLine
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import coil.compose.AsyncImage
-import com.RageRacoon.learm_x_coffee.presentation.components.MyText
+import com.RageRacoon.learm_x_coffee.R
 import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
 
-
 @Composable
-fun MainBottomBar(navController: NavHostController, viewModel: MainViewModel = hiltViewModel()) {
+fun CalendarBottomBar(navController: NavHostController, viewModel: MainViewModel = hiltViewModel()) {
     BottomAppBar(
         contentPadding = PaddingValues(start = 5.dp, end = 5.dp),
         backgroundColor = MaterialTheme.colors.primary,
@@ -39,13 +38,12 @@ fun MainBottomBar(navController: NavHostController, viewModel: MainViewModel = h
                 IconButton(
                     modifier = Modifier.size(48.dp).scale(2.5f),
                     onClick = {
-                        navController.navigate(AppScreen.NewTaskScreen.rutaPantalla) }
+                        navController.navigate(AppScreen.MainScreen.rutaPantalla) }
                 ) {
-                    Icon(imageVector = Icons.Default.Add,
+                    Icon( painter =  painterResource(R.drawable.home),
                         contentDescription = "",
                         tint = MaterialTheme.colors.background,
-
-                    )
+                        )
 
                 }
             }
@@ -53,8 +51,6 @@ fun MainBottomBar(navController: NavHostController, viewModel: MainViewModel = h
                 IconButton(
                     modifier = Modifier.size(48.dp).scale(2.5f),
                     onClick = {
-                        navController.navigate(AppScreen.CalendarScreen.rutaPantalla)
-
                     }
                 ) {
                     Icon(imageVector = Icons.Default.DateRange,
