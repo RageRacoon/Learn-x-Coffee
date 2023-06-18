@@ -48,7 +48,7 @@ fun MyTextField(
                 Icon(
                     imageVector = icon,
                     contentDescription = "",
-                    tint = Color.White
+                    tint = MaterialTheme.colors.primary
                 )
             },
             visualTransformation = if (hideText) PasswordVisualTransformation() else VisualTransformation.None

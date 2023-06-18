@@ -38,7 +38,8 @@ fun MainBottomBar(navController: NavHostController, viewModel: MainViewModel = h
             Box(){
                 IconButton(
                     modifier = Modifier.size(48.dp).scale(2.5f),
-                    onClick = { navController.navigate(AppScreen.NewTaskScreen.rutaPantalla) }
+                    onClick = {
+                        navController.navigate(AppScreen.NewTaskScreen.rutaPantalla) }
                 ) {
                     Icon(imageVector = Icons.Default.Add,
                         contentDescription = "",
@@ -51,7 +52,10 @@ fun MainBottomBar(navController: NavHostController, viewModel: MainViewModel = h
             Box(){
                 IconButton(
                     modifier = Modifier.size(48.dp).scale(2.5f),
-                    onClick = { /* Acción para el primer elemento */ }
+                    onClick = {
+                        navController.navigate(AppScreen.CalendarScreen.rutaPantalla)
+
+                    }
                 ) {
                     Icon(imageVector = Icons.Default.DateRange,
                         contentDescription = "",
@@ -64,6 +68,7 @@ fun MainBottomBar(navController: NavHostController, viewModel: MainViewModel = h
                 IconButton(
                     modifier = Modifier.size(48.dp).scale(2.5f),
                     onClick = {
+
                     }
                 ) {
                     Icon(imageVector = Icons.Default.Notifications,

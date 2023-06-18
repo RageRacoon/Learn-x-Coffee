@@ -10,5 +10,6 @@ sealed class AppScreen (val rutaPantalla:String) {
         fun suminstrarUsuario(user: String) = "Edit_Profile_screen/${user}"
     }
     object NewTaskScreen: AppScreen("new_task_screen")
+    object CalendarScreen: AppScreen("calendar_screen")
 
 }

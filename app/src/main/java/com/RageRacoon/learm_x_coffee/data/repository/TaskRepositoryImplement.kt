@@ -47,14 +47,14 @@ class TaskRepositoryImplement @Inject constructor(
     }
 
     override suspend fun updateTask(task: Task): Response<Boolean> {
-        val map: MutableMap<String, Any> = HashMap()
-        map["streak"] = task.streak
-        map["done"] = task.streak
         return try {
-            taskCollection.document(task.idTask).update(map)
+            val map: MutableMap<String, Any> = HashMap()
+            map["streak"] = task.streak
+            map["done"] = task.done
+            map["finished"] = task.finished
+            taskCollection.document(task.idTask).update(map).await()
             Response.Successful(true)
         }catch (e: Exception){
-            e.printStackTrace()
             Response.Failure(e)
         }
     }

@@ -20,6 +20,9 @@ class NewTaskViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase): ViewModel() {
 
     var state by mutableStateOf(NewTaskState())
+    var isNameOk: Boolean by mutableStateOf(value = false)
+    var isDateOk: Boolean by mutableStateOf(value = false)
+    var isTimeOk: Boolean by mutableStateOf(value = false)
     val userInfo = loginUseCase.getUser()
     var createTaskResponse by mutableStateOf<Response<Boolean>?>(null)
     private set
@@ -34,6 +37,8 @@ class NewTaskViewModel @Inject constructor(
             eventCreator = userInfo!!.uid,
             dateOfTheHabits = state.dateOfTheHabits.toList(),
             itIsAHabit = state.itIsAHabit,
+            intOfArrayOfIcons = state.intOfArrayOfIcons,
+            taskSchedule= state.taskSchedule
 
         )
         val result = eventsUsecase.createTask(task)
@@ -61,6 +66,31 @@ class NewTaskViewModel @Inject constructor(
     fun addDay(diasSeleccionados: Set<String>){
         state = state.copy(dateOfTheHabits = diasSeleccionados)
         Log.d("TAG", "Contenido del arreglo: ${state.dateOfTheHabits.joinToString()}")
+    }
+    fun isTheNameEmpty():Boolean{
+        if(state.nameEvent.length != 0)
+            return true
+        return false
+    }
+
+    fun isTheTimeEmpty():Boolean{
+        if(state.taskSchedule == "Mañana" || state.taskSchedule == "Tarde" || state.taskSchedule == "Noche")
+            return true
+        return false
+    }
+
+    fun isTheDateEmpty():Boolean{
+        if(state.dateOfTheHabits.isEmpty())
+            return false
+        return true
+    }
+
+    fun setIconOfTheList(position:Int){
+        state = state.copy(intOfArrayOfIcons = position)
+    }
+
+    fun setTaskSchedule(schedule:String){
+        state = state.copy(taskSchedule = schedule)
     }
 
 }

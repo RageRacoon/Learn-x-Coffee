@@ -3,6 +3,7 @@ package com.RageRacoon.learm_x_coffee.presentation.screens.edit_profile
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,9 +27,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.RageRacoon.learm_x_coffee.presentation.MainActivity
 import com.RageRacoon.learm_x_coffee.utiles.ComposeFileProvider
 import com.RageRacoon.learm_x_coffee.utiles.ResultingActivityHandler
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -76,6 +82,8 @@ class EditProfileViewModel @Inject constructor(
     var hasImg by mutableStateOf<Boolean>(false)
       private set
 
+    private val _maxCharacters = 240
+    val maxCharacters: Int = _maxCharacters
 
 
     //______                _
@@ -90,19 +98,28 @@ class EditProfileViewModel @Inject constructor(
     init {
         imgUri = user.img
         state = state.copy(username = user.userName)
+        state = state.copy(description = user.description)
     }
 
     fun clickEdit(url: String){
         val editUser = User(
             id = user.id,
             userName = state.username,
-            img = url
+            img = url,
+            description = state.description
         )
         edit(editUser)
     }
     fun userNameImput(username: String) {
-        state = state.copy(username = username)
+            state = state.copy(username = username)
+
     }
+
+    fun descriptionImput(description: String) {
+        if(description.length <= maxCharacters )
+            state = state.copy(description = description)
+    }
+
 
     fun edit(user: User){
         viewModelScope.launch {
@@ -110,7 +127,6 @@ class EditProfileViewModel @Inject constructor(
             val resultado = profilesUseCase.edit(user)
             editResponse = resultado
         }
-
     }
     //Tratemiento de imagenes
     val resultingActivityHandler = ResultingActivityHandler()
@@ -138,17 +154,5 @@ class EditProfileViewModel @Inject constructor(
             uploadImg=result
         }
     }
-
-    fun EnableRegisterButton(){
-        if (isUsernameOk){
-            isUsernameOk= true
-        }
-    }
-
-
-
-
-
-
 
 }

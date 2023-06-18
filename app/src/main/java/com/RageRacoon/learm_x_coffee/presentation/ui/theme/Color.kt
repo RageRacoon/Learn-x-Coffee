@@ -7,7 +7,7 @@ val Beige200    = Color(0xFFF5F5DC)
 val mainBrown   = Color(0xFF8B6969)
 
 val Brown700    = Color(0xFF2F2F2F)
-val Brown500    = Color(0xFFB8860B)
+val Brown500    = Color(0xFF725058)
 val Brown200    = Color(0xFFD2B48C)
 
 
@@ -16,3 +16,8 @@ val SoftBrown700 = Color(0xFFD2B48C)
 val SoftBrown200 = Color(0xFFFFF8DC)
 
 val TransparenteBlanco = Color(0x00FFFFFF)
+
+val DoneColor = Color(0xFF006400)
+val ErrorColor = Color(0xFF8B0000)
+val TaskFinished= Color(0xFF6B4545)
+
