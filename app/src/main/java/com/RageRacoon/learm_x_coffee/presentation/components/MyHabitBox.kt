@@ -7,23 +7,31 @@ import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.RageRacoon.learm_x_coffee.R
 import com.RageRacoon.learm_x_coffee.domain.model.Task
 import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.new_task.NewTaskViewModel
@@ -35,58 +43,104 @@ import kotlin.math.roundToInt
 @Composable
 fun MyHabitBox(task:Task, viewModel: MainViewModel = hiltViewModel()) {
 
-    val state = viewModel.state
-    var offsetX by remember { mutableStateOf(0f) }
-    val initialOffsetX = 0f
-    val maxOffsetX = 200f
-    val minOffsetX = -200f
-
-    var bgColor by mutableStateOf<Color>(MaterialTheme.colors.onPrimary)
-
-    Box(
-        modifier = Modifier
-            .height(112.dp)
-            .fillMaxWidth()
-            .background(bgColor)
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .draggable(
-                orientation = Orientation.Horizontal,
-                state = rememberDraggableState { delta ->
-                    if (!task.finished) {
-                        val newOffsetX = offsetX + delta
-
-                        offsetX = newOffsetX.coerceIn(minOffsetX, maxOffsetX)
-
-                        if (offsetX == maxOffsetX) {
-                            task.finished = true
-                            task.done = true
-                            bgColor = Color.Green
-                            task.streak++
-                            offsetX = initialOffsetX
-                            viewModel.onUpdateTask(task)
+    // Iconos de los habitos
+    val iconsHabitsList: List<Painter> = listOf(
+        painterResource(R.drawable.run),
+        painterResource(R.drawable.fitnesst),
+        painterResource(R.drawable.coffee_one),
+        painterResource(R.drawable.job),
+        painterResource(R.drawable.book),
+    )
+    val doneIconDrawable: Painter = painterResource(R.drawable.trophy)
+    val dontDoneIconDrawable: Painter = painterResource(R.drawable.coffee_bean)
 
 
-                        } else if (offsetX == minOffsetX) {
-                            task.finished = true
-                            task.done = false
-                            bgColor = Color.Red
-                            task.streak = 0
-                            offsetX = initialOffsetX
-                            viewModel.onUpdateTask(task)
+    val habitNotDoneText:String = "Mañana más"
+    val habitNotFinishedText:String = "A por ello!"
+    val habitFinishedText:String = "Bien hecho!"
+    var textOfTheHabit  by remember { mutableStateOf(habitNotFinishedText) }
+
+
+    var habitDone by remember { mutableStateOf(task.done) }
+    val defaulrErrorColor : Color = MaterialTheme.colors.onError
+    val doneColor : Color = MaterialTheme.colors.error
+    val dafultColorBg:Color = MaterialTheme.colors.background
+    val taskFinisehdColor:Color =  MaterialTheme.colors.onBackground
+
+
+    val defaulrBgColor : Color = MaterialTheme.colors.primary
+    var bgColor by remember { mutableStateOf<Color>(defaulrBgColor)}
+    var taskColor by remember { mutableStateOf<Color>(dafultColorBg)}
+
+
+    val selectedIcon : Painter? = iconsHabitsList[task.intOfArrayOfIcons]
+
+    Box(modifier = Modifier.fillMaxWidth()
+        .height(75.dp)){
+        Surface(
+            color = bgColor,
+            modifier = Modifier
+                .padding(end = 5.dp, start = 5.dp)
+                .fillMaxWidth()
+                .height(75.dp)
+                .clip(RoundedCornerShape(16.dp))
+
+        ){
+            Row() {
+                Box(modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(0.25f)
+                ) {
+                    selectedIcon?.let{
+                            drawable -> Icon(
+                        painter = drawable,
+                        contentDescription = "",
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth(),
+                        tint = if (task.finished) {
+                            if (task.done) {
+                                doneColor
+                            } else {
+                                defaulrErrorColor
+                            }
+                        } else {
+                            MaterialTheme.colors.background
                         }
+                    )
                     }
-                }
-            )
-            .offset { IntOffset(offsetX.roundToInt(), 0) }
 
-    ) {
-        Text(
-            text = task.nameEvent,
-            modifier = Modifier.align(Alignment.Center),
-            fontSize = 20.sp,
-            color = MaterialTheme.colors.background
-        )
-        Text(text = "Racha de " +task.streak+ " dias consecutivos",
-        color = MaterialTheme.colors.primary)
+                }
+                Column (modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(0.74f)){
+                    Text(text = task.nameEvent,
+                        fontSize = 18.sp,
+                        color = MaterialTheme.colors.background,
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        fontWeight = FontWeight.Bold,
+                        textDecoration = if (task.finished) TextDecoration.LineThrough else TextDecoration.None)
+                    Row() {
+                        Icon(
+                            painter = if (task.done) doneIconDrawable else dontDoneIconDrawable,
+                            contentDescription = "",
+                            tint = if (task.done)doneColor else  MaterialTheme.colors.background
+                        )
+                        Text(text = textOfTheHabit,
+                            color = if (task.finished)taskColor else  MaterialTheme.colors.background,
+                        )
+                    }
+
+                    Text(text = "Racha de " + task.streak +" dias",
+                        color = if (task.finished)taskColor else  MaterialTheme.colors.background,
+                        modifier = Modifier
+                            .align(Alignment.End)
+                            .padding(end = 5.dp),
+                    )
+
+                }
+            }
+
+        }
     }
 }

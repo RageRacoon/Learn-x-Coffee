@@ -32,6 +32,16 @@ class  DateUtiles {
         return "$dia/$mes/$año"
     }
 
+    fun getDateMañana(diasAdelantados: Int): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, diasAdelantados)
+        val dia = calendar.get(Calendar.DAY_OF_MONTH)
+        val mes = calendar.get(Calendar.MONTH) + 1 // Los meses en Calendar están basados en 0, por lo que se suma 1 para obtener el mes correcto
+        val año = calendar.get(Calendar.YEAR)
+
+        return "$dia/$mes/$año"
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun obtenerDiaManana(diasAdelantados: Int): String {
