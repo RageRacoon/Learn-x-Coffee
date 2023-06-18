@@ -16,9 +16,12 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.RageRacoon.learm_x_coffee.R
 import com.RageRacoon.learm_x_coffee.domain.model.Task
 import com.RageRacoon.learm_x_coffee.presentation.components.MyHabitBoxPredi
 import com.RageRacoon.learm_x_coffee.presentation.screens.calendar.CalendarViewModel
@@ -34,6 +37,7 @@ fun CalendarContent(
     calendarViewModel: CalendarViewModel = hiltViewModel(),
     tasks: List<Task>){
     var intTemporal = 1
+    val franjaHoraria = mainViewModel.franjaHoraria
     var utiles = DateUtiles()
     Column ( modifier = Modifier.fillMaxWidth(),
     ) {
@@ -43,7 +47,8 @@ fun CalendarContent(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Spacer(modifier = Modifier.width(25.dp))
+            Spacer(modifier = Modifier.width(0.0003.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Button(
                 onClick = {
                     if ( calendarViewModel.intDiasAdelantados != 1) {
@@ -58,14 +63,19 @@ fun CalendarContent(
                     contentDescription = "Flecha izquierda"
                 )
             }
-
-            Box(
-                contentAlignment = Alignment.Center
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     color = MaterialTheme.colors.secondaryVariant,
-                    fontSize = 20.sp,
-                    text = calendarViewModel.currentDate,
+                    fontSize = 18.sp,
+                    text = calendarViewModel.currentDate
+                )
+                Text(
+                    text = calendarViewModel.date,
+                    color = MaterialTheme.colors.secondaryVariant,
+                    fontSize = 18.sp
                 )
             }
 
@@ -90,23 +100,87 @@ fun CalendarContent(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = calendarViewModel.date,
-                color = MaterialTheme.colors.secondaryVariant,
-                fontSize = 18.sp,
-            )
+
         }
         LazyColumn(
             contentPadding = PaddingValues(bottom = 70.dp, top = 18.dp),
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)){
-            for (i:Int in tasks.indices){
-                if(tasks[i].dateOfTheHabits.contains(calendarViewModel.currentDate)){
-                    item {
-                        MyHabitBox(tasks[i])
-                    }
-                }else{
+            for(index in franjaHoraria.indices){
+                val horario = franjaHoraria[index]
 
+                if(horario == "Mañana"){
+                    item{
+                        Spacer(modifier = Modifier.height(7.dp))
+                        Row(
+                            modifier = Modifier.padding(horizontal = 7.dp)
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(34.dp),
+                                painter = painterResource(id = R.drawable.wb_twilight_fill0_wght400_grad0_opsz48),
+                                contentDescription = "Mañana",
+                                tint = MaterialTheme.colors.secondaryVariant
+                            )
+                            Spacer(modifier = Modifier.width(7.dp))
+                            Text(
+                                text = "Mañana",
+                                color = MaterialTheme.colors.secondaryVariant,
+                                fontSize = 22.sp,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                } else if(horario == "Tarde"){
+                    item{
+                        Spacer(modifier = Modifier.height(7.dp))
+                        Row(
+                            modifier = Modifier.padding(horizontal = 7.dp)
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(34.dp),
+                                painter = painterResource(id = R.drawable.light_mode_fill0_wght400_grad0_opsz48),
+                                contentDescription = "Tarde",
+                                tint = MaterialTheme.colors.secondaryVariant
+                            )
+                            Spacer(modifier = Modifier.width(7.dp))
+                            Text(
+                                text = "Tarde",
+                                color = MaterialTheme.colors.secondaryVariant,
+                                fontSize = 22.sp,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                }else if (horario == "Noche"){
+                    item{
+                        Spacer(modifier = Modifier.height(7.dp))
+                        Row(
+                            modifier = Modifier.padding(horizontal = 7.dp)
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(34.dp),
+                                painter = painterResource(id = R.drawable.dark_mode_fill0_wght400_grad0_opsz48),
+                                contentDescription = "Noche",
+                                tint = MaterialTheme.colors.secondaryVariant
+                            )
+                            Spacer(modifier = Modifier.width(7.dp))
+                            Text(
+                                text = "Noche",
+                                color = MaterialTheme.colors.secondaryVariant,
+                                fontSize = 22.sp,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                }
+                for (i: Int in tasks.indices) {
+                    if (tasks[i].dateOfTheHabits.contains(calendarViewModel.currentDate)) {
+                        if (tasks[i].taskSchedule == horario) {
+                            item {
+                                MyHabitBox(tasks[i])
+                            }
+                        }
+                    }
                 }
             }
         }
