@@ -182,15 +182,47 @@ fun MyHabitBoxPredi(task: Task, viewModel: MainViewModel = hiltViewModel()) {
                         Icon(
                             painter = if (task.done) doneIconDrawable else dontDoneIconDrawable,
                             contentDescription = "",
-                            tint = if (task.done)doneColor else  MaterialTheme.colors.background
+                            tint = if (task.finished) {
+                                if (task.done) {
+                                    doneColor
+                                } else {
+                                    defaulrErrorColor
+                                }
+                            } else {
+                                MaterialTheme.colors.background
+                            }
                         )
-                        Text(text = textOfTheHabit,
-                            color = if (task.finished)taskColor else  MaterialTheme.colors.background,
+                        Text(text = if (task.finished) {
+                            if (task.done) {
+                                habitFinishedText
+                            } else {
+                                habitNotDoneText
+                            }
+                        } else {
+                            habitNotFinishedText
+                        },
+                            color = if (task.finished) {
+                                if (task.done) {
+                                    doneColor
+                                } else {
+                                    defaulrErrorColor
+                                }
+                            } else {
+                                MaterialTheme.colors.background
+                            },
                         )
                     }
 
                     Text(text = "Racha de " + task.streak +" dias",
-                        color = if (task.finished)taskColor else  MaterialTheme.colors.background,
+                        color = if (task.finished) {
+                            if (task.done) {
+                                doneColor
+                            } else {
+                                defaulrErrorColor
+                            }
+                        } else {
+                            MaterialTheme.colors.background
+                        },
                         modifier = Modifier
                             .align(Alignment.End)
                             .padding(end = 5.dp),
