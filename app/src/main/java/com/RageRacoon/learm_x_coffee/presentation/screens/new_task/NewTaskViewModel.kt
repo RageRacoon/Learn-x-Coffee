@@ -20,6 +20,9 @@ class NewTaskViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase): ViewModel() {
 
     var state by mutableStateOf(NewTaskState())
+    var isNameOk: Boolean by mutableStateOf(value = false)
+    var isDateOk: Boolean by mutableStateOf(value = false)
+    var isTimeOk: Boolean by mutableStateOf(value = false)
     val userInfo = loginUseCase.getUser()
     var createTaskResponse by mutableStateOf<Response<Boolean>?>(null)
     private set
@@ -65,8 +68,21 @@ class NewTaskViewModel @Inject constructor(
         Log.d("TAG", "Contenido del arreglo: ${state.dateOfTheHabits.joinToString()}")
     }
     fun isTheNameEmpty():Boolean{
-        var resul = false
+        if(state.nameEvent.length != 0)
+            return true
         return false
+    }
+
+    fun isTheTimeEmpty():Boolean{
+        if(state.taskSchedule == "Mañana" || state.taskSchedule == "Tarde" || state.taskSchedule == "Noche")
+            return true
+        return false
+    }
+
+    fun isTheDateEmpty():Boolean{
+        if(state.dateOfTheHabits.isEmpty())
+            return false
+        return true
     }
 
     fun setIconOfTheList(position:Int){

@@ -51,7 +51,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                viewModel.userNameImput(it)
                viewModel.isUsernameOk = false
            },
-           isError = viewModel.isUsernameOk,
            label = { Text("Nombre de usuario") },
            interactionSource = remember { MutableInteractionSource() },
            leadingIcon = {
@@ -87,7 +86,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                 viewModel.emailInput(it)
                 viewModel.isEmailOk = false
             },
-            isError = viewModel.isEmailOk,
             label = { Text("Correo Electrónico") },
             interactionSource = remember { MutableInteractionSource() },
             leadingIcon = {
@@ -122,7 +120,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                viewModel.passwordInput(it)
                viewModel.isPasswordOk = false
            },
-           isError = viewModel.isPasswordOk,
            label = { Text("Contraseña") },
            interactionSource = remember { MutableInteractionSource() },
            visualTransformation = PasswordVisualTransformation(),
@@ -154,7 +151,6 @@ fun SinUpContent (navHostController: NavHostController, viewModel: SingUpViewMod
                viewModel.confirmPasswordInput(it)
                viewModel.isConfirmPasswordOk = false
            },
-           isError = viewModel.isConfirmPasswordOk,
            label = { Text("Confirmación de contraseña") },
            interactionSource = remember { MutableInteractionSource() },
            visualTransformation = PasswordVisualTransformation(),

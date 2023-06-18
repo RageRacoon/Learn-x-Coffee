@@ -15,7 +15,7 @@ import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
 
 
 @Composable
-fun MainBottomBar(navController: NavHostController, viewModel: MainViewModel = hiltViewModel()) {
+fun NewTaskBottomBar(navController: NavHostController, viewModel: MainViewModel = hiltViewModel()) {
     BottomAppBar(
         contentPadding = PaddingValues(start = 5.dp, end = 5.dp),
         backgroundColor = MaterialTheme.colors.primary,

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.*
@@ -19,12 +20,16 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.HorizontalAlignmentLine
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 import androidx.navigation.NavHostController
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.R
 import com.RageRacoon.learm_x_coffee.presentation.components.*
+import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.new_task.NewTaskViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.profile.ProfileViewModel
@@ -38,7 +43,7 @@ val diasSemana = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "S
 
 
 @Composable
-fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
+fun NewTaskContent(navController: NavHostController, viewModel: NewTaskViewModel = hiltViewModel()){
     val state = viewModel.state
 
     var stadoDialog = remember {
@@ -70,26 +75,23 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
         fun02 = {viewModel.isAHabit(false)},
        accionFuncion02 = "Es una tarea?"
     )*/
+    Box(modifier = Modifier
+        .background(MaterialTheme.colors.primary)
+        .fillMaxWidth()
+        .height(60.dp),
+        contentAlignment = Alignment.Center) {
+        if (state.itIsAHabit){
+            Text(text = "Nuevo hábito",color= MaterialTheme.colors.background)
+        }else{
+            Text(text = "Nueva tarea",color= MaterialTheme.colors.background)
+        }
 
+    }
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(contentPadding = PaddingValues(bottom = 6.dp)){
             item {
-                Box(modifier = Modifier
-                    .background(MaterialTheme.colors.primary)
-                    .fillMaxWidth()
-                    .height(112.dp),
-                    contentAlignment = Alignment.Center) {
-                    if (state.itIsAHabit){
-                        Text(text = "Nueva habito",color= MaterialTheme.colors.background)
-                    }else{
-                        Text(text = "Nueva tarea",color= MaterialTheme.colors.background)
-                    }
-
-               }
-            }
-            item {
                 Column(modifier = Modifier
-                    .height(400.dp)
+                    .height(800.dp)
                     .fillMaxWidth()
                     ,verticalArrangement = Arrangement.Center){
                     Row(
@@ -104,21 +106,33 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.coffee_bean),
-                                contentDescription = "Iconode la tarea",
+                                contentDescription = "Icono de la tarea",
                                 tint = MaterialTheme.colors.background,
                             )
                         }
                         Spacer(modifier = Modifier.size(5.dp))
                         TextField(
                             value = state.nameEvent,
-                            placeholder = { Text(text = "Nomre del habito") },
+                            placeholder = { Text(text = "Nombre del hábito") },
                             onValueChange = {
-                                viewModel.taskNameImput(it)},
-                            )
-
+                                viewModel.taskNameImput(it)
+                                viewModel.isNameOk = false
+                            }
+                        )
                     }
+                    if (viewModel.isNameOk == true) {
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = "* El nombre no puede estar vacío.",
+                            color = MaterialTheme.colors.onError,
+                            style = TextStyle(fontSize = 12.sp),
+                            modifier = Modifier.padding(horizontal = 83.dp)
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(40.dp))
                     if (state.itIsAHabit){
                         DiasSemanaSeleccionable(diasSemana)
+                        Spacer(modifier = Modifier.height(15.dp))
                         Box{
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -126,34 +140,51 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
                             ) {
                                 // Botón 1
                                 Button(
-                                    modifier = Modifier.padding(8.dp),
+                                    modifier = Modifier.padding(horizontal = 8.dp),
                                     onClick = {
                                         viewModel.setTaskSchedule("Mañana")
+                                        viewModel.isTimeOk = false
                                     },
                                 ) {
-                                    Text("Mañana")
+                                    Text("Mañana", color = MaterialTheme.colors.secondary)
                                 }
 
                                 // Botón 2
                                 Button(
-                                    modifier = Modifier.padding(8.dp),
-                                    onClick = {viewModel.setTaskSchedule("Tarde")},
+                                    modifier = Modifier.padding(horizontal = 8.dp),
+                                    onClick = {
+                                        viewModel.setTaskSchedule("Tarde")
+                                        viewModel.isTimeOk = false
+                                    },
                                 ) {
-                                    Text("Tarde")
+                                    Text("Tarde", color = MaterialTheme.colors.secondary)
                                 }
 
                                 // Botón 3
                                 Button(
-                                    modifier = Modifier.padding(8.dp),
-                                    onClick = {viewModel.setTaskSchedule("Noche")},
+                                    modifier = Modifier.padding(horizontal = 8.dp),
+                                    onClick = {
+                                        viewModel.setTaskSchedule("Noche")
+                                        viewModel.isTimeOk = false
+                                    },
                                 ) {
-                                    Text("Noche")
+                                    Text("Noche", color = MaterialTheme.colors.secondary)
                                 }
                             }
                         }
-                    }else{
+                        if (viewModel.isTimeOk == true) {
+                            Spacer(modifier = Modifier.height(10.dp))
+                            Text(
+                                text = "* Debe seleccionar una franja horaria.",
+                                color = MaterialTheme.colors.onError,
+                                style = TextStyle(fontSize = 12.sp),
+                                modifier = Modifier.padding(horizontal = 83.dp),
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }/*else{
                         Text(text = "Nueva tarea",color= MaterialTheme.colors.background)
-                    }
+                    }*/
 
                 }
             }
@@ -169,10 +200,14 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
         contentPadding = PaddingValues(bottom = 8.dp)
     ) {
         IconButton(
-            onClick = { /* Acción al pulsar el icono izquierdo */ }
+            onClick = {
+                navController.navigate(route = AppScreen.MainScreen.rutaPantalla){
+                    popUpTo(AppScreen.MainScreen.rutaPantalla){inclusive = true}
+                }
+            }
         ) {
             Icon(
-                Icons.Default.ExitToApp,
+                Icons.Default.ArrowBack,
                 contentDescription = "Icono izquierdo",
                 tint = MaterialTheme.colors.background
             )
@@ -181,9 +216,25 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
         Spacer(Modifier.weight(1f))
 
         IconButton(
+
             onClick = {
-                viewModel.setIconOfTheList(intIconoSeleted.value)
-                viewModel.createTask()}
+                if(viewModel.isTheNameEmpty() == false){
+                    viewModel.isNameOk = true
+                }
+                if(viewModel.isTheDateEmpty() == false) {
+                    viewModel.isDateOk = true
+                }
+                if(viewModel.isTheTimeEmpty() == false){
+                    viewModel.isTimeOk = true
+                }
+                if(viewModel.isTheNameEmpty() == true && viewModel.isTheTimeEmpty() == true && viewModel.isTheDateEmpty() == true){
+                    viewModel.setIconOfTheList(intIconoSeleted.value)
+                    viewModel.createTask()
+                    navController.navigate(route = AppScreen.MainScreen.rutaPantalla){
+                        popUpTo(AppScreen.MainScreen.rutaPantalla){inclusive = true}
+                    }
+                }
+            }
         ) {
             Icon(
                 Icons.Default.Check,
