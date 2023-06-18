@@ -19,7 +19,7 @@ fun NewTaskScreen(navController: NavHostController) {
             NewTaskTopBar()
         },
         content = {
-            NewTaskContent()
+            NewTaskContent(navController)
         },
         bottomBar = {
         }

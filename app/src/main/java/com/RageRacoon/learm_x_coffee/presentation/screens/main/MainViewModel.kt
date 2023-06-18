@@ -34,6 +34,7 @@ class MainViewModel @Inject constructor(
         private set
     var currentDate by mutableStateOf<String>(" ")
     var date by mutableStateOf<String>(" ")
+    val franjaHoraria : Array<String> = arrayOf("Mañana", "Tarde", "Noche")
     init{ //Init es el primer métoado que se lanza al estnaciar el viewModel
         getUserById()
     }

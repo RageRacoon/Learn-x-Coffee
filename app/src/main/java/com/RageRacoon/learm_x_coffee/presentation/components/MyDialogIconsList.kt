@@ -2,6 +2,7 @@ package com.RageRacoon.learm_x_coffee.presentation.components
 
 import android.annotation.SuppressLint
 import android.content.ClipData.Item
+import android.graphics.Paint.Align
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -12,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.core.graphics.createBitmap
 import com.RageRacoon.learm_x_coffee.R
@@ -34,17 +37,21 @@ fun MyDialogIconsList(
             AlertDialog(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .fillMaxSize(),
+                    .height(195.dp),
                 onDismissRequest = {estado.value = true},
-                title = { MyText(nivel = 1, texto = "Selecciona un icono")},
+                title = { Text("Selecciona un icono", color = MaterialTheme.colors.primary, fontSize = 28.sp, textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 15.dp)) },
                 buttons = {
+                    Spacer(modifier = Modifier.height(30.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
                     ){
                         for (i:Int in iconsHabitsList.indices){
                             Box {
                                 Button(
-                                    modifier = Modifier.size(75.dp),
+                                    modifier = Modifier
+                                        .size(62.dp)
+                                        .padding(horizontal = 3.dp),
                                     onClick = {
                                         resultadoPosicionIconoSelecionado.value = i
                                         estado.value = true
@@ -55,12 +62,12 @@ fun MyDialogIconsList(
                                 ) {
                                     Icon(
                                         painter = iconsHabitsList[i],
-                                        contentDescription = "Iconode la tarea"
+                                        contentDescription = "Icono de la tarea",
+                                        tint = MaterialTheme.colors.secondary
                                     )
                                 }
 
                             }
-                            Spacer(modifier = Modifier.size(5.dp))
                         }
                     }
                 }

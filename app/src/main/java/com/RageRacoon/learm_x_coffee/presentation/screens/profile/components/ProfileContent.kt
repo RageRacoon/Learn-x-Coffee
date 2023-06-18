@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -123,18 +124,20 @@ fun ProfileContent(navController: NavHostController, viewModel: ProfileViewModel
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
             Button(
                 modifier = Modifier,
+                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary),
                 onClick = {
                     //A la hora de navegar a la siguiente pantalla, pasamos por la ruta, una String con todos los datos de usuario, en formato Json. en tiempo real
                     navController.navigate(
                         AppScreen.EditProfileScreen.suminstrarUsuario(viewModel.userInfo.toJson()))
                 }){
-                Image(
-                    painterResource(id = R.drawable.bxs_edit),
-                    contentDescription ="Edit button icon",
-                    modifier = Modifier.size(20.dp)
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(text = "Editar perfil", color = Color.Black)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(Icons.Default.Create, contentDescription = "Favorite Icon", tint = MaterialTheme.colors.secondary)
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = "Editar perfil", color = MaterialTheme.colors.secondary)
+                }
+
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.Text
@@ -28,9 +29,9 @@ fun DiasSemanaSeleccionable(diasSemana: List<String>,viewModel: NewTaskViewModel
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Seleccione un dia")
+            Text(text = "Seleccione un día")
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(15.dp))
 
             for (dia in diasSemana) {
                 Row(
@@ -50,13 +51,13 @@ fun DiasSemanaSeleccionable(diasSemana: List<String>,viewModel: NewTaskViewModel
 
                             }
                         )
-                        .padding(vertical = 4.dp),
+                        .padding(vertical = 4.dp, horizontal = 6.75.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
                         selected = dia in diasSeleccionados,
                         onClick = null,
-                        colors = RadioButtonDefaults.colors(selectedColor = Color.Blue)
+                        colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.primary)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(text = dia)
@@ -64,4 +65,5 @@ fun DiasSemanaSeleccionable(diasSemana: List<String>,viewModel: NewTaskViewModel
             }
         }
     }
+
 }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.runtime.*
@@ -25,6 +26,7 @@ import androidx.navigation.NavHostController
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.RageRacoon.learm_x_coffee.R
 import com.RageRacoon.learm_x_coffee.presentation.components.*
+import com.RageRacoon.learm_x_coffee.presentation.navegation.AppScreen
 import com.RageRacoon.learm_x_coffee.presentation.screens.main.MainViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.new_task.NewTaskViewModel
 import com.RageRacoon.learm_x_coffee.presentation.screens.profile.ProfileViewModel
@@ -38,7 +40,7 @@ val diasSemana = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "S
 
 
 @Composable
-fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
+fun NewTaskContent(navController: NavHostController, viewModel: NewTaskViewModel = hiltViewModel()){
     val state = viewModel.state
 
     var stadoDialog = remember {
@@ -77,10 +79,10 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
                 Box(modifier = Modifier
                     .background(MaterialTheme.colors.primary)
                     .fillMaxWidth()
-                    .height(112.dp),
+                    .height(80.dp),
                     contentAlignment = Alignment.Center) {
                     if (state.itIsAHabit){
-                        Text(text = "Nueva habito",color= MaterialTheme.colors.background)
+                        Text(text = "Nuevo hábito",color= MaterialTheme.colors.background)
                     }else{
                         Text(text = "Nueva tarea",color= MaterialTheme.colors.background)
                     }
@@ -88,8 +90,9 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
                }
             }
             item {
+                Spacer(modifier = Modifier.height(50.dp))
                 Column(modifier = Modifier
-                    .height(400.dp)
+                    .height(600.dp)
                     .fillMaxWidth()
                     ,verticalArrangement = Arrangement.Center){
                     Row(
@@ -104,21 +107,23 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.coffee_bean),
-                                contentDescription = "Iconode la tarea",
+                                contentDescription = "Icono de la tarea",
                                 tint = MaterialTheme.colors.background,
                             )
                         }
                         Spacer(modifier = Modifier.size(5.dp))
                         TextField(
                             value = state.nameEvent,
-                            placeholder = { Text(text = "Nomre del habito") },
+                            placeholder = { Text(text = "Nombre del hábito") },
                             onValueChange = {
                                 viewModel.taskNameImput(it)},
                             )
 
                     }
+                    Spacer(modifier = Modifier.height(40.dp))
                     if (state.itIsAHabit){
                         DiasSemanaSeleccionable(diasSemana)
+                        Spacer(modifier = Modifier.height(40.dp))
                         Box{
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -126,34 +131,34 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
                             ) {
                                 // Botón 1
                                 Button(
-                                    modifier = Modifier.padding(8.dp),
+                                    modifier = Modifier.padding(horizontal = 8.dp),
                                     onClick = {
                                         viewModel.setTaskSchedule("Mañana")
                                     },
                                 ) {
-                                    Text("Mañana")
+                                    Text("Mañana", color = MaterialTheme.colors.secondary)
                                 }
 
                                 // Botón 2
                                 Button(
-                                    modifier = Modifier.padding(8.dp),
+                                    modifier = Modifier.padding(horizontal = 8.dp),
                                     onClick = {viewModel.setTaskSchedule("Tarde")},
                                 ) {
-                                    Text("Tarde")
+                                    Text("Tarde", color = MaterialTheme.colors.secondary)
                                 }
 
                                 // Botón 3
                                 Button(
-                                    modifier = Modifier.padding(8.dp),
+                                    modifier = Modifier.padding(horizontal = 8.dp),
                                     onClick = {viewModel.setTaskSchedule("Noche")},
                                 ) {
-                                    Text("Noche")
+                                    Text("Noche", color = MaterialTheme.colors.secondary)
                                 }
                             }
                         }
-                    }else{
+                    }/*else{
                         Text(text = "Nueva tarea",color= MaterialTheme.colors.background)
-                    }
+                    }*/
 
                 }
             }
@@ -169,10 +174,14 @@ fun NewTaskContent(viewModel: NewTaskViewModel = hiltViewModel()){
         contentPadding = PaddingValues(bottom = 8.dp)
     ) {
         IconButton(
-            onClick = { /* Acción al pulsar el icono izquierdo */ }
+            onClick = {
+                navController.navigate(route = AppScreen.MainScreen.rutaPantalla){
+                    popUpTo(AppScreen.MainScreen.rutaPantalla){inclusive = true}
+                }
+            }
         ) {
             Icon(
-                Icons.Default.ExitToApp,
+                Icons.Default.ArrowBack,
                 contentDescription = "Icono izquierdo",
                 tint = MaterialTheme.colors.background
             )
