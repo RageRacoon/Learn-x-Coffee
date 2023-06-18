@@ -75,7 +75,8 @@ fun MyHabitBox(task:Task, viewModel: MainViewModel = hiltViewModel()) {
 
     val selectedIcon : Painter? = iconsHabitsList[task.intOfArrayOfIcons]
 
-    Box(modifier = Modifier.fillMaxWidth()
+    Box(modifier = Modifier
+        .fillMaxWidth()
         .height(75.dp)){
         Surface(
             color = bgColor,
@@ -111,34 +112,17 @@ fun MyHabitBox(task:Task, viewModel: MainViewModel = hiltViewModel()) {
                     }
 
                 }
-                Column (modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(0.74f)){
-                    Text(text = task.nameEvent,
+                Column (
+                    modifier = Modifier
+                        .weight(0.65f)
+                ){
+                    Text(text = task.nameEvent.take(20),
                         fontSize = 18.sp,
                         color = MaterialTheme.colors.background,
-                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        modifier = Modifier.align(Alignment.CenterHorizontally).padding(22.dp),
                         fontWeight = FontWeight.Bold,
                         textDecoration = if (task.finished) TextDecoration.LineThrough else TextDecoration.None)
-                    Row() {
-                        Icon(
-                            painter = if (task.done) doneIconDrawable else dontDoneIconDrawable,
-                            contentDescription = "",
-                            tint = if (task.done)doneColor else  MaterialTheme.colors.background
-                        )
-                        Text(text = textOfTheHabit,
-                            color = if (task.finished)taskColor else  MaterialTheme.colors.background,
-                        )
                     }
-
-                    Text(text = "Racha de " + task.streak +" dias",
-                        color = if (task.finished)taskColor else  MaterialTheme.colors.background,
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .padding(end = 5.dp),
-                    )
-
-                }
             }
 
         }
